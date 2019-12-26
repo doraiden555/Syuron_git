@@ -233,7 +233,7 @@ In Japan, a lot of bridges built during high economic growth period from the 195
 \end{center}
 \end{figure}
 
-詳細は以降の章にて後述するが，座標が既知の各固定局と移動局との距離を計測し，マルチラテレーションの手法を用いることで，移動局の座標を得ることが可能である．この手法はGPSアンテナとGPS衛星との距離を用いて移動局の座標を得るのと同手法である．またUWBモジュールは一個あたり数千円と非常に安価であり，機体のコスト削減に有効である．それに加えてマルチラテレーションの計算は画像解析を用いる計算などに比べて非常に負荷が軽く，高性能なコンピュータを乗せる必要がない．しかし，UWBモジュールの通信周期は4つの固定局を用いた場合に10Hzと低く，クアッドロータが高速度で移動した際には位置推定周期としては不十分である．そこで，本研究での目的はUWBモジュールの更新周期の遅さを補うためにUWBモジュールを用いたローカルポジショニングシステムにIMU，距離センサ，及びオプティカルフローセンサの値も参照することでクアッドロータの位置を推定し，その位置を制御する手法を提案する．IMU(Inertial Measurement Unit）は加速度，角速度，地磁気を数1000 Hz程度の高い更新周波数で計測可能であり，加速度や角速度を積分することで速度や変位を得ることが可能である．しかし，値を積分した際に誤差が蓄積してしまう．また距離センサは計算することなく，直接地面との距離を計測することが可能である．最後にオプティカルフローセンサは地面の特徴点の移動量より機体の速度を算出することが可能である．UWBモジュールの不利な点を他のセンサで補う形でクアッドロータの位置を推定し制御する手法を次章から示していく．
+詳細は以降の章にて後述するが，座標が既知の各固定局と移動局との距離を計測し，マルチラテレーションの手法を用いることで，移動局の座標を得ることが可能である．この手法はGPSアンテナとGPS衛星との距離を用いて移動局の座標を得るのと同手法である．またUWBモジュールは一個あたり数千円と非常に安価であり，機体のコスト削減に有効である．それに加えてマルチラテレーションの計算は画像解析を用いる計算などに比べて非常に負荷が軽く，高性能なコンピュータを乗せる必要がない．しかし，UWBモジュールの通信周期は4つの固定局を用いた場合に10 Hzと低く，クアッドロータが高速度で移動した際には位置推定周期としては不十分である．そこで，本研究での目的はUWBモジュールの更新周期の遅さを補うためにUWBモジュールを用いたローカルポジショニングシステムにIMU，距離センサ，及びオプティカルフローセンサの値も参照することでクアッドロータの位置を推定し，その位置を制御する手法を提案する．IMU(Inertial Measurement Unit）は加速度，角速度，地磁気を数1000 Hz程度の高い更新周波数で計測可能であり，加速度や角速度を積分することで速度や変位を得ることが可能である．しかし，値を積分した際に誤差が蓄積してしまう．また距離センサは計算することなく，直接地面との距離を計測することが可能である．最後にオプティカルフローセンサは地面の特徴点の移動量より機体の速度を算出することが可能である．先行研究において赤堀ら[]はUWBモジュール，IMU，距離センサを用いたクアッドロータの位置推定システム及び位置制御システムを開発した．しかし，姿勢角制御の周期の遅さが原因でクアッドロータの位置を制御することはなし得ていなかった．そこで，本研究では姿勢角制御の遅さを補うためにフライトコントローラを追加で導入し，改善を図った．次章からはUWBモジュール及び各種センサをカルマンフィルタに適用したクアッドロータの位置推定方法および位置制御方法を示していく．
 
 
 \newpage
@@ -242,359 +242,66 @@ In Japan, a lot of bridges built during high economic growth period from the 195
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%クアッドロータの位置推定アルゴリズム%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{クアッドロータの位置推定アルゴリズム}
-\subsection{カルマンフィルタの原理}
+本研究で提案するクアッドロータの位置及び姿勢推定にはカルマンフィルタ，その中でも特に非線形なシステムに適応可能な拡張カルマンフィルタ（EKF : Extended Kalman Filter)を使用している．ここで，カルマンフィルタとは，誤差を含むある観測値（2種類以上も可）を使用し，時々刻々と変化する状態量を推定するのに用いられる，逐次処理が可能なフィルタリング手法である．代表例としてはカーナビゲーションシステムが挙げられる．カーナビゲーションシステムはGPSから得られる誤差の乗った位置情報と内部の加速度センサから得られる誤差の乗った加速度情報を統合することにより，自車の位置座標や速度などを推定している．本研究ではIMU，UWBモジュール，距離センサ，オプティカルフローセンサから得られるセンサ値を統合し，機体の姿勢角，速度，座標を推定するのに用いられる．本章では初めに拡張カルマンフィルタの原理を示した後，UWBモジュールやオプティカルフローセンサの原理やキャリブレーション方法について述べる．そして最後にそれらセンサを統合したシステムを示し，位置の推定方法を説明する．
 
 
 
-流体の密度を$\rho$，揚力係数を$C_{L}$，翼と物体の相対速度を$V$，物体の面積を$S$とすると，揚力$L$は次式で表される．
-
-\begin{align}
-L=\frac{1}{2}\rho C_{L}V^{2}S
-\end{align}\
-
-\noindent
-プロペラの場合,  $C_{L}$，$V$，$S$は場所によって異なるため，それぞれプロペラ中心からの距離$x$の関数とすると，
+\subsection{拡張カルマンフィルタの原理}
+拡張カルマンフィルタは非線形システムを書く自国において線形化し，それぞれの時刻において時変カルマンフィルタを適用するという考えに基づいている．まず離散時間非線形状態空間表現が次の二式で表される場合を考える．
 
 \begin{align}
-L=m\int_{x_{1}}^{x_{2}} \frac{1}{2}\rho C_{Lx}V_{x}^{2}c_{x} dx
-\end{align}\
-
-\noindent
-となる．ここで$m$はブレードの枚数，$x_{1}$，$x_{2}$はそれぞれブレードの根元位置及び先端位置，$c_{x}$は$x$におけるブレードの翼弦長を表す．また，相対速度$V_{x}$はプロペラの直径$D(=2x_{2})$と回転数$\omega$[rpm]を用いて
-
-\begin{align}
-V_{x}=\frac{1}{30}\omega\pi x
-\end{align}\
-
-\noindent
-よって式(22)は
-
-\begin{align}
-f=\frac{\rho m\pi^{2}\omega^{2}}{60}\int_{x_{1}}^{x_{2}}C_{Lx}c_{x} dx=C_{T}\omega^{2}
-\end{align}\
-
-\noindent
-となる．式(24)よりプロペラの推力はnの2次多項式で表すことができることが示された．また抗力$D$に関しても式において$L$をD，$C_{l}$を抗力係数$C_{d}$に置き換えた式で表せるため
-
-\begin{align}
-\tau=\frac{\rho m\pi^{2}\omega^{2}}{60}\int_{x_{1}}^{x_{2}}C_{dx}c_{x} dx=C_{M}\omega^{2}
-\end{align}\
-
-\noindent
-となり，プロペラのトルクも推力と同様，2次多項式で表すことができる．
-次に機体に加わる力とトルクを各ロータの回転数を用いて表す．式より各ロータの推力$f_{i}$$(i=1,2,3,4)$と反トルク$\tau_{i}$$(i=1,2,3,4)$は
-
-\begin{align}
-f_{i}=C_{T}\omega_{i}^{2}
+\textbf{x}(t+1) = \textbf{f}(\textbf{x}(t)) + \textbf{B}\textbf{v}(t)
+\label{2-1}
 \end{align}
 
 \begin{align}
-\tau_{i}=C_{M}\omega_{i}^{2}
-\end{align}\
+\textbf{y}(t) = \textbf{h}(\textbf{x}(t)) + \textbf{w}(t)
+\label{2-2}
+\end{align}
 
 \noindent
-と表すことができる．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Definition_of_thrust_and_counter_torque.png}
-\caption{Definition of thrust and counter torque.}
-\label{Definition_of_thrust_and_counter_torque}
-\end{center}
-\end{figure}
-
-Fig. 23より機体にかかる全推力$f_{total}$とトルク$\tau=[\tau_{\phi},\tau_{\theta},\tau_{\psi}]^{T}$はそれぞれ
-
+ここで$\textbf{f}(\cdot)$，および$\textbf{h}(\cdot)$はベクトル値をとる$\textbf{x}(t)$の非線形関数である．また$\textbf{v}(t)$は平均値ベクトル0，共分散行列$\textbf{Q}$のr次元システム雑音ベクトル，$\textbf{w}(t)$は平均値ベクトル0，共分散行列$\textbf{R}$のp次元観測雑音ベクトルであり，互いに独立な正規性白色雑音と仮定する．時刻$t$，$t+1$において，それぞれ事前状態推定値$\hat{\textbf{x}^{-}}$と事後推定値$\hat{\textbf{x}}$が利用可能であるという仮定のもとで，式\ref{2-1}と式\ref{2-2}の非線形関数をテイラー級数展開を用いて線形近似すると，
 
 \begin{align}
-\left[
-    \begin{array}{c}
-      f_{total} \\
-      \tau_{\phi} \\
-      \tau_{\theta} \\
-      \tau_{\psi} 
-    \end{array}
-\right]
-=
-C_{T}
-\left[
-    \begin{array}{cccc}
-      1 & 1 & 1 & 1\\
-      l &  l  & -l  & -l \\
-      l &  -l  & -l  & l \\
-       -c &  c  & -c  & c \\
-    \end{array}
-\right]
-\left[
-    \begin{array}{c}
-      \omega_{1}^{2} \\
-      \omega_{2}^{2} \\
-      \omega_{3}^{2} \\
-      \omega_{4}^{2}
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-となる．ただし$C=\frac{C_{M}}{C_{T}}$とおいた．また$[\omega_{1}^{2},\omega_{2}^{2},\omega_{3}^{2},\omega_{4}^{2}]^{T}$について解くと
-
-\begin{align}
-\left[
-    \begin{array}{c}
-      \omega_{1}^{2} \\
-      \omega_{2}^{2} \\
-      \omega_{3}^{2} \\
-      \omega_{4}^{2} 
-    \end{array}
-\right]
-=
-\frac{1}{4C_{T}}
-\left[
-    \begin{array}{cccc}
-      1 &  \frac{1}{l}  & \frac{1}{l} & -\frac{1}{c}\\
-      1 &  \frac{1}{l}  & -\frac{1}{l}  & \frac{1}{c} \\
-      1 &  -\frac{1}{l} & -\frac{1}{l}  & -\frac{1}{c} \\
-      1 &  -\frac{1}{l}  & \frac{1}{l}  & \frac{1}{c} \\
-    \end{array}
-\right]
-\left[
-    \begin{array}{c}
-      f_{total} \\
-      \tau_{\phi} \\
-      \tau_{\theta} \\
-      \tau_{\psi} 
-    \end{array}
-\right]
-\end{align}\
-
-\subsection{回転数と入力電圧の関係}
-
-ブラシレスモータの回転数定数(KV値)を$K_{n}$とすると，入力電圧$U$での無負荷回転数$n_{0}$は
-
-\begin{align}
-n_{0}=K_{n}\cdot U
-\end{align}\
-
-\noindent
-となる．この時回転数/トルクの勾配$\frac{\Delta n}{\Delta T}$は，モータの内部抵抗を$R_{m}$とすると次式で算出される．
-
-\begin{align}
-\frac{\Delta n}{\Delta T}=\frac{\pi}{30} \frac{R_{m}\cdot n_{0}^{2}}{U^{2}}
-\end{align}\
-
-\noindent
-また，逆起電力定数$K_{e}$(=トルク定数$K_{t}$)は次式で表すことができる．
-
-\begin{align}
-K_{e}=K_{t}=\frac{U}{\frac{\pi}{30}\cdot n_{0}}
-\end{align}\
-
-\noindent
-モータ内の損失トルク$T_{d}$は，入力電圧$U$での無負荷時電流$I_{0}$を用いて
-
-\begin{align}
-T_{d}=K_{t}\cdot I_{0}
-\end{align}\
-
-\noindent
-したがって，ブラシレスモータの有効トルク$T$は，消費電流$I$の関数として次式で表される．
-
-\begin{align}
-T=K_{t} \cdot I - T_{d}
-\end{align}\
-
-\noindent
-有効トルク$T$はプロペラの反トルク$\tau$と釣り合うため式(25)より
-
-\begin{align}
-T=\tau=C_{M}\omega^{2}
-\end{align}\
-
-\noindent
-またその時の回転数は次式で表される．
-
-\begin{align}
-\omega = K_{u}\cdot U-\frac{\Delta n}{\Delta T}\cdot T
-\end{align}\
-
-\noindent
-式(35),(36)より
-
-\begin{align}
-\frac{\Delta n}{\Delta T}C_{M}\omega^{2}+\omega-K_{n}U=0
-\end{align}\
-
-\noindent
-となり，回転数と入力電圧の関係を示すことができた．
-
-
-\subsection{クアッドロータのパラメータ}
-
-\subsubsection{プロペラの推力及びトルク}
-Fig. 24に今回使用するプロペラを示す．このプロペラは直径5 inch，ピッチは3 inchのホビー向けマルチロータ機用プロペラである．
-
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/5inch_propellers.png}
-\caption{5 inch propellers.}
-\label{5inch_propellers}
-\end{center}
-\end{figure}
-
-\noindent
-製造元のLanding Products社によって1000 rpm毎の推力とトルクの値が公開されている．Fig. 25に1000 rpm毎のプロペラの推力とトルクを示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Thrust_and_torque_every_1000rpm.png}
-\caption{Thrust and torque every 1000 rpm.}
-\label{Thrust_and_torque_every_1000rpm}
-\end{center}
-\end{figure}
-
-\noindent
-グラフ中の近似曲線は最小二乗法を用いて二次曲線で近似した曲線である．推力とトルクの近似曲線の式を次式に示す．
-
-\begin{align}
-f=1.15\times10^{-8}\omega^{2}
+\textbf{f}(\textbf{x}(t))=\textbf{f}(\hat{\textbf{x}}(t))+\textbf{A}(t)(\textbf{x}(t)-\hat{\textbf{x}}(t)),\left.\textbf{A}(t)=\frac{\partial \textbf{f}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}(t)}
+\label{2-3}
 \end{align}
 
 \begin{align}
-\tau=1.09\times10^{-10}\omega^{2}
+\textbf{h}(\textbf{x}(t))=\textbf{h}(\hat{\textbf{x}}^{-}(t))+\textbf{c}^{T}(t)(\textbf{x}(t)-\hat{\textbf{x}}^{-}(t)),\left.\textbf{C}^{T}(t)=\frac{\partial \textbf{h}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}^{-}(t)}
+\label{2-4}
 \end{align}\
 
 \noindent
-したがって式(38),(39)から推力係数$C_{T}$とトルク係数$C_{M}$はそれぞれ$C_{T}=1.15\times10^{-8},C_{M}=1.09\times10^{-10}$であることがわかった．
-
-\subsubsection{二点吊り法によるクアッドロータの慣性モーメントの測定}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Measurement_of_inertial_moment.png}
-\caption{Measurement of inertial moment.}
-\label{Measurement_of_inertial_moment}
-\end{center}
-\end{figure}
+となる．
 
 
-実際の機体の慣性モーメントをに二点吊り法を用いて測定した．二点吊り法とは不均一な物質の慣性モーメントを簡便に求める方法である．Fig. 26のように質量$m$の物体を２本の糸で吊るし，少し捩じると回転運動の振動をする．
 
-この時この物体にかかる復元モーメントは
 
-\begin{align}
--mg\tan\phi \times a
-\end{align}\
+\subsection{UWB通信}
+\subsubsection{UWB通信の測距原理（発散の回避方法，取付角の工夫）}
+\subsubsection{更新周波数の改善のアプローチ（マイコンスペックの比較，周波数グラフの比較）}
 
-\noindent
-となる．また$\phi$，$\theta$はそれぞれ微小であるから$\sin\theta \cong \tan\theta \cong \theta$，$\sin\phi \cong \tan\phi \cong \phi$と近似することができるため，幾何学的関係から
+\subsection{オプティカルフローセンサ}
+\subsubsection{オプティカルフローセンサの原理（センサ座標系のワールド座標系への変換）}
+\subsubsection{センサのキャリブレーション}
 
-\begin{align}
-a\theta \cong l \phi
-\end{align}\
+\subsection{UWBモジュール，IMU，距離センサのみを用いた位置推定システム}
 
-\noindent
-と近似できる．これを式に代入すると復元モーメントは
+\subsection{従来の構成にオプティカルフローセンサも加えた位置推定システム（複数センサの統合環境）}
 
-\begin{align}
--\frac{mga^{2}}{l}\theta
-\end{align}\
 
-\noindent
-となる．つまりこの回転運動におけるねじりばね係数は
 
-\begin{align}
-\frac{mga^{2}}{l}
-\end{align}\
 
-\noindent
-となるため，この物体の慣性モーメントを$J$とすると固有振動数$f$は
-
-\begin{align}
-f = \frac{1}{2\pi}\sqrt{\frac{k}{J}}=\frac{1}{2\pi}\sqrt{\frac{mga^{2}}{lJ}}
-\end{align}\
-
-\noindent
-となる．式(44)を$J$について解くと
-
-\begin{align}
-J=\frac{k}{4\pi^{2}f^{2}}=\frac{mgb^{2}}{4\pi^{2}f^{2}l}
-\end{align}\
-
-\noindent
-したがって式(45)より回転運動の周期を測定することにより物体の慣性モーメントを求めることができる．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Inertial_moment_measurement_experiment.png}
-\caption{Inertial moment measurement experiment.}
-\label{Inertial_moment_measurement_experiment}
-\end{center}
-\end{figure}
-
-小型クアッドロータをFig. 27のように2本の糸で吊り，ピッチ方向，ロール方向，ヨー方向に関して30回の振動の間にかかった時間をそれぞれ3回ずつ測定した．そしてその測定値を平均して周期を求めた．またこの振動の様子はビデオカメラで撮影している．ビデオカメラのフレームレートは30 fpsなので0.03 secの精度で振動周期を測定することができる．Table 3とTable 4にそれぞれ実験の条件と周期の測定結果を示す．
-
-\begin{table}[H]
- \caption{Inertial moment measurement experiment condition.}
- \label{Results of the inertial moment measurement experiment}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|c|c|c|}
-   \hline
-   $m$ [kg] & $l$(pitch) [m] & 2$a$(pitch) [m] & $l$(roll) [m] & 2$a$(roll) [m] &$l$(roll) [m] & 2$a$(roll) [m]\\
-   \hline\hline
-   0.62 & 0.375& 0.133 & 0.382 & 0.133 & 0.468 & 0.125\\
-   \hline 
-  \end{tabular}
- \end{center}
-\end{table}
-
-\begin{table}[H]
- \caption{Results of inertial moment measurement experiment.}
- \label{Results of the inertial moment measurement experiment}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-   \hline
-      & Pitch & Roll & Yaw \\
-   \hline\hline
-   1st time [sec]& 33.00 & 30.67 & 16.70 \\
-   \hline 
-   2nd time [sec]& 32.93 & 30.63 & 16.74 \\
-   \hline
-   3rd time [sec]& 32.87 & 32.87 & 16.74 \\
-   \hline\hline
-   Period [sec] & 0.911 & 0.978 & 0.598 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-\noindent
-Table 3及びTable 4の結果をもとに式(45)を用いて算出した慣性モーメントをTable 5に示す．
-
-\begin{table}[H]
- \caption{Inertial moment of the quad-rotor.}
- \label{Inertial moment of the quad-rotor}
- \begin{center}
-  \begin{tabular}{|c||c|}
-   \hline
-   $J_{1}$ [kg$\cdot$ m$^{2}$] & 1.92$\times$10$^{3}$ \\ 
-   \hline
-   $J_{2}$ [kg$\cdot$ m$^{2}$] & 1.63$\times$10$^{3}$ \\
-   \hline
-   $J_{3}$ [kg$\cdot$ m$^{2}$] & 3.15$\times$10$^{3}$ \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
 
 \newpage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%% ステレオカメラを用いた位置推定システム %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% 位置制御用クアッドロータの開発 %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{ステレオカメラを用いた位置測定システム}
+\section{位置制御用クアッドロータの開発}
 
 クアッドロータの3次元空間における運動を評価する際，クアッドロータの位置を精度よく測定する必要がある．そこで高速度カメラを2つ用いたステレオカメラによる位置測定システムを開発した．Fig. 28に開発したステレオカメラシステムを示す．ステレオカメラシステムは2つの高速度カメラとカメラで撮影した動画を記録するPCで構成されている．高速度カメラはPoint Grey社のGtasshoppper3(GS3-U3-32S4C-C)を使用した．使用した高速度カメラをFig. 29に示す．また詳細な仕様をTable 6に示す．
 

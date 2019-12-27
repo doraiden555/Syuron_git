@@ -260,7 +260,7 @@ In Japan, a lot of bridges built during high economic growth period from the 195
 \end{align}
 
 \noindent
-ここで$\textbf{f}(\cdot)$，および$\textbf{h}(\cdot)$はベクトル値をとる$\textbf{x}(t)$の非線形関数である．また$\textbf{v}(t)$は平均値ベクトル0，共分散行列$\textbf{Q}$のr次元システム雑音ベクトル，$\textbf{w}(t)$は平均値ベクトル0，共分散行列$\textbf{R}$のp次元観測雑音ベクトルであり，互いに独立な正規性白色雑音と仮定する．時刻$t$，$t+1$において，それぞれ事前状態推定値$\hat{\textbf{x}^{-}}$と事後推定値$\hat{\textbf{x}}$が利用可能であるという仮定のもとで，式\ref{2-1}と式\ref{2-2}の非線形関数をテイラー級数展開を用いて線形近似すると，
+ここで$\textbf{f}(\cdot)$，および$\textbf{h}(\cdot)$はベクトル値をとる$\textbf{x}(t)$の非線形関数である．また$\textbf{v}(t)$は平均値ベクトル0，共分散行列$\textbf{Q}$のr次元システム雑音ベクトル，$\textbf{w}(t)$は平均値ベクトル0，共分散行列$\textbf{R}$のp次元観測雑音ベクトルであり，互いに独立な正規性白色雑音と仮定する．時刻$t$，$t+1$において，それぞれ事前状態推定値$\hat{\textbf{x}}^{-}$と事後推定値$\hat{\textbf{x}}$が利用可能であるという仮定のもとで，式\ref{2-1}と式\ref{2-2}の非線形関数をテイラー級数展開を用いて線形近似すると，
 
 \begin{align}
 \textbf{f}(\textbf{x}(t))=\textbf{f}(\hat{\textbf{x}}(t))+\textbf{A}(t)(\textbf{x}(t)-\hat{\textbf{x}}(t)),\left.\textbf{A}(t)=\frac{\partial \textbf{f}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}(t)}
@@ -273,13 +273,147 @@ In Japan, a lot of bridges built during high economic growth period from the 195
 \end{align}\
 
 \noindent
-となる．
+が得られる．式\eqref{2-3}を式\eqref{2-1}に，式\eqref{2-4}を式\eqref{2-2}に代入すると，それぞれ，
+
+\begin{align}
+\textbf{x}(t+1)=\textbf{A}(t)\textbf{x}(t)+\textbf{b}\textbf{v}(t)+\textbf{f}(\hat{\textbf{x}}(t))-\textbf{A}(t)\hat{\textbf{x}}(t)
+\label{2-5}
+\end{align}
+
+\begin{align}
+\textbf{y}(t)=\textbf{C}^{T}(t)\textbf{x}(t)+\textbf{w}(t)+\textbf{h}(\hat{\textbf{x}}^{-}(t))-\textbf{C}^{T}(t)\hat{\textbf{x}}^{-}(t)
+\label{2-6}
+\end{align}\
+
+\noindent
+が得られる．さらに
+
+\begin{align}
+\textbf{u}(t)=\textbf{f}(\hat{\textbf{x}}(t))-\textbf{A}(t)\hat{\textbf{x}}(t)
+\label{2-7}
+\end{align}
+
+\begin{align}
+\textbf{z}(t)=\textbf{y}(t)-\textbf{h}(\hat{\textbf{x}}^{-}(t))+\textbf{C}^{T}(t)\hat{\textbf{x}}^{-}(t)
+\label{2-8}
+\end{align}\
+
+\noindent
+とおくと，式\eqref{2-5}と式\eqref{2-6}はそれぞれ次のようになる．
+
+\begin{align}
+\textbf{x}(t+1)=\textbf{A}\textbf{x}(t)+\textbf{B}\textbf{v}(t)+\textbf{u}(t)
+\label{2-9}
+\end{align}
+
+\begin{align}
+\textbf{z}(t)=\textbf{C}\textbf{x}(t)+\textbf{w}(t)
+\label{2-10}
+\end{align}\
+
+\noindent
+このように非線形システムをテイラー級数展開を用いて線形近似すると制御入力がある場合のカルマンフィルタになる．以上より予測ステップにおける更新式は
+
+\begin{align}
+\hat{\textbf{x}}^{-}(t)=\textbf{f}(\hat{\textbf{x}}(t-1))
+\label{2-11}
+\end{align}
+
+\begin{align}
+\textbf{P}^{-}(t)=\textbf{A}(k-1)\textbf{P}(t-1)\textbf{A}^{T}(k-1)+\textbf{B}\textbf{Q}\textbf{B}^{T}
+\label{2-12}
+\end{align}\
+
+\noindent
+となる．ここで$\textbf{A}(t-1)$は
+
+\begin{align}
+\left.\textbf{A}(t-1)=\frac{\partial \textbf{f}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}(t)}
+\label{2-13}
+\end{align}\
+
+\noindent
+となる．またフィルタリングステップの更新式は
+
+\begin{align}
+\hat{\textbf{x}}(t)=\hat{\textbf{x}}^{-}(t)+\textbf{g}(t)(\textbf{y}(t)-\textbf{h}(\hat{\textbf{x}}^{-}(t)))
+\end{align}
+
+\begin{align}
+\textbf{P}(t)=(\textbf{I}-\textbf{G}(k)\textbf{C}^{T}(t))\textbf{P}^{-}(k)
+\end{align}\
+
+\noindent
+となる．ここでカルマンゲイン$G(t)$及び$\textbf{C}^{T}(t)$は次式で計算することができる．
+
+\begin{align}
+\textbf{G}(t)=\textbf{P}^{-}(k)\textbf{C}^{T}(\textbf{C}\textbf{P}^{-}(k)\textbf{C}^{T}+\textbf{R})^{-1}
+\end{align}\
+
+\begin{align}
+\left.\textbf{C}^{T}(t)=\frac{\partial \textbf{h}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}^{-}(t)}
+\end{align}\
+
+\noindent
+拡張カルマンフィルタにおいては各時刻ごとに$\textbf{f}$と$\textbf{h}$のヤコビアンを求めるため偏微分の計算を行わなければならない．そのため，微分可能な滑らかな非線形性の場合には拡張カルマンフィルタを適用できるが，不連続な非線形性をもつ場合には適用できない．
+
+
 
 
 
 
 \subsection{UWB通信}
 \subsubsection{UWB通信の測距原理（発散の回避方法，取付角の工夫）}
+UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方式の一種であり，非常に広い帯域幅にわたって電波を拡散させることで高速通信を可能とする．Fig. \ref{}にUWB通信と既存の無線通信方式とのスペクトラムの比較を示す．周波数の帯域は3.1 GHｚから10.6 GHzであり，その帯域幅は7.5 GHzと従来の無線の数百 kHzやWi-Fiの20 MHzに比べてかなり広い帯域を利用している．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_power.png}
+\caption{Comparison of power spectrum between UWB and other wireless communication system}
+\label{UWB_power}
+\end{center}
+\end{figure}
+
+使用する周波数帯域は3.1GHzから10.6GHzで帯域幅は7,500MHzと従来の無線の数百KHzや，Wifiの20MHzと比べてかなり広い帯域を利用する．送信出力は-41.3 dBm/MHz以下に制限されており，これは家庭用テレビやパソコン等の一般の電子機器等が発生する雑音レベルの約500分の1以下という非常に小さな出力である．また，UWB通信はFig. \ref{narrow_wide}に示すようにナノ秒オーダーのパルスを通信に使用し，狭帯域信号のような立ち上がりが遅い信号に比べて，デバイス間の距離を高精度で測定可能である．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/narrow_wide.png}
+\caption{Comparison of pulses between narrow band and ultra wide band signals}
+\label{narrow_wide}
+\end{center}
+\end{figure}
+
+\noindent
+また，Fig. \ref{narrow}，Fig. \ref{wide}に示すように狭帯域信号に比べ，SN比が良く，ノイズの影響を受けにくいことなどが特長として挙げられる．
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{c}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+         \includegraphics[height=50mm]{./Fig2/narrow.png}
+	  \caption{Narrow band signal with noise}
+	　\label{narrow}
+        \end{center}
+      \end{minipage}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+          \includegraphics[height=50mm]{./Fig2/wide.png}
+          \caption{Ultra wide band signal with noise}
+	   \label{wide}
+        \end{center}
+      \end{minipage}
+
+    \end{tabular}
+  \end{center}
+\end{figure}
+
+\noindent
+
+
 \subsubsection{更新周波数の改善のアプローチ（マイコンスペックの比較，周波数グラフの比較）}
 
 \subsection{オプティカルフローセンサ}

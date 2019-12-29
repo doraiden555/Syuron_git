@@ -364,6 +364,8 @@ In Japan, a lot of bridges built during high economic growth period from the 195
 
 \subsection{UWB通信}
 \subsubsection{UWB通信の測距原理（発散の回避方法，取付角の工夫）}
+まず，無線通信を利用した距離測定の技術はBlutoothやWi-Fiを用いたものなどが挙げられる．片方のデバイスが電波を発し，それをもう片方が受け取り，デバイス同士が通信を行う．測距の方法は，受信側の受け取った電波の強弱により発信側が近くにあるのか遠くにあるのかを判別し，距離を算出する．しかし，弱い電波を受け取った際，距離が離れているため電波が弱いのか，それともデバイス間に障害物があるため電波が弱くなっているのか，といったことを判別できない．したがって，Wi-FiやBlutoothを用いた測距は誤差が5 mほど乗るとされている．一部の企業はWi-Fi電波の飛行時間（Time of flight，ToF）や到着時間（Time of Arrival，ToA）を使用し，距離をより正確に測るための代替アルゴリズムを開発したが，既存のWi-Fiを用いてこれを行うことは，ハードウェアの問題により難しいとされている．
+
 UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方式の一種であり，非常に広い帯域幅にわたって電波を拡散させることで高速通信を可能とする．Fig. \ref{}にUWB通信と既存の無線通信方式とのスペクトラムの比較を示す．周波数の帯域は3.1 GHｚから10.6 GHzであり，その帯域幅は7.5 GHzと従来の無線の数百 kHzやWi-Fiの20 MHzに比べてかなり広い帯域を利用している．
 
 \begin{figure}[H]
@@ -374,7 +376,8 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
 \end{center}
 \end{figure}
 
-使用する周波数帯域は3.1GHzから10.6GHzで帯域幅は7,500MHzと従来の無線の数百KHzや，Wifiの20MHzと比べてかなり広い帯域を利用する．送信出力は-41.3 dBm/MHz以下に制限されており，これは家庭用テレビやパソコン等の一般の電子機器等が発生する雑音レベルの約500分の1以下という非常に小さな出力である．また，UWB通信はFig. \ref{narrow_wide}に示すようにナノ秒オーダーのパルスを通信に使用し，狭帯域信号のような立ち上がりが遅い信号に比べて，デバイス間の距離を高精度で測定可能である．
+\noindent
+送信出力は-41.3 dBm/MHz以下に制限されており，これは家庭用テレビやパソコン等の一般の電子機器等が発生する雑音レベルの約500分の1以下という非常に小さな出力である．また，UWB通信はFig. \ref{narrow_wide}に示すようにナノ秒オーダーのパルスを通信に使用し，狭帯域信号のような立ち上がりが遅い信号に比べて，デバイス間の距離を高精度で測定可能である．
 
 \begin{figure}[H]
 \begin{center}
@@ -385,7 +388,7 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
 \end{figure}
 
 \noindent
-また，Fig. \ref{narrow}，Fig. \ref{wide}に示すように狭帯域信号に比べ，SN比が良く，ノイズの影響を受けにくいことなどが特長として挙げられる．
+また，Fig. \ref{narrow}，Fig. \ref{wide}に示すように狭帯域信号に比べ，UWB信号はSN比が良いため，ノイズの影響を受けにくいことなどが特長として挙げられる．
 
 \begin{figure}[H]
   \begin{center}
@@ -412,6 +415,67 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
 \end{figure}
 
 \noindent
+無線通信を利用する際に大きな問題とされるのがマルチパスの発生である．マルチパスとは電波を受信した際に，直接波の他に壁などの障害物に反射した反射波を受信してしまう場合があり，この際，正確な信号受け取れないといったことや，直接波の位相を反射波が遅らせてしまうといったことが発生する．テレビやラジオにてゴースト障害が起きるのも，このマルチパスが原因とされている．無線通信を利用した測距の場合には，正確な到達時間を計測できず，測距誤差が発生するということが起きる．次のFig. \ref{narrow_with_reflections}，Fig. \ref{wide_with_reflections}に狭帯域信号とUWB信号のマルチパスの影響の比較を示す．
+
+
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{c}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+         \includegraphics[height=50mm]{./Fig2/narrow_with_reflections.png}
+	  \caption{Narrow band signal with reflections}
+	　\label{narrow_with_reflections}
+        \end{center}
+      \end{minipage}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+          \includegraphics[height=50mm]{./Fig2/wide_with_reflections.png}
+          \caption{Ultra wide band signal with reflections}
+	   \label{wide_with_reflections}
+        \end{center}
+      \end{minipage}
+
+    \end{tabular}
+  \end{center}
+\end{figure}
+
+\noindent
+狭帯域信号では立ち上がりと立ち下がりが鈍く，障害物で位相が反転した反射波の影響により直接波の位相や振幅が変化させられているのが分かる．しかし，UWB信号は立ち上がり時間と立ち下がり時間が短いため，直接波の後に反射波が来ていても直接波に悪影響を与えない．このようなマルチパス耐性が高いといったこともUWBの特長である．
+
+
+次にUWB通信を用いた測距方法について見ていく．UWB通信による測距は主に電波の飛行時間（ToF）を用いている．送信側と受信側が互いに通信し，電波の到達するのに掛かった時間（Tof）に電波の速度（$c$）を掛けることにより，距離（$d$）を測定することが可能である．次に計算式を示す．
+
+\begin{align}
+d = \textrm{ToF} \times c
+\label{2-2-1}
+\end{align}
+
+\noindent
+またFig. \ref{UWB_ranging_2}に通信プロトコルを示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_ranging_2.png}
+\caption{Ranging protocol of UWB module}
+\label{UWB_ranging_2}
+\end{center}
+\end{figure}
+
+\noindent
+これ以降，クアッドロータに搭載された移動局をタグ，床に固定された固定局をアンカと記載する．クアッドロータの座標を3次元で推定するためには1つのタグと3つ以上のアンカが必要である．それに伴い，複数のデバイスを識別するためにまずアンカ側から16進数からなるIDを送信する．その後タグ側から応答があり，最後にアンカ側のタイムスタンプ（$T_{SP}, T_{RR}, T_{SF}$）を送信する．この送られてきたタイムスタンプ及びタグ側のタイムスタンプ（$T_{RP}, T_{SR}, T_{RF}$）を用い，次式のように電波の飛行時間（ToF）を計算可能である．
+
+\begin{align}
+\textrm{ToF} = \frac{1}{4}((T_{SP} - T_{RR}) - (T_{SR} - T_{RP}) + (T_{RF} - T_{SR}) - (T_{SF} - T_{RR})) 
+\label{2-2-2}
+\end{align}
+
+
+
+
 
 
 \subsubsection{更新周波数の改善のアプローチ（マイコンスペックの比較，周波数グラフの比較）}

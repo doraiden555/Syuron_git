@@ -474,6 +474,68 @@ d = \textrm{ToF} \times c
 \end{align}
 
 
+前述したようにUWB通信はマルチパスに耐性があり，また[]でも示されているように，壁のように強い反射体の近くにおいても測距性能は正確であるが，森林のようなデバイス間に障害物が存在する環境NLOS(Non Line Of Sight，非見通し環境)においてはマルチパスが発生し，真値より大きく外れた値や負の値を取ることがある．本研究においても，このマルチパスの影響を確認した．Fig. \ref{UWB_out}に測距した際にマルチパスが発生し，値が発散した結果を示す．またそれの拡大図もFig. \ref{UWB_out_zoom}に合わせて示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_out.png}
+\caption{Ranging result when outliers occur}
+\label{UWB_out}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_out_zoom.png}
+\caption{Ranging result when outliers occur (enlarged image above)}
+\label{UWB_out_zoom}
+\end{center}
+\end{figure}
+
+\noindent
+測距手順はまず，実験室の床に距離を測り，真値の点を1 mから5 mまで1 m間隔で取った．そして，その点に合わせる形で4つのアンカを1 mずつ動かし，それぞれのアンカと固定したタグとの間の測距をUWBモジュールにより計測した．2つの図からわかるように，測距した最長の距離は5 mであるのにも関わらず，値が発散し最長300 mほどの距離を計測している．UWBモジュール間に障害物が無かったのにも関わらず，こういったマルチパスが発生した原因は，壁や天井により電波が反射したためであると考えられる．タグと各アンカとの正確な距離が得られていない場合，3次元空間内におけるクアッドロータの位置推定値も不正確になるため，こういった発散した値は取り除く必要がある．そこで，まず初めに行ったのが電波の指向性を考慮したモジュールの改良である．UWBモジュールには指向性があり，電波強度の強い向きと弱い向きが$x,, y, z$軸の回転方向に存在する．本研究にて採用したUWBチップ（DWM1000）の軸を次のFig. \ref{UWB_axis}のように定義する．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_axis.png}
+\caption{UWB chip axis}
+\label{UWB_axis}
+\end{center}
+\end{figure}
+
+\noindent
+DWM1000を製造するDecaWave社がチップの指向性をデータシートにおいて公開している．$x, y, z$軸周りにおける電波の指向性をFig. \ref{UWB_angle_x}からFig. \ref{UWB_angle_z}に示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_angle_x.png}
+\caption{Directivity of radio wave around $x$ axis}
+\label{UWB_angle_x}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_angle_y.png}
+\caption{Directivity of radio wave around $y$ axis}
+\label{UWB_angle_y}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/UWB_angle_z.png}
+\caption{Directivity of radio wave around $z$ axis}
+\label{UWB_angle_z}
+\end{center}
+\end{figure}
+
+
+
+
+
+
 
 
 

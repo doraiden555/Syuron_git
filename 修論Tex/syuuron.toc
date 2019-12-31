@@ -9,38 +9,38 @@
 \contentsline {subsubsection}{\numberline {2.2.2}更新周波数の改善のアプローチ（マイコンスペックの比較，周波数グラフの比較）}{16}
 \contentsline {subsection}{\numberline {2.3}オプティカルフローセンサ}{16}
 \contentsline {subsubsection}{\numberline {2.3.1}オプティカルフローセンサの原理（センサ座標系のワールド座標系への変換）}{16}
-\contentsline {subsubsection}{\numberline {2.3.2}センサのキャリブレーション}{16}
-\contentsline {subsection}{\numberline {2.4}UWBモジュール，IMU，距離センサのみを用いた位置推定システム}{16}
-\contentsline {subsection}{\numberline {2.5}従来の構成にオプティカルフローセンサも加えた位置推定システム（複数センサの統合環境）}{16}
-\contentsline {section}{\numberline {3.}位置制御用クアッドロータの開発}{17}
-\contentsline {subsection}{\numberline {3.1}ステレオカメラの原理}{19}
-\contentsline {subsection}{\numberline {3.2}ステレオカメラのキャリブレーション}{21}
-\contentsline {subsection}{\numberline {3.3}ステレオカメラの測定範囲の設定}{25}
-\contentsline {section}{\numberline {4.}姿勢制御システム}{27}
-\contentsline {subsection}{\numberline {4.1}姿勢推定}{27}
-\contentsline {subsubsection}{\numberline {4.1.1}磁気センサのキャリブレーション}{27}
-\contentsline {subsubsection}{\numberline {4.1.2}拡張カルマンフィルタについて}{31}
-\contentsline {subsubsection}{\numberline {4.1.3}姿勢推定アルゴリズム}{35}
-\contentsline {subsection}{\numberline {4.2}姿勢制御}{37}
-\contentsline {subsubsection}{\numberline {4.2.1}Integral Backstepping制御}{37}
-\contentsline {subsubsection}{\numberline {4.2.2}姿勢制御アルゴリズム}{40}
-\contentsline {section}{\numberline {5.}姿勢推定アルゴリズムの評価}{42}
-\contentsline {subsection}{\numberline {5.1}地磁気センサのキャリブレーション}{42}
-\contentsline {subsection}{\numberline {5.2}ロール角及びピッチ角推定の評価}{45}
-\contentsline {subsection}{\numberline {5.3}ヨー角推定の評価}{49}
-\contentsline {section}{\numberline {6.}姿勢制御アルゴリズムの評価}{53}
-\contentsline {subsection}{\numberline {6.1}ロール角及びピッチ角制御の評価}{53}
-\contentsline {subsection}{\numberline {6.2}ヨー角制御の評価}{55}
-\contentsline {subsection}{\numberline {6.3}ホバリング実験}{56}
-\contentsline {section}{\numberline {7.}位置制御システム}{58}
-\contentsline {subsection}{\numberline {7.1}位置推定}{58}
-\contentsline {subsubsection}{\numberline {7.1.1}UWBによる測距}{58}
-\contentsline {subsubsection}{\numberline {7.1.2}距離センサによる高度推定}{61}
-\contentsline {subsubsection}{\numberline {7.1.3}位置推定アルゴリズム}{61}
-\contentsline {subsection}{\numberline {7.2}位置制御}{63}
-\contentsline {subsubsection}{\numberline {7.2.1}位置制御アルゴリズム}{63}
-\contentsline {section}{\numberline {8.}位置推定アルゴリズムの評価}{67}
-\contentsline {section}{\numberline {9.}位置制御アルゴリズムの評価}{81}
-\contentsline {section}{\numberline {10.}結言}{83}
-\contentsline {section}{謝辞}{84}
-\contentsline {section}{参考文献}{85}
+\contentsline {subsubsection}{\numberline {2.3.2}センサのキャリブレーション}{17}
+\contentsline {subsection}{\numberline {2.4}UWBモジュール，IMU，距離センサのみを用いた位置推定システム}{19}
+\contentsline {subsection}{\numberline {2.5}従来の構成にオプティカルフローセンサも加えた位置推定システム（複数センサの統合環境）}{19}
+\contentsline {section}{\numberline {3.}位置制御用クアッドロータの開発}{20}
+\contentsline {subsection}{\numberline {3.1}ステレオカメラの原理}{22}
+\contentsline {subsection}{\numberline {3.2}ステレオカメラのキャリブレーション}{24}
+\contentsline {subsection}{\numberline {3.3}ステレオカメラの測定範囲の設定}{28}
+\contentsline {section}{\numberline {4.}姿勢制御システム}{30}
+\contentsline {subsection}{\numberline {4.1}姿勢推定}{30}
+\contentsline {subsubsection}{\numberline {4.1.1}磁気センサのキャリブレーション}{30}
+\contentsline {subsubsection}{\numberline {4.1.2}拡張カルマンフィルタについて}{34}
+\contentsline {subsubsection}{\numberline {4.1.3}姿勢推定アルゴリズム}{38}
+\contentsline {subsection}{\numberline {4.2}姿勢制御}{40}
+\contentsline {subsubsection}{\numberline {4.2.1}Integral Backstepping制御}{40}
+\contentsline {subsubsection}{\numberline {4.2.2}姿勢制御アルゴリズム}{43}
+\contentsline {section}{\numberline {5.}姿勢推定アルゴリズムの評価}{45}
+\contentsline {subsection}{\numberline {5.1}地磁気センサのキャリブレーション}{45}
+\contentsline {subsection}{\numberline {5.2}ロール角及びピッチ角推定の評価}{48}
+\contentsline {subsection}{\numberline {5.3}ヨー角推定の評価}{52}
+\contentsline {section}{\numberline {6.}姿勢制御アルゴリズムの評価}{56}
+\contentsline {subsection}{\numberline {6.1}ロール角及びピッチ角制御の評価}{56}
+\contentsline {subsection}{\numberline {6.2}ヨー角制御の評価}{58}
+\contentsline {subsection}{\numberline {6.3}ホバリング実験}{59}
+\contentsline {section}{\numberline {7.}位置制御システム}{61}
+\contentsline {subsection}{\numberline {7.1}位置推定}{61}
+\contentsline {subsubsection}{\numberline {7.1.1}UWBによる測距}{61}
+\contentsline {subsubsection}{\numberline {7.1.2}距離センサによる高度推定}{64}
+\contentsline {subsubsection}{\numberline {7.1.3}位置推定アルゴリズム}{64}
+\contentsline {subsection}{\numberline {7.2}位置制御}{66}
+\contentsline {subsubsection}{\numberline {7.2.1}位置制御アルゴリズム}{66}
+\contentsline {section}{\numberline {8.}位置推定アルゴリズムの評価}{70}
+\contentsline {section}{\numberline {9.}位置制御アルゴリズムの評価}{84}
+\contentsline {section}{\numberline {10.}結言}{86}
+\contentsline {section}{謝辞}{87}
+\contentsline {section}{参考文献}{88}

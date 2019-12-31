@@ -474,7 +474,28 @@ d = \textrm{ToF} \times c
 \end{align}
 
 
-前述したようにUWB通信はマルチパスに耐性があり，また[]でも示されているように，壁のように強い反射体の近くにおいても測距性能は正確であるが，森林のようなデバイス間に障害物が存在する環境NLOS(Non Line Of Sight，非見通し環境)においてはマルチパスが発生し，真値より大きく外れた値や負の値を取ることがある．本研究においても，このマルチパスの影響を確認した．Fig. \ref{UWB_out}に測距した際にマルチパスが発生し，値が発散した結果を示す．またそれの拡大図もFig. \ref{UWB_out_zoom}に合わせて示す．
+次のFig. \ref{Anchor}に製作したUWBモジュールのアンカを示す．搭載されたUWBチップはDecaWave社製のDWM1000である．マイコンはTeensy3.6を用いて制御を行っている．電源はFig. \ref{Li_ion}に示すUltraLife社製, 1 cell, 1800 mAhのリチウムイオンバッテリを用いている．図の基板構成で満充電から約3時間容量が保つ．Fig. \ref{Anchor}からわかるように，小型であるためアンカの設置や回収は容易に行うことが可能である．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/Anchor.png}
+\caption{UWB anchor}
+\label{Anchor}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=50mm]{./Fig2/Li_ion.jpg}
+\caption{Battery for UWB Anchor}
+\label{Li_ion}
+\end{center}
+\end{figure}
+
+
+
+前述したようにUWB通信はマルチパスに耐性があり，また[]でも示されているように，壁のように強い反射体の近くにおいても測距性能は正確であるが，森林のようなデバイス間に障害物が存在する環境：NLOS(Non Line Of Sight，非見通し環境)においてはマルチパスが発生し，真値より大きく外れた値や負の値を取ることがある．本研究においても，このマルチパスの影響を確認した．Fig. \ref{UWB_out}に測距した際にマルチパスが発生し，値が発散した結果を示す．またそれの拡大図もFig. \ref{UWB_out_zoom}に合わせて示す．
 
 \begin{figure}[H]
 \begin{center}
@@ -498,7 +519,7 @@ d = \textrm{ToF} \times c
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/UWB_axis.png}
+\includegraphics[height=40mm]{./Fig2/UWB_axis.png}
 \caption{UWB chip axis}
 \label{UWB_axis}
 \end{center}
@@ -509,7 +530,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/UWB_angle_x.png}
+\includegraphics[height=50mm]{./Fig2/UWB_angle_x.png}
 \caption{Directivity of radio wave around $x$ axis}
 \label{UWB_angle_x}
 \end{center}
@@ -517,7 +538,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/UWB_angle_y.png}
+\includegraphics[height=50mm]{./Fig2/UWB_angle_y.png}
 \caption{Directivity of radio wave around $y$ axis}
 \label{UWB_angle_y}
 \end{center}
@@ -525,7 +546,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/UWB_angle_z.png}
+\includegraphics[height=50mm]{./Fig2/UWB_angle_z.png}
 \caption{Directivity of radio wave around $z$ axis}
 \label{UWB_angle_z}
 \end{center}
@@ -537,7 +558,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/UWB_case_angle.png}
+\includegraphics[height=50mm]{./Fig2/UWB_case_angle.png}
 \caption{UWB module holder considering radio wave directivity}
 \label{UWB_case_angle}
 \end{center}
@@ -564,7 +585,96 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \subsection{オプティカルフローセンサ}
 \subsubsection{オプティカルフローセンサの原理（センサ座標系のワールド座標系への変換）}
+先行研究では，クアッドロータの位置や速度などの状態量をUWBモジュール及びIMUを用いて推定していた．しかし，UWBモジュールのアンカを4つ用いた際に得られる距離データの更新周期は10 Hzと遅く，クアッドロータが高速度で動いた際や運動の不安定さが原因の細かな振動が生じた際に更新周期が不十分であった．そこで，更新周期の遅さを補うために本研究からは新たにオプティカルフローセンサを搭載した位置推定および位置制御システムを構築した．オプティカルフローセンサとは，カメラで撮影した画像の特徴点の移動量から，移動する物体の速度や移動量を算出可能なセンサである．オプティカルフローはPython環境にてOpenCVなどのモジュールを用い，パーソナルコンピュータを使用し計算することも多い．例としては，あらかじめ撮影した車の写真から車速を割り出すことなどに使用される．そして，オプティカルフローセンサは画像の撮影から移動量の算出までを，搭載したチップで行うことが可能である．そして，それらのセンサ値をマイコンにより適切に処理することにより，搭載したロボットなどの速度や移動量を得ることができる．また，別の例としては光学式マウスはこのセンサにより移動量を算出している．[]や[]においてもクアッドロータにこのセンサを搭載し，クアッドロータの位置保持制御や目標点まで移動させる制御などを行っている．本研究で採用したオプティカルフローセンサモジュールの外観をFig. \ref{optical_flow}に示す．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=50mm]{./Fig2/optical_flow.png}
+\caption{Optical Flow Sensor Module}
+\label{optical_flow}
+\end{center}
+\end{figure}
+
+\noindent
+このモジュールはオプティカルフローセンサとしてPMW3901のチップを搭載しており，それに加え距離センサとしてVL53L0x ToFセンサを搭載している．二つのセンサが同一の基板上に搭載されているため汎用性が高いモジュールであり，オプティカルフローセンサはSPI通信，距離センサは$\textrm{I}^{2}\textrm{C}$通信をそれぞれ用いるため，配線が少なくてすむ．また，図より大きさもとても小型であることがわかり，積載量の限られたクアッドロータなどにおいても容易に搭載可能である．後述するが，距離センサはオプティカルフローセンサから得た値を補正するのに用いられる．
+
+
 \subsubsection{センサのキャリブレーション}
+オプティカルフローセンサから得られる速度のキャリブレーション方法について述べる．まず，オプティカルフローセンサから得られる値は写真の変化から得られる特徴点の移動量，つまり単位は距離ではなくピクセルである．例えばある物体の上でクアッドロータが100 mm移動したとする．その際，クアッドロータの高さが低ければピクセル数の変化量は大きいが，高さが二倍になった場合，ピクセル数の変化量は二分の一になる．それを表した図がFig. \ref{opt_distance}である．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=70mm]{./Fig2/opt_distance.png}
+\caption{Difference in Sensor Value Due to Difference in Quad-Rotor Height}
+\label{opt_distance}
+\end{center}
+\end{figure}
+
+\noindent
+したがって，オプティカルフローセンサから得られるピクセル数の変化量と距離センサから得られる距離を乗算し，適切な定数を掛けることで真の移動距離を算出することができる．なお，飛行体の高度とオプティカルフローセンサから得られる値の関係は[]に詳しい記述がある．また[]を参考にすると，センサが値を取得し，次の値を取得するまでをセンサの1ループと考えると，その1ループ中に移動した距離は次式で表せる．
+
+\begin{align}
+\textrm{Moving distance} = \left( \frac{\textrm{Sensor value} \times \textrm{Altitude}}{\textrm{Sensor's resolution in pixels} \times \textrm{Scalar}}\right) \times 2.0 \times \tan \left(\frac{\textrm{Field of view}}{2.0} \right)
+\label{2-3-1}
+\end{align}
+
+\noindent
+Sensor valueはオプティカルフローセンサから得た値であり，Altitudeは距離センサから得た地面までの距離である．Field of viewはオプティカルフローセンサが撮影可能な画角であり，Sensor's resolution in pixelsは撮影画像の画素数つまり解像度である．この二つの値はセンサ固有のものであり，それらを次のTable. \ref{sensor_value}に示す．
+
+
+\begin{table}[H]
+ \caption{Sensor characteristic value}
+  \label{sensor_value}
+ \begin{center}
+  \begin{tabular}{|c||c|}
+   \hline
+    FOV &  $42^{\circ}$ \\
+   \hline
+  Resolution & 30 $\times$ 30       \\
+   \hline 
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+Scalarは定数であり，この値を次のキャリブレーションにより求めた．式\ref{2-3-1}から得られるのはあくまでも1ループ中に動いた距離，つまり速度である．物体が移動した真の速度を用いてこのScalarの値を求めることは可能であるが，速度を外部のセンサなどを用いて求めるのは非常にシステムが複雑になる．そこで，速度ではなく真の移動距離を用いてこのScalarの値を求めることにした．過去のある時点から現在までに移動した距離を算出するには，速度に対して1ループにかかる処理時間を掛けそれを足し合わせることで可能である．つまり，センサ値を積分することである．そこで次のような実験を行った．ある高さに対し，センサが下を向くように固定し一方向のみレールにより自由度を与える．レールに既知の距離を複数点マークし，その距離分だけセンサを動かした．センサ値を積分して得られた距離データと真の距離を最小二乗法により近似することでScalarを求めた．
+
+
+
+\begin{table}[H]
+ \caption{Sensor values and moving distance}
+ \label{Sensor_Value_and_Moved_Distance}
+ \begin{center}
+  \begin{tabular}{|c|c|}
+   \hline
+    Moving distance [mm] & Average of sensor value [-]\\
+   \hline\hline
+   0 & 0 \\
+   \hline 
+   200 & 3061 \\
+   \hline
+   400 & 6165\\
+   \hline
+   600 & 9198 \\
+   \hline
+   800 & 12296 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/opt_cali.png}
+\caption{Relationship between sensor value and moving distance}
+\label{opt_cali}
+\end{center}
+\end{figure}
+
+
+
 
 \subsection{UWBモジュール，IMU，距離センサのみを用いた位置推定システム}
 

@@ -590,7 +590,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=50mm]{./Fig2/optical_flow.png}
+\includegraphics[height=50mm]{./Fig2/optical_flow_with_axis.png}
 \caption{Optical Flow Sensor Module}
 \label{optical_flow}
 \end{center}
@@ -601,7 +601,7 @@ DWM1000を製造するDecaWave社がチップから発せられる電波の指�
 
 
 \subsubsection{センサのキャリブレーション}
-オプティカルフローセンサから得られる速度のキャリブレーション方法について述べる．まず，オプティカルフローセンサから得られる値は写真の変化から得られる特徴点の移動量，つまり単位は距離ではなくピクセルである．例えばある物体の上でクアッドロータが100 mm移動したとする．その際，クアッドロータの高さが低ければピクセル数の変化量は大きいが，高さが二倍になった場合，ピクセル数の変化量は二分の一になる．それを表した図がFig. \ref{opt_distance}である．
+オプティカルフローセンサから得られる速度のキャリブレーション方法について述べる．まず，オプティカルフローセンサから得られる値は撮影した写真の変化から得られる特徴点の移動量，つまり単位は距離ではなくピクセルである．例えば，ある物体の上でクアッドロータが100 mm移動したとする．その際，クアッドロータの高さが低ければピクセル数の変化量は大きいが，高さが二倍になった場合，ピクセル数の変化量は二分の一になる．それを表した図がFig. \ref{opt_distance}である．
 
 \begin{figure}[H]
 \begin{center}
@@ -629,16 +629,16 @@ Sensor valueはオプティカルフローセンサから得た値であり，Al
  \begin{center}
   \begin{tabular}{|c||c|}
    \hline
-    FOV &  $42^{\circ}$ \\
+    FOV [$^{\circ}$]&  42 \\
    \hline
-  Resolution & 30 $\times$ 30       \\
+  Resolution [pixel]& 30 $\times$ 30       \\
    \hline 
   \end{tabular}
  \end{center}
 \end{table}
 
-
-Scalarは定数であり，この値を次のキャリブレーションにより求めた．式\ref{2-3-1}から得られるのはあくまでも1ループ中に動いた距離，つまり速度である．物体が移動した真の速度を用いてこのScalarの値を求めることは可能であるが，速度を外部のセンサなどを用いて求めるのは非常にシステムが複雑になる．そこで，速度ではなく真の移動距離を用いてこのScalarの値を求めることにした．過去のある時点から現在までに移動した距離を算出するには，速度に対して1ループにかかる処理時間を掛けそれを足し合わせることで可能である．つまり，センサ値を積分することである．そこで次のような実験を行った．ある高さに対し，センサが下を向くように固定し一方向のみレールにより自由度を与える．レールに既知の距離を複数点マークし，その距離分だけセンサを動かした．センサ値を積分して得られた距離データと真の距離を最小二乗法により近似することでScalarを求めた．
+\noindent
+Scalarは定数であり，このScalarの値を次のキャリブレーションにより求めた．式(\ref{2-3-1})から得られるのは，あくまでも1ループ中に動いた距離，つまり速度である．物体が移動した真の速度を用いてこのScalarの値を求めることは可能であるが，速度を外部のセンサなどを用いて求めるのはシステムが複雑になる．そこで，速度ではなく真の移動距離を用いてこのScalarの値を求めることにした．過去のある時点から現在までに移動した距離を算出するには，センサから得られた速度に対してマイコンが1ループにかかる処理時間を掛け，それを足し合わせることで可能である．つまり，センサ値を積分することである．そこで次のような実験を行った．ある高さに対し，センサが下を向くように固定し，一方向のみレールにより自由度を与える．レールに既知の距離を複数点マークし，その距離分だけセンサを動かした．センサ値を積分して得られた距離データと真の距離を最小二乗法により近似することでScalarを求めた．センサを動かした距離はTable \ref{Sensor_Value_and_Moved_Distance}に示すように0 mmから800 mmまでの200 mm間隔である．固定したセンサの床からの高さは775 mmである．また，センサ値の値は三回試行を行った上でのそれらの平均値である．
 
 
 
@@ -664,6 +664,9 @@ Scalarは定数であり，この値を次のキャリブレーションによ�
  \end{center}
 \end{table}
 
+\noindent
+そして，結果をFig. \ref{opt_cali}に示す．
+
 
 \begin{figure}[H]
 \begin{center}
@@ -673,10 +676,74 @@ Scalarは定数であり，この値を次のキャリブレーションによ�
 \end{center}
 \end{figure}
 
+\noindent
+近似直線からわかるように，センサ値と移動距離の関係は線形的に近似可能である．センサの床からの距離，つまり式(\ref{2-3-1})中のAltitudeは距離センサ得られる値を用いたが，Altitudeの値を真値(775 mm)に固定して計算しても結果は同様のものであった．また，この結果はFig. \ref{optical_flow}に示す$y$軸方向の移動の実験におけるものであったが，同様に$x$軸方向における実験も行ったが結果は同様のものであった．したがって，各軸におけるScalarの値は同一の値を採用した．以上の検証よりScalarが求まったため，オプティカルフローセンサよりセンサ座標系における速度が得られるようになった．
 
+次にセンサ座標系のワールド座標系への変換方法について述べる．前述した方法で得られるのはセンサ座標系における速度であり，クアッドロータの位置や速度をワールド座標系内で推定し，位置を制御するにはセンサ座標系をワールド座標系へ変換する必要がある．まず，Fig. \ref{quad_fig}にワールド座標系と機体座標系の関係を示す．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/quad_fig.png}
+\caption{Relationship between the world coordinate system and the quad-rotor coordinate system}
+\label{quad_fig}
+\end{center}
+\end{figure}
+
+
+\noindent
+ワールド座標系は地上の任意の点を原点とする地上に固定されている座標系であり，r-frameと表す．そして，機体座標系は機体重心を原点とし，機体前方を$y_b$，右方向を$x_b$，上方向を$z_b$とした座標系であり，b-frameと表す．また，3次元の姿勢表現としてオイラー角を用いた表現を行う．r-frameとb-frameの回転角の関係は$\phi, \theta, \psi$の3つのオイラー角を用いて表現できる．$\phi, \theta, \psi$はそれぞれ$x, y, z$軸周りにおける回転であり，ピッチ角，ロール角，ヨー角と呼ばれる．もし，機体がワールド座標系内にて$z$軸周りに$\psi$だけ回転した場合，オプティカルフローセンサから得られる速度をワールド座標系へ変換しなければ，ワールド座標系内での速度が得られない．オプティカルフローセンサから得られる$x, y$軸それぞれの速度を$\textbf{v}_o = (v_{ox}, v_{oy})^T$とし，変換した後のワールド座標系内での速度を$\textbf{v}_r = (v_{rx}, v_{ry})^T$とすると，それらの関係は$z$軸周りにおける回転行列を用いて次式により表せる．
+
+\begin{align}
+\label{2-3-1}
+\begin{split}
+\left[
+    \begin{array}{c}
+      v_{rx}  \\
+      v_{ry}
+    \end{array}
+\right]
+&= 
+\left[
+    \begin{array}{cc}
+      \cos\psi & -\sin\psi \\
+      \sin \psi & \cos\psi
+    \end{array}
+\right]
+\left[
+	\begin{array}{cc}
+		v_{ox}  \\
+		v_{oy}
+	\end{array}
+\right] \\
+&=
+\left[
+    \begin{array}{c}
+      v_{ox}\cos\psi  -v_{oy}\sin\psi \\
+      v_{ox}\sin\psi + v_{oy}\cos\psi
+    \end{array}
+\right]
+\end{split}
+\end{align}\
+
+\noindent
+$z$軸回りの回転角度は地磁気及び角速度センサを使用して推定したものを用いる．推定方法は次章にて説明する．式(\ref{2-3-1})を用いることでクアッドロータのワールド座標系内での速度をオプティカルフローセンサにより得られるようになった．
 
 
 \subsection{UWBモジュール，IMU，距離センサのみを用いた位置推定システム}
+次のFig. \ref{system}に先行研究にて開発された位置推定アルゴリズムを用いた位置制御用のシステムを示す．先行研究にて開発された位置推定アルゴリズムではUWBモジュール，IMU及び位置や姿勢角の推定値の計算や位置制御のための角度の計算などは全てLinux OS搭載のRaspberry Piを用いて行っている．IMUはNAVIO2を搭載しており，加速度センサ及び角速度センサの機能を有している．UWBモジュールはSPI通信でArduino Pro Miniと通信しており，集めたデータをUART通信でRaspberry Piに送っている．距離センサの値は$\textrm{I}^2\textrm{C}$通信を用いてRaspberry Piに送っている．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/system.png}
+\caption{System configuration of sensors}
+\label{system}
+\end{center}
+\end{figure}
+
+
+
 
 \subsection{従来の構成にオプティカルフローセンサも加えた位置推定システム（複数センサの統合環境）}
 

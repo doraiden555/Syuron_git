@@ -692,7 +692,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 
 
 \noindent
-ワールド座標系は地上の任意の点を原点とする地上に固定されている座標系であり，r-frameと表す．そして，機体座標系は機体重心を原点とし，機体前方を$y_b$，右方向を$x_b$，上方向を$z_b$とした座標系であり，b-frameと表す．また，3次元の姿勢表現としてオイラー角を用いた表現を行う．r-frameとb-frameの回転角の関係は$\phi, \theta, \psi$の3つのオイラー角を用いて表現できる．$\phi, \theta, \psi$はそれぞれ$x, y, z$軸周りにおける回転であり，ピッチ角，ロール角，ヨー角と呼ばれる．もし，機体がワールド座標系内にて$z$軸周りに$\psi$だけ回転した場合，オプティカルフローセンサから得られる速度をワールド座標系へ変換しなければ，ワールド座標系内での速度が得られない．オプティカルフローセンサから得られる$x, y$軸それぞれの速度を$\textbf{v}_o = (v_{ox}, v_{oy})^T$とし，変換した後のワールド座標系内での速度を$\textbf{v}_r = (v_{rx}, v_{ry})^T$とすると，それらの関係は$z$軸周りにおける回転行列を用いて次式により表せる．
+ワールド座標系は地上の任意の点を原点とする地上に固定されている座標系であり，r-frameと表す．そして，機体座標系は機体重心を原点とし，機体前方を$y_b$，右方向を$x_b$，上方向を$z_b$とした座標系であり，b-frameと表す．また，3次元の姿勢表現としてオイラー角を用いた表現を行う．r-frameとb-frameの回転角の関係は$\phi, \theta, \psi$の3つのオイラー角を用いて表現できる．$\phi, \theta, \psi$はそれぞれ$x, y, z$軸周りにおける回転であり，ピッチ角，ロール角，ヨー角と呼ばれる．もし，機体がワールド座標系内にて$z$軸周りに$\psi$だけ回転した場合，オプティカルフローセンサから得られる速度をワールド座標系へ変換しなければ，ワールド座標系内での速度が得られない．オプティカルフローセンサから得られる$x, y$軸それぞれの速度を$\textbf{v}_o = [v_{ox}, v_{oy}]^T$とし，変換した後のワールド座標系内での速度を$\textbf{v}_r = [v_{rx}, v_{ry}]^T$とすると，それらの関係は$z$軸周りにおける回転行列を用いて次式により表せる．
 
 \begin{align}
 \label{2-3-1}
@@ -727,12 +727,23 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 \end{align}\
 
 \noindent
-$z$軸回りの回転角度は地磁気及び角速度センサを使用して推定したものを用いる．推定方法は次章にて説明する．式(\ref{2-3-1})を用いることでクアッドロータのワールド座標系内での速度をオプティカルフローセンサにより得られるようになった．
+$z$軸周りの回転角度は地磁気及び角速度センサを使用して推定したものを用いる．推定方法は次章にて説明する．式(\ref{2-3-1})を用いることでクアッドロータのワールド座標系内での速度をオプティカルフローセンサにより得られるようになった．
 
 
 \subsection{UWBモジュール，IMU，距離センサのみを用いた位置推定システム}
-次のFig. \ref{system}に先行研究にて開発された位置推定アルゴリズムを用いた位置制御用のシステムを示す．先行研究にて開発された位置推定アルゴリズムではUWBモジュール，IMU及び位置や姿勢角の推定値の計算や位置制御のための角度の計算などは全てLinux OS搭載のRaspberry Piを用いて行っている．IMUはNAVIO2を搭載しており，加速度センサ及び角速度センサの機能を有している．UWBモジュールはSPI通信でArduino Pro Miniと通信しており，集めたデータをUART通信でRaspberry Piに送っている．距離センサの値は$\textrm{I}^2\textrm{C}$通信を用いてRaspberry Piに送っている．
+まず，先行研究において開発され，本研究において改良したクアッドロータの外観をFig. \ref{quad-rotor}に示す．
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/quad-rotor.png}
+\caption{Quad-rotor equipped with UWB module, IMU and distance sensor}
+\label{quad-rotor}
+\end{center}
+\end{figure}
+
+
+\noindent
+先行研究からのクアッドロータの変更点は新たにフライトコントローラを追加した点である．次のFig. \ref{system}に先行研究にて開発された位置推定アルゴリズムを用いた位置制御用のシステムを示す．
 
 \begin{figure}[H]
 \begin{center}
@@ -741,6 +752,230 @@ $z$軸回りの回転角度は地磁気及び角速度センサを使用して�
 \label{system}
 \end{center}
 \end{figure}
+
+\noindent
+本クアッドロータでは姿勢角や位置などの推定値の計算や位置制御のための姿勢角の計算などは全てLinux OS搭載のコンピュータ，Raspberry Piを用いて行う．センサボードはNAVIO2を搭載しており，加速度センサ及び角速度センサの機能を有している．UWBモジュールはSPI通信でArduino Pro Miniと通信しており，4つのアンカから集めた距離データを集約しUART通信でRaspberry Piに送っている．距離センサの値は$\textrm{I}^2\textrm{C}$通信を用いてRaspberry Piに送っている．先行研究においては，推定した自己位置や姿勢を基に姿勢角を制御する際，フライトコントローラとしてRaspberry Piを用い，Integral Backstepping制御を適用することでクアッドロータの位置制御を行っていた．しかし，その制御方法では姿勢角制御のループ周波数が遅く，位置制御が振動的になり目標の位置にクアッドロータを収束させることが不可能であった．そこで，本研究ではその姿勢角制御の遅さを補うため，推定値の演算を行うコンピュータとクアッドロータの姿勢角制御を行うコンピュータを分離させた．推定値の演算や位置の偏差から目標姿勢角を計算することなどは従来通りRaspberry Piを用いて行うが，姿勢角制御はmRobotics社が製作しているPixracerと呼ばれるフライトコントローラを用いて行うように仕様を変更した．Fig. \ref{pixracer}にPixracerの外観を示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/pixracer.png}
+\caption{Appearance of Pixracer}
+\label{pixracer}
+\end{center}
+\end{figure}
+
+\noindent
+このボードは6個のPWM出力ピンを備えており，重量も約11 gと軽量のため，小型の航空機や地上機などのコントローラとして採用されることが多い．加速度センサ，角速度センサ，地磁気センサ，気圧センサといった各種センサやWi-Fiモジュールも搭載されるため，汎用性が高いコントローラでもある．また，GPSも搭載されており，GPS環境下であればオートフライトも可能である．本研究にてこのコントローラを採用した理由は非常に小型・軽量であるため，従来のクアッドロータに追加で搭載した場合にも，大きな改良を施さなくて良い点やファームウェアやプログラムがオープンソースなため，自身で内部の仕様を変更可能であることなどが理由である．また，何よりも大きな利点は高速なCPUを搭載し，完成度の高い姿勢角制御のアルゴリズムが使用可能なため，自身で構築した姿勢角制御アルゴリズムよりも精度良くクアッドロータの姿勢角を制御可能なことである．Fig. \ref{system}に示すようにフライトコントローラはUSBを介してRaspberry Piと接続されており，Raspberry Piが計算した目標姿勢角をフライトコントローラに送ることで，クアッドロータを目標姿勢に追従させることが可能である．Fig. \ref{system_core_design}に位置制御のブロック線図を示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/system_core_design.png}
+\caption{Block diagran of positon control system}
+\label{system_core_design}
+\end{center}
+\end{figure}
+
+\noindent
+手順としてはまず，UWBモジュールのタグと各アンカとの距離($d_1- d_4$)，距離センサから得た地面との距離($d_h$)，センサボードから得た加速度($a_x, a_y, a_z$)，角速度値($\omega_x, \omega_y, \omega_z$)をミキシングし，拡張カルマンフィルタを適用することで位置($x, y, z$)，速度($v_x, v_y, v_z$)，姿勢角($\phi, \theta, \psi$)を推定する．そして，目標座標と現在座標の偏差をPID制御器に通すことで目標姿勢角（$\phi_d, \theta_d, \psi_d$）を求める．そしてそれをフライトコントローラへ送信可能なサーボ信号(Ch1-Ch4)へと変換し，フライトコントローラへ送ることでクアッドロータの姿勢角及びスラストが制御され，目標位置へと機体が移動するという流れである．
+
+次に拡張カルマンフィルタを用いてクアッドロータの位置を推定する方法について述べる．まず，姿勢角や位置を推定するのに拡張カルマンフィルタを用いる理由について述べる．初めに姿勢角についてであるが，姿勢角はカルマンフィルタの状態方程式側にて角速度センサの値を積分して角度に変換する．そして，積分した際，角速度センサに乗ったノイズまで積分することになるため，角度が時間とともにドリフトしてしまう．また，観測方程式側では加速度センサから得られる値よりヨー角以外の姿勢角を直接計算できる．その際，積分を行わないためドリフトをすることはないが，クアッドロータが並進移動した際に余計な加速度がかかるため，正確な角度を計算できなくなってしまう．それら二種類のセンサの不利な点を補うのに今回のようなカルマンフィルタを用いた推定は有効である．次に位置推定についてであるが，位置推定の計算は状態方程式側では加速度センサの値を二回積分し，観測方程式側ではUWBモジュールを用いて求めた距離を用い，マルチラテレーションの手法にて位置を推定している．加速度センサからは数千Hzにて加速度を得られるため，位置推定値も変化に対する応答性が高いが，姿勢角を求めた際と同様に，積分した際にドリフトが生じてしまう．また，UWBを用いた推定では正確な絶対座標が得られるが，UWBモジュールの更新周波数が10 Hzと遅いため，クアッドロータが高速で運動した際には応答性の悪い推定になってしまう．
+
+
+
+それに伴いまず，マルチラテレーションの手法を用いてクアッドロータの三次元座標を推定する方法について説明する．マルチラテレーションとは座標が既知の3つ以上の固定局と移動局間の距離を求め，計算することで移動局の座標を求める手法のことである．身近な例では，複数個のGPS衛星とGPS移動局との距離よりモジュールの位置を割り出すのに使用される．位置を計算する手法は数多く存在し，[]や[]に詳しい解法が載っている．Fig. \ref{UWB_positioning2}にマルチラテレーションにおける模式図を示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/UWB_positioning2.png}
+\caption{Position relationship between Anchors and Tag}
+\label{UWB_positioning2}
+\end{center}
+\end{figure}
+
+タグ及びアンカの座標とモジュール間の距離の関係は次式により表せる．
+
+\begin{align} 
+\label{2-4-1}
+\left[
+    \begin{array}{c}
+      d_{1} \\
+      d_{2} \\
+      d_{3} \\
+      d_{4}
+    \end{array}
+\right]
+=
+\left[
+    \begin{array}{c}
+      \sqrt{(\hat{x}-x_{1})^{2}+(\hat{y}-y_{1})^{2}+(\hat{z}-z_{1})^{2}} \\
+      \sqrt{(\hat{x}-x_{2})^{2}+(\hat{y}-y_{2})^{2}+(\hat{z}-z_{2})^{2}} \\
+      \sqrt{(\hat{x}-x_{3})^{2}+(\hat{y}-y_{3})^{2}+(\hat{z}-z_{3})^{2}} \\
+      \sqrt{(\hat{x}-x_{4})^{2}+(\hat{y}-y_{4})^{2}+(\hat{z}-z_{4})^{2}} 
+    \end{array}
+\right]
+\end{align}\
+
+
+
+\noindent
+方程式(\ref{2-4-1})を$\hat{x}, \hat{y}, \hat{z}$について解くことによりタグの三次元位置座標を求めることが可能である．なお，この項は後に出てくる拡張カルマンフィルタの観測行列の一部である．次に拡張カルマンフィルタにおける状態方程式を見ていく．機体の速度ベクトル$\textbf{v}_\textbf{r} = [v_x, v_y, v_z]^T$と機体の位置ベクトル$\textbf{p}_\textbf{r} = [x_r, y_y, z_r]^T$ の関係は次式で表せる．
+
+\begin{align}
+\label{2-4-2}
+\frac{d}{dt}\textbf{p}_\textbf{r}=\textbf{v}_\textbf{r}
+\end{align}
+
+\noindent
+速度ベクトルの時間微分$\frac{d}{dt} \bf{v_r}$は加速度センサより得られるセンサ値と回転行列$\textbf{R}$を用いて次式で表せる．
+
+
+\begin{align}
+\label{2-4-3}
+\frac{d}{dt}\textbf{v}_\textbf{r} = \textbf{R}\textbf{a}_\textbf{b} - \textbf{g}_\textbf{r}
+\end{align}
+
+\noindent
+ここで，ワールド座標系において重力は$z$軸負方向に重力加速度: $g$分だけ作用するため，$\textbf{g}_\textbf{r}$は$\textbf{g}_\textbf{r} = [0, 0, -g]^T$と定義できる．また，Fig. \ref{quad_fig}におけるr-frameとb-frame間の回転行列$\textbf{R}_\textbf{r}^\textbf{b}$は次式で定義される．
+
+\begin{align}
+\label{2-4-4}
+\begin{split}
+\textbf{R}_\textbf{r}^\textbf{b}(\phi,\theta,\psi)
+&=
+\left[
+    \begin{array}{ccc}
+      1 & 0 & 0\\
+      0 & \cos\phi & \sin\phi \\
+      0 & -\sin\phi & \cos\phi
+    \end{array}
+\right]
+\left[
+    \begin{array}{ccc}
+      \cos\theta & 0 & -\sin\theta\\
+      0 & 1 & 0 \\
+      \sin\theta & 0 & \cos\theta
+    \end{array}
+\right]
+\left[
+    \begin{array}{ccc}
+      \cos\psi & \sin\psi & 0\\
+      -\sin\psi & \cos\psi & 0 \\
+      0 & 0 & 1
+    \end{array}
+\right]
+\\
+&=
+\left[
+    \begin{array}{ccc}
+      \cos\theta\cos\psi & \cos\theta\sin\psi & -\sin\theta\\
+      \sin\phi\sin\theta\cos\psi & \sin\phi\sin\theta\sin\psi+\cos\phi\cos\psi & \sin\phi\cos\theta \\
+      \cos\phi\sin\theta\cos\psi & \cos\phi\sin\theta\sin\psi-\sin\phi\cos\psi & \cos\phi\cos\theta
+    \end{array}
+\right]
+\end{split}
+\end{align}
+
+\noindent
+そしてオイラー角$\Theta = [\phi, \theta, \psi]^T$の時間微分と角速度センサより得られる機体角速度$\boldmath{\omega} = [p, q, r]^T$の関係は次式で表せる．
+
+
+\begin{align}
+\label{2-4-5}
+\frac{d}{dt}\Theta = \textbf{W} \omega
+\end{align}\
+
+
+なお，$\textbf{W}$は[]より
+
+\begin{align}
+\label{2-4-6}
+\textbf{W}=
+\left[
+    \begin{array}{ccc}
+      1 & \sin\phi\tan\theta & \cos\phi\tan\theta\\
+      0 & \cos\phi & -\sin\phi \\
+      0 & \sin\phi /\cos\theta & \cos\phi / \cos\theta
+    \end{array}
+\right]
+\end{align}\
+
+\noindent
+である．状態ベクトルを$\textbf{x} = [\Theta, p_r, v_r]^T$と定義し，式(\ref{2-4-2})(\ref{2-4-3})(\ref{2-4-5})をまとめると次のようになる．
+
+\begin{align}
+\label{2-4-7}
+\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))
+\end{align}\
+
+\noindent
+ただし$\textbf{f}(\cdot)$は
+
+
+\begin{align} 
+\label{2-4-8}
+\textbf{f}(\textbf{x}(t))
+=
+\left[
+    \begin{array}{c}
+      \textbf{W}\omega \\
+      \textbf{v}_\textbf{r} \\
+      \textbf{R}\textbf{a}_\textbf{b} - \textbf{g}_\textbf{r} 
+    \end{array}
+\right]
+\end{align}
+
+\noindent
+角速度センサ及び加速度センサから得られる出力値に含まれる観測ノイズ$\delta\omega=[\delta p,\delta q, \delta r]^{T}$及び$\delta \textbf{a}_\textbf{b}=[\delta a_{x},\delta a_{y}, \delta a_{z}]^{T}$を考慮すると式(\ref{2-4-7})は次式のようになる．
+
+\begin{align}
+\label{2-4-9}
+\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))+\textbf{B}\textbf{v}
+\end{align}
+
+\noindent
+ただし，$\textbf{B},\textbf{v}$はそれぞれ
+
+
+\begin{align} 
+\label{2-4-10}
+\textbf{B}
+=
+\left[
+    \begin{array}{ccc}
+      \textbf{0}_{3\times 3}&\textbf{0}_{3\times 3}&\textbf{I}_{3\times 3} \\
+      \textbf{I}_{3\times 3}&\textbf{0}_{3\times 3}&\textbf{I}_{3\times 3}
+    \end{array}
+\right]^{T},
+\textbf{v}=[\delta p,\delta q, \delta r,\delta a_{x},\delta a_{y}, \delta a_{z}]^{T}
+\end{align}\
+
+\noindent
+さらにオイラー法を用いて式(\ref{2-4-9})を離散化すると
+
+\begin{align}
+\textbf{x}(t+1)=\textbf{f}_{t}(\textbf{x}(t))+\textbf{B}_{t}\textbf{v}
+\end{align}\
+
+\noindent
+ただし
+
+\begin{align}
+\textbf{f}_{t}(\textbf{x}(t))=\textbf{x}(t)+\textbf{f}(\textbf{x}(t))\Delta t,\textbf{B}_{t}=\textbf{B}\Delta t
+\end{align}\
+
+\noindent
+ここで$\Delta t$はサンプリング周期である．
+
+次に観測方程式について見ていく．観測項はUWBモジュールから得られる距離データ，加速度センサデータ，角速度センサデータ，距離センサデータ及びフライトコントローラであるPixracerが推定したヨー角($\psi$)を観測値としてそれぞれ採用した．
+
+
+
+
+
+
+
+
+
 
 
 

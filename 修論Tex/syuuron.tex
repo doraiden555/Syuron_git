@@ -1198,7 +1198,7 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
 
 
 \subsection{ステレオカメラを用いた位置測定システム}
-クアッドロータの位置を制御した場合，位置が精度良く制御できているかを確認するため，それの指標として位置の真値が必要である．飛行体や地上移動機に関わらず，移動型のロボットの真値を計測するにはFig. \ref{VICON}に示すVICON[]などといったモーションキャプチャのシステムを用いるのが多い．しかし，こういったシステムは機材だけで数百万円の価格であり，設置費を含むと数千万円に昇ることもこともある．また，Fig. \ref{VICON_room}のように一度室内に環境構築を行うと，システムを他の部屋に移動させることが困難である．したがって，価格がVICONよりも安価であり，必要に応じてシステムを移動させられることなどの利点があることから本論文ではステレオカメラを用いた位置の計測システムを構築した．Fig. \ref{camera_with_chess}に環境構築したステレオカメラシステムを示す．
+クアッドロータの位置を制御した場合，位置が精度良く制御できているかを確認するため，それの指標として位置の真値が必要である．飛行体や地上移動機に関わらず，移動型のロボットの真値を計測するにはFig. \ref{VICON}に示すVICON[]などといったモーションキャプチャのシステムを用いるのが多い．しかし，こういったシステムは機材だけで数百万円の価格であり，設置費を含むと数千万円に上ることもある．また，Fig. \ref{VICON_room}のように一度室内に環境構築を行うと，システムを他の部屋に移動させることが困難である．したがって，価格がVICONよりも安価であり，必要に応じてシステムを移動させられることなどの利点があることから本論文ではステレオカメラを用いた位置の計測システムを構築した．Fig. \ref{camera_with_chess}に環境構築したステレオカメラシステムを示す．
 
 \begin{figure}[H]
   \begin{center}
@@ -1233,8 +1233,139 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
 \end{center}
 \end{figure}
 
+\noindent
+システムの大まかな構成は二台の高速度カメラからなるステレオカメラとデスクトップPCである．使用したカメラはPoint Grey社（現FLIR社）製のGrasshopper3(GS3-U3-32S4C-C)である．Fig. \ref{high-speed_camera}に外観を示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=50mm]{./Fig2/high-speed_camera.jpg}
+\caption{High-speed camera(GS3-U3-32S4C-C)}
+\label{high-speed_camera}
+\end{center}
+\end{figure}
+
+\noindent
+そして詳細な仕様をTable \ref{high-speed_camera_tab}に示す．
+
+\begin{table}[H]
+ \caption{High-speed camera specifications.}
+ \label{high-speed_camera_tab}
+ \begin{center}
+  \begin{tabular}{|c||c|}
+   \hline
+   Maximum resolution (H$\times$V)[pixel]& 2048$\times$1536 \\ 
+   \hline
+   Maximum frame rate [fps]& 121 \\
+   \hline
+   Image sensor& Sony IMX252 \\
+   \hline
+   Sensor type& CMOS \\
+   \hline
+   Shutter type&Global shutter\\
+   \hline
+   Interface & USB3.1 Gen 1 \\
+   \hline
+   Weight [g] & 90 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\noindent
+そして画像保存に使用したデスクトップPCの仕様をTable \ref{PC_tab}に示す．
+
+\begin{table}[H]
+ \caption{High-speed camera specifications.}
+ \label{PC_tab}
+ \begin{center}
+  \begin{tabular}{|c||c|}
+   \hline
+   CPU & intel Core i7 \\ 
+   \hline
+   Motherboard & ASUS Z270F GAMING \\
+   \hline
+   Graphic & GTX1050Ti \\
+   \hline
+   RAM [GB] & 64 (DDR4) \\
+   \hline
+   OS & Windows 10 $\times$64  \\
+   \hline
+   Storage　[GB] & 256 (SSD) $+$ 2000 (HDD)  \\
+   \hline
+   Software & FlyCapture2  \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\noindent
+Table \ref{high-speed_camera_tab}からわかるように，カメラの性能を最大限引き出した際の仕様は，解像度が2048$\times$1536とフルHDを超える解像度であり，フレームレートも100 fpsを上回る121 fpsにて画像または動画を撮影可能である．しかし，Table \ref{PC_tab}に示すPCを用いてもカメラ2台を用いた状態で，1024$\times$768の解像度，100 fpsが限界であった．したがって本システムではこの環境で出せる最高解像度，最高fpsのこの設定で画像を撮影した．なお，撮影した画像のフォーマットは圧縮率75\%のJPEGである．画像計測を用いた位置や角度の検出では撮影された画像中のマーカーを追跡することによりそれを実現する．VICONでは移動物体に取り付けられた反射マーカーに赤外線を照射することで反射した光の重心を求めることで位置や角度を検出する．本システムでは赤外線を照射しないため，それ自体が赤外光を放出する赤外線LEDをクアッドロータの位置検出用のマーカーとして採用した．Fig. \ref{LED_with_quad1}，Fig. \ref{LED_with_quad2}に二種類のクアッドロータに取り付けられた赤外線LEDを示す．
 
 
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{c}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+         \includegraphics[height=50mm]{./Fig2/LED_with_quad1.png}
+	  \caption{Old quad rotor with infrared LED}
+        \label{LED_with_quad1}
+        \end{center}
+      \end{minipage}
+
+      \begin{minipage}{0.5\hsize}
+        \begin{center}
+          \includegraphics[height=50mm]{./Fig2/LED_with_quad2.png}
+          \caption{New quad rotor with infrared LED}
+          \label{LED_with_quad2}
+        \end{center}
+      \end{minipage}
+
+    \end{tabular}
+  \end{center}
+\end{figure}
+
+
+\noindent
+先行研究から使われてきたクアッドロータ（Fig. \ref{LED_with_quad1}）には2台のカメラ間で同期が取れるようにリレーが取り付けられている．メインコンピュータであるRaspberry Piから信号を送ることでLEDの点灯を制御可能なため，光ったタイミングを検出することで2台のカメラのマーカー検出タイミングを揃えることができる．先行研究においてはこの方法でカメラ間同期を取っていた．そして，新しく本論文にて新しく開発したクアッドロータは同期用のリレーが付いていない．これの理由について説明する．今回用いた高速度カメラにはPCへのデータ送信用のコネクタ以外に外部へ信号を送ることや受け取ることが可能なコネクタが備わっている．これを用い，片方のプライマリカメラからもう片方のセカンダリカメラへと同期用の信号を送り，その信号をトリガにしてセカンダリカメラは撮影を開始できるため，2台間の同期が取れた状態で画像を撮影可能である．本論文では新たにこの同期方法を採用したため，Fig. \ref{LED_wiith_quad2}のクアッドロータにはリレーが備わっていない．クアッドロータに搭載したLEDマーカーの光はカメラで撮影可能であるが，画像中でLEDの光のみを浮き上がらせて検出が容易になるようカメラにはFig. \ref{}に示す赤外線透過フィルタ（IR-80）を装着してある．
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=50mm]{./Fig2/infrared_filter.jpg}
+\caption{Infrared longpass filter}
+\label{infrared_filter}
+\end{center}
+\end{figure}
+
+
+
+\noindent
+赤外線LEDを光らせた状態でこのレンズにより撮影した画像を次に示す．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=50mm]{./Fig2/high-speed_image.png}
+\caption{Image taken of glowing infrared LED through filter}
+\label{high-speed_image}
+\end{center}
+\end{figure}
+
+\noindent
+フィルタを通すことにより，LEDの光のみを浮き上がらせられているのがわかる．次にステレオカメラを用いた位置計測のアルゴリズムについて簡単に説明する．ここで説明する手法は[]や[]に詳しい．Fig. \ref{stereo_camera}に示すように左右に並んだ2台のカメラで同じ対象物を撮影したとする．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/stereo_camera.png}
+\caption{Definition of stereo camera coordinates}
+\label{stereo_camera}
+\end{center}
+\end{figure}
+
+\noindent
 
 
 

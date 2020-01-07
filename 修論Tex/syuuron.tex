@@ -1167,6 +1167,167 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{位置制御用クアッドロータの開発}
+2.4章で示したクアッドロータは先行研究から利用されてきたものであり，本研究から新たにフライトコントローラ（Pixracer）やオプティカルフローセンサを搭載するに当たって積載物の重量がかさみ，推力不足が懸念された．そして，クアッドロータの推力に余裕が生まれると，機体の応答性が向上し，位置制御の精度が高くなると考えた．そこで，推力の高い新たなクアッドロータのシステムを構築した．その新たに構築したクアッドロータをFig. \ref{quad-rotor2_front}，Fig. \ref{quad-rotor2_back}に示す．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=85mm]{./Fig2/quad-rotor2_front.png}
+\caption{Front side of quad-rotor}
+\label{quad-rotor2_front}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=70mm]{./Fig2/quad-rotor2_back.png}
+\caption{Back side 0f quad-rotor}
+\label{quad-rotor2_back}
+\end{center}
+\end{figure}
+
+\noindent
+図からわかるようにクアッドロータ上面にマイコンやメインコンピュータであるRaspberry Piを配置し，下面にフライトコントローラやオプティカルフローセンサボードを配置した．先行研究から使用してきたクアッドロータの場合にはフライトコントローラを上面に配置していたために重心が上がってしまい，不安定であった．したがって新たに構築したこのクアッドロータは下側にコントローラを配置し，重心が上がらないように配慮した．そして，次の表に詳細な仕様を示す．
+
+
+\begin{table}[H]
+ \caption{Quad-rotor specifications.}
+ \label{Quad-rotor specifications}
+ \begin{center}
+  \begin{tabular}{|c||c|}
+   \hline
+   Total weight [kg] & 1.05 \\ 
+   \hline
+   Height [mm]& 250? \\
+   \hline
+   Width [mm]& 436 \\
+   \hline
+   Depth [mm]& 436 \\
+   \hline
+   Propeller size [inch] & 8$\times$4.5\\
+   \hline
+   Maximum flight time [min]& 10 \\
+   \hline
+    KV value [rpm/V]&  920\\
+   \hline
+   Buttery capacity[mAh]& 2650 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\noindent
+モータやバッテリなど飛行に必要な部品以外に追加で数百gほど搭載可能なスラストが出せるように部品選定を行った．モータの電圧やプロペラの種類にもよるが，最高で約200 gの追加スラストを生み出すことが可能な設計である．また，総飛行時間は約10分であるが，高いパフォーマンス状態で飛行可能な時間は約5分である．
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{位置推定アルゴリズムの精度評価}
+この章では前章にて説明した位置推定アルゴリズムを用いクアッドロータの位置を推定し，その精度の評価を行う．まず位置推定実験に使用した環境を次の図に示す．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/experiment_field.png}
+\caption{Laboratory used for position estimation and position control experiments}
+\label{experiment_field}
+\end{center}
+\end{figure}
+
+\noindent
+クアッドロータの位置を推定する領域を取り囲むように4つのUWBアンカを設置した．アンカは次の図に示すようにカメラ用の三脚の頂点に固定した．
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/anchor_zoom.png}
+\caption{Laboratory used for position estimation and position control experiments}
+\label{experiment_field}
+\end{center}
+\end{figure}
+
+\noindent
+また，アンカを設置した絶対座標を次の表に示す．
+
+\begin{table}[H]
+ \caption{Sensor values and moving distance}
+ \label{Sensor_Value_and_Moved_Distance}
+ \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+   \hline
+    & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
+   \hline\hline
+   Anchor1 &  -5.460 & 2.698 & 1.763\\
+   \hline 
+   Anchor2 &  5.460 & 2.698 & 1.763\\
+   \hline
+   Anchor3 &  5.460 & -2.698 & 1.763\\
+   \hline
+   Anchor4 &  -5.460 & -2.698 & 1.763\\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/position_verification_2_copy.png}
+\caption{Laboratory used for position estimation and position control experiments}
+\label{experiment_field}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=60mm]{./Fig2/anchor_zoom.png}
+\caption{Laboratory used for position estimation and position control experiments}
+\label{experiment_field}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{table}[H]
+ \caption{Sensor values and moving distance}
+ \label{Sensor_Value_and_Moved_Distance}
+ \begin{center}
+  \begin{tabular}{|c|c|c|}
+   \hline
+    & $x$ position [m] & $y$ position [m] \\
+   \hline\hline
+   Point0 (Origin) &  0.00 & 0.00 \\
+   \hline 
+   Point1           &  4.00 & 0.00 \\
+   \hline
+   Point2           &  4.00 & -3.00 \\
+   \hline
+   Point3           &  0.00 & -3.00 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+
+
+
+
+
 
 
 
@@ -1355,2179 +1516,116 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
 \end{figure}
 
 \noindent
-フィルタを通すことにより，LEDの光のみを浮き上がらせられているのがわかる．次にステレオカメラを用いた位置計測のアルゴリズムについて簡単に説明する．ここで説明する手法は[]や[]に詳しい．Fig. \ref{stereo_camera}に示すように左右に並んだ2台のカメラで同じ対象物を撮影したとする．
+フィルタを通すことにより，LEDの光のみを浮き上がらせられているのがわかる．次にステレオカメラを用いた位置計測のアルゴリズムについて簡単に説明する．ここで説明する手法は[]や[]に詳しい方法が載っている．Fig. \ref{stereo_camera}に示すように左右に並んだ2台のカメラで同じ対象物を撮影したとする．
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=80mm]{./Fig2/stereo_camera.png}
+\includegraphics[height=90mm]{./Fig2/stereo_camera.png}
 \caption{Definition of stereo camera coordinates}
 \label{stereo_camera}
 \end{center}
 \end{figure}
 
 \noindent
+ここでは2台のカメラの画像平面が同一平面上にあり，光軸が平行であり，同じ焦点距離$f$を持つとする．また，カメラの中心間距離を$L$とする．その位置にカメラを設置した状態で同じ対象物を撮影すると，左側のカメラでは$x_l$，右側のカメラでは$x_r$の座標の画像平面にそれぞれ画像が投影される．この座標の差$d$が視差と呼ばれ，
 
-
-
-クアッドロータの3次元空間における運動を評価する際，クアッドロータの位置を精度よく測定する必要がある．そこで高速度カメラを2つ用いたステレオカメラによる位置測定システムを開発した．Fig. 28に開発したステレオカメラシステムを示す．ステレオカメラシステムは2つの高速度カメラとカメラで撮影した動画を記録するPCで構成されている．高速度カメラはPoint Grey社のGtasshoppper3(GS3-U3-32S4C-C)を使用した．使用した高速度カメラをFig. 29に示す．また詳細な仕様をTable 6に示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Overview_of_the_stereo_camera_system.png}
-\caption{Overview of the stereo camera system.}
-\label{Overview_of_the_stereo_camera_system}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=35mm]{./Fig/High-speed_camera_(GS3-U3-32S4C-C).png}
-\caption{High-speed camera (GS3-U3-32S4C-C).}
-\label{High-speed_camera_(GS3-U3-32S4C-C)}
-\end{center}
-\end{figure}
-
-\begin{table}[H]
- \caption{High-speed camera specifications.}
- \label{Quad-rotor  specifications}
- \begin{center}
-  \begin{tabular}{|c||c|}
-   \hline
-   Maximum resolution & 2048$\times$4536 \\ 
-   \hline
-   Maximum frame rate [fps]& 121 \\
-   \hline
-   Image sensor& Sony IMX252 \\
-   \hline
-   Sensor type& CMOS \\
-   \hline
-   Shutter type&Global shutter\\
-   \hline
-   Angle of view [deg]& 60 \\
-   \hline
-   Interface & USB3.1 Gen 1 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-\noindent
-Grasshopper3は最大解像度2048$\times$1536，最大フレームレートが121 fpsであるが，今回はPCへの転送速度を考慮し解像度は1024$\times$768，フレームレートは100 fpsで撮影を行う．またGtasshoppper3のインターフェースはUSB3.1で動画記録用PCと接続されている．
-
-今回開発したステレオカメラシステムのために赤外線LEDを搭載したマーカーを製作した．Fig. 30に製作したマーカーを示す．このマーカーを赤外線透過フィルタを通して撮影すると，Fig. 31のようになりマーカー位置を特定しやすくなる．マーカーは小型でありクアッドロータに搭載することができるため，クアッドロータの飛行中における位置の計測が可能になる．またLEDの点灯はリレーにより制御できるため，点灯のタイミングを合わせることで計測データの同期をとることができる．
-
-\begin{figure}[htbp]
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \includegraphics[width=60mm]{./Fig/Infrared_LED_marker.png}
-  \end{center}
-  \caption{Infrared LED marker.}
-  \label{Infrared_LED_marker}
- \end{minipage}
- \begin{minipage}{0.5\hsize}
-  \begin{center}
-   \includegraphics[width=60mm]{./Fig/Image_obtained_by_photographing_infrared_LED_marker_through_infrared_longpss_filter.png}
-  \end{center}
-  \caption{Image obtained by photographing infrared LED marker through infrared longpass filter.}
-  \label{Image_obtained_by_photographing_infrared_LED_marker_through_infrared_longpss_filter}
- \end{minipage}
-\end{figure}
-
-\noindent
-また赤外線透過フィルタは富士フィルムのIRフィルター(IR-80)を使用した(Fig. 32)
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Infrared_longpass_filter_(IR-80).png}
-\caption{Infrared longpass filter (IR-80).}
-\label{Infrared_longpass_filter_(IR-80)}
-\end{center}
-\end{figure}
-
-\newpage
-
-\subsection{ステレオカメラの原理}
-ステレオカメラによる位置測定システムのため，カメラを数式モデルで表現する．今回カメラモデルとして最も単純なカメラモデルであるピンホールカメラモデルを採用する\cite{k}．ピンホールカメラモデルをFig. 33に示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Pinhole_camera_model.png}
-\caption{Pinhole camera model.}
-\label{Pinhole_camera_model}
-\end{center}
-\end{figure}
-
-\noindent
-理想的なピンホールカメラではピンホールから画像平面までの距離は焦点距離と完全に一致する．$f$はカメラの焦点距離，$z$はカメラから対象物までの距離，$T$は物体の長さ，$t$は画像平面上での対象物の長さを示す．三角形の相似より$T$と$t$の関係は次式で示される．
 
 \begin{align}
--t=f\frac{T}{Z}
-\end{align}\
-
-ここで計算をより簡単にするためにFig. 34に示すようにピンホール平面と画像平面の位置を入れ替える．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Mathmatically_equivalent_camera_model.png}
-\caption{Mathematically equivalent camera model.}
-\label{Mathmatically_equivalent_camera_model}
-\end{center}
-\end{figure}
-
-\noindent
-このカメラモデルでは物理世界にある点$Q=(X,Y,Z)$が画像平面上のピクセル座標$(x,y)$に投影される．その時点$Q$と点$q$の関係は次式で表される．
-
-\begin{align}
-x=f_{x}(\frac{X}{Z})+c_{x},y=f_{x}(\frac{Y}{Z})+c_{y}
-\end{align}\
-
-ここでは$c_{x},c{y}$ [pixel]を導入し画像平面の中心と光軸のずれ量を表す．また2つの異なる焦点距離$f_{x},f_{y}$ [pixel]を導入している．その理由は画像素子の各ピクセルは正確な正方形ではなく実際は長方形だからである．焦点距離$f_{x},f_{y}$はレンズの物理的な焦点距離$F$ [mm]と各受光素子の大きさ$s_{x},s_{y}$ [pixel/mm]の積となる．カメラ単体のキャリブレーションにおいて測定できるのは$c_{x},c_{y},f_{x},f_{y}$の4つのパラメータであり，$F$や$s_{x},s_{y}$は直接的に観測できない．また，この4つのパラメータのことを内部パラメータと呼ぶ．
-次にレンズ歪みを数式モデルで表す．現実世界のカメラのレンズは完璧ではなくレンズ歪みが発生してしまう．レンズ歪みは主に2つに分けられ，レンズの形状に起因する半径方向歪みとカメラの組み立ての不具合に起因する円周方向歪みに分けられる．円周方向歪みの場合，画像素子の中心において歪みは0であり，中心から離れるにつれ，歪みが大きくなる．したがって半径方向歪みは3つのパラメータ$k_{1},k_{2},k_{3}$を用いて次式のように表される．
-
-\begin{align}
-x_{corrected}=x(1+k_{1}r^{2}+k_{2}r^{4}+k_{3}r^{6})
-\end{align}
-\begin{align}
-y_{corrected}=y(1+k_{1}r^{2}+k_{2}r^{4}+k_{3}r^{6})
-\end{align}\
-
-\noindent
-ここで$(x,y)$は画像平面における歪みを補正する前のもとの位置であり，$(x_{correted},y_{corrected})$は補正の結果得られる補正後の位置である．円周方向歪みはレンズが画像平面に対して完全に平行に取り付けられていないことが原因で起こる．そして2つのパラメータ$p_{1},p_{2}$を用いて次式のように表すことができる．
-
-\begin{align}
-x_{corrected}=x+(2p_{1}xy+p_{2}(r^{2}+2x^{2}))
-\end{align}
-\begin{align}
-y_{corrected}=y+(p_{1}(r^{2}+2y^{2})+2p_{2}xy)
-\end{align}\
-
-\noindent
-以上からカメラを数式モデルで扱う際には4つの内部パラメータ($c_{x},c_{y},f_{x},f_{y}$)と5つの歪みパラメータ($k_{1},k_{2},k_{3},p_{1},p_{2}$)が必要になる．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Difinition_of_stereo_camera_corrdinates.png}
-\caption{Definition of stereo camera coordinates.}
-\label{Difinition_of_stereo_camera_corrdinates}
-\end{center}
-\end{figure}
-
-最後にステレオカメラを用いた位置推定方法の原理を説明する．まず2つのカメラをFig. 35に示すように配置する．ここで2つのカメラの画像平面が同一平面上にあり，光軸が平行であり，同じ焦点距離$f$を持つとする．今回左側のカメラの光学中心がカメラ座標の原点となるように配置した．Fig. 35のように2つのカメラで同じ点を観測した時$x$方向における視差は$d=x_{l}-x_{r}$で定義される．視差$d$を用いると三角形の相似より以下の式が求まる．
-
-\begin{align}
-\frac{L-d}{z_{q}-f}=\frac{L-(x_{l}-x_{r})}{z_{q}-f}=\frac{L}{z_{q}}
-\end{align}\
-
-\noindent
-この式を変形すると
-
-\begin{align}
-z_{q}=\frac{fL}{x_{l}-x_{r}}
-\end{align}\
-
-\noindent
-となり，点Qの$z$座標が求まる．これを$x_{q},y_{q}$についても同じように求めると
-
-\begin{align}
-x_{q}=\frac{x_{l}L}{x_{l}-x_{r}},y_{q}=\frac{y_{l}L}{x_{l}-x_{r}}=\frac{y_{r}L}{x_{l}-x_{r}}
-\end{align}\
-
-\noindent
-となる．以上より式(53)と式(54)から点Qの位置$(X,Y,Z)$を求めることができる．
-
-しかし実際に2つのカメラの画像平面を正確に同一平面上に置き，光軸を正確に平行にすることは困難である．そこで2つのカメラを用いてキャリブレーションを行い，2つのカメラの相対的な位置関係を示す並進ベクトルと回転行列を求め，そしてその並進ベクトルと回転行列を用いて画像処理を行い2つのカメラの平行化を行う．画像処理により平行化を行うことで式(53)と式(54)の関係が成り立つため，任意の点の位置を推定することができる．
-
-
-\subsection{ステレオカメラのキャリブレーション}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Chessboard.png}
-\caption{Chessboard.}
-\label{Chessboard}
-\end{center}
-\end{figure}
-
-
-Fig. 36に示すようなチェスボードを用いてステレオカメラのキャリブレーションを行った．チェスボードの正方形の一辺の長さは33.0 mmである．そしてこのチェスボードを様々な向きに回転させステレオカメラで撮影を行った．実際にキャリブレーションに使用した15組の画像をFig. 37とFig. 38に示す．このキャリブレーションにより，左右のカメラの内部パラメータと外部パラメータ．及び左右のカメラの位置関係を示す並進ベクトル$\textbf{T}_{stereo}$と回転行列$\textbf{R}_{stereo}$を求めることができる．式(55)～(58)に算出した左右のカメラの内部パラメータと歪みパラメータを示す．
-
-\begin{align}
-[c_{x},c_{y},f_{x},f_{y}]_{left}=[521.5,413.3,1157.7,1161.9]
-\end{align}\
-
-\begin{align}
-[c_{x},c_{y},f_{x},f_{y}]_{right}=[505.8,398.3,1168.4,1170.4]
-\end{align}\
-
-\begin{align}
-[k_{1},k_{2},k_{3},p_{1},p_{1}]_{left}=[-0.317,1.099,0.003,0.003,0.000]
-\end{align}\
-
-\begin{align}
-[k_{1},k_{2},k_{3},p_{1},p_{1}]_{right}=[-0.189,0.143,-0.000,-0.005,0.000]
-\end{align}\
-
-\noindent
-また式(59)と式(60)に並進ベクトル$\textbf{T}_{stereo}$と回転行列$\textbf{R}_{stereo}$を示す．
-
-\begin{align}
-\textbf{T}_{stereo}=
-\left[
-    \begin{array}{c}
-     679.91 \\
-      3.10 \\
-      28.04 
-    \end{array}
-\right]
-\end{align}\
-
-\begin{align}
-\textbf{R}_{stereo}=
-\left[
-    \begin{array}{ccc}
-      1.000  & 0.000  & 0.028\\
-      0.000  & 1.000  & -0.003\\
-      -0.028 & 0.003 & 1.000
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-キャリブレーションで得られたステレオカメラのパラメータをもとにマーカー位置の測定を行っていく．
-
-\newpage
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=190mm]{./Fig/Stereo_camera_calibration_(left).png}
-\caption{Stereo camera calibration (left).}
-\label{Stereo_camera_calibration_(left)}
-\end{center}
-\end{figure}
-\newpage
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=190mm]{./Fig/Stereo_camera_calibration_(right).png}
-\caption{Stereo camera calibration (right).}
-\label{Stereo_camera_calibration_(right)}
-\end{center}
-\end{figure}
-\newpage
-
-\subsection{ステレオカメラの測定範囲の設定}
-ステレオカメラにおいて，計測精度は画像中の一画素が実際にどのくらいの長さに対応するかで決まる．つまり，レンズ・カメラの解像度・撮影距離・カメラ間距離によって精度は変化する．ステレオカメラにおける奥行き誤差$\delta z$を模式的に表したものをFig. 39に示す．
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Error_in_the_depth_direction_of_the_stereo_camera.png}
-\caption{Error in the depth direction of the stereo camera.}
-\label{Error_in_the_depth_direction_of_the_stereo_camera}
-\end{center}
-\end{figure}
-
-\noindent
-$\delta z$を数式で表すと幾何学的関係より次式のようになる．
-
-\begin{align}
-\delta z =\frac{L}{2\tan (\alpha - \beta)}-l
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-\alpha = \arctan\frac{L}{2l}
-\end{align}\
-
-\noindent
-である．奥行き方向の誤差が0.05 m以内になるように，式(61)に基づいてFig. 40に示すような計測範囲を設定した．
-
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Measurement_range_of_stereo_camera.png}
-\caption{Measurement range of stereo camera.}
-\label{Measurement_range_of_stereo_camera}
-\end{center}
-\end{figure}
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%% 姿勢制御システム %%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{姿勢制御システム}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Block_diagram_of_the_attitude_control_system.png}
-\caption{Block diagram of the attitude control system.}
-\label{Block_diagram_of_the_attitude_control_system}
-\end{center}
-\end{figure}
-
-Fig. 41に制御システムのブロック線図を示す．このブロック線図において姿勢角推定を拡張カルマンフィルタを使って行い，姿勢制御にIntegral Backstepping制御を用いる．姿勢角推定に関しては3軸加速度センサ，3軸ジャイロセンサ及び3軸地磁気センサを組み合わせ姿勢角の推定する．以下ではまず拡張カルマンフィルタを用いた姿勢角推定法について述べた後，Integral Backstepping制御を用いた姿勢制御法について述べる．
-
-\subsection{姿勢推定}
-
-\subsubsection{磁気センサのキャリブレーション}
-地磁気センサは地球の地磁気を検知するセンサである．一般的にロボットや携帯電話では地磁気により地球の地磁気を検知することで，方位を測定している．地磁気センサは主に2軸のものと3軸のものに分けられるが，今回は3軸の地磁気センサに焦点を当てる．
-地磁気センサを様々な方向に回転させるとx,y,z軸方向の地磁気データは式(63)で表される二次曲面を描くような形でプロットされる．
-
-\begin{align}
-ax^{2}+by^{2}+cz^{2}+2fyz+2gxz+2hxy+2px+2qy+2rz+d=0
-\end{align}\
-
-\noindent
-式(64)を行列式で表すと次のようになる．
-
-\begin{align}
-\textbf{x}^{T}\textbf{M}\textbf{x}+\textbf{x}^{T}\textbf{n}+d=0
+\label{}
+d = x_l - x_r 
 \end{align}
 
 \noindent
-ただし
+と表せる．そして，図において三角形の相似の関係を用いると
+
 
 \begin{align}
-\textbf{x}=
-\left[
-    \begin{array}{c}
-      x \\
-      y \\
-      z 
-    \end{array}
-\right],
-\textbf{M}=
-\left[
-    \begin{array}{ccc}
-      a & f & g\\
-      f & b & h \\
-      g & h & c
-    \end{array}
-\right],
-\textbf{n}=
-\left[
-    \begin{array}{c}
-      p \\
-      q \\
-      r 
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-周囲に磁気物体などがない理想的な場合$\textbf{M},\textbf{n},d$は
-
-\begin{align}
-\textbf{M}=
-\left[
-    \begin{array}{ccc}
-      1 & 0 & 0\\
-      0 & 1 & 0 \\
-      0 & 0 & 1
-    \end{array}
-\right],
-\textbf{n}=
-\left[
-    \begin{array}{c}
-      0 \\
-      0 \\
-      0 
-    \end{array}
-\right],
-d=F^{2}
-\end{align}\
-
-\noindent
-である．ここで$F$は地磁気の強度を表す．この時，式(63)は原点中心，半径$F$の球の方程式になる．
-しかし，現実世界ではセンサの測定誤差と周囲の磁性体の磁気干渉により，球の中心が原点からずれたり，球が歪み楕円体になったりする．それゆえ地磁気センサから得られたデータをそのまま用いて姿勢角を求めた際，正しい姿勢角を求めることができない．そこでセンサの測定誤差や磁気干渉をモデル化し，原点中心の球に変換するための変換式を求める必要がある\cite{l}．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Schematic_representation_of_each_instrumentation_error.png}
-\caption{Schematic representation of each instrumentation error.}
-\label{Schematic_representation_of_each_instrumentation_error}
-\end{center}
-\end{figure}
-
-まずセンサの測定誤差に関して説明する．測定誤差はセンサごとに異なり，一定である．そして測定誤差は各軸のスケール誤差（Fig. 42-(a)），センサ軸の非直交性（Fig. 42-(b)），オフセット（Fig. 42-(c)）の３つに起因する．
-各軸のスケール誤差は対角行列を用いて次のように表される．
-
-\begin{align}
-\textbf{S}=
-\left[
-    \begin{array}{ccc}
-      s_{x} & 0 & 0\\
-      0 & s_{y} & 0 \\
-      0 & 0 & s_{z}
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-センサ軸の非直交性は３次元の正規直交基底ベクトル$\textbf{n}_{x},\textbf{n}_{y},\textbf{n}_{z}$を用いて次のように表される．
-
-\begin{align}
-\textbf{S}=
-\left[
-    \begin{array}{ccc}
-      \textbf{n}_{x} & \textbf{n}_{y} & \textbf{n}_{z}\\
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-ここで式(68)の行列の各列は各センサ軸に対応する．最後にセンサーのオフセット量は次のように表される．
-
-\begin{align}
-\textbf{b}_{SO}=
-\left[
-    \begin{array}{ccc}
-    b_{SO_{x}} & b_{SO_{y}} & b_{SO_{z}}\\
-    \end{array}
-\right]^{T}
-\end{align}\
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Schematic_representation_of_each_magnetic_interference.png}
-\caption{Schematic representation of each magnetic interference.}
-\label{Schematic_representation_of_each_magnetic_interference}
-\end{center}
-\end{figure}
-
-次に磁気干渉について説明する．磁気干渉は，センサの周囲に存在する強磁性要素によって引き起こされ，永久磁石や磁化された鉄の残留磁気により地磁気にオフセットが生じたり(Fig. 43-(a), hard iron)，外部磁場と強磁性体の相互作用によって磁場の強度や方向が変化(Fig. 43-(b), soft iron)したりする．前者は
-
-\begin{align}
-\textbf{b}_{hi}=
-\left[
-    \begin{array}{ccc}
-    b_{hi_{x}} & b_{hi_{y}} & b_{hi_{z}}\\
-    \end{array}
-\right]^{T}
-\end{align}\
-
-\noindent
-で表され，後者は
-
-\begin{align}
-\textbf{S}=
-\left[
-    \begin{array}{ccc}
-      a_{11} & a_{12} & a_{13}\\
-      a_{21} & a_{22} & a_{23} \\
-      a_{31} & a_{32} & a_{33}
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-で表される．式(67)～(71)より，センサーから得られる磁場$\textbf{h}_{m}$は次のように表すことができる．
-
-\begin{align}
-\textbf{h}_{m}=\textbf{SN}(\textbf{A}_{si}\textbf{h}+\textbf{h}_{hi})+\textbf{b}_{SO}
-\end{align}\
-
-\noindent
-ただし$\textbf{h}$は測定誤差や磁気干渉が無い真の磁場ベクトルである．式(72)のそれぞれの係数を求めるのは困難なため，次式のように簡略化する．
-
-\begin{align}
-\textbf{h}_{m}=\textbf{A}_{h}\textbf{h}+\textbf{b}_{h}
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-\textbf{A}_{h}=\textbf{SN}\textbf{A}_{si},\textbf{b}_{h}=\textbf{SNb}_{hi}+\textbf{b}_{SO}
-\end{align}\
-
-\noindent
-である．また磁場ベクトル$\textbf{h}$について解くと
-
-\begin{align}
-\textbf{h}=\textbf{A}_{h}^{-1}(\textbf{h}_{m}-\textbf{b}_{h})
-\end{align}\
-
-\noindent
-となる．ここで$\textbf{h}$のノルムは地磁気の強度$F$であるから
-
-\begin{align}
-\textbf{h}^{T}\textbf{h}=F^{2}
-\end{align}\
-
-\noindent
-式(76)に式(75)を代入すると
-
-\begin{align}
-\textbf{h}_{m}^{T}\textbf{A}_{h}^{-T}\textbf{A}_{h}^{-1}\textbf{h}_{m}-2\textbf{h}_{m}^{T}\textbf{A}_{h}^{-1}\textbf{b}+\textbf{b}^{T}\textbf{A}_{h}^{-T}\textbf{A}_{h}^{-1}\textbf{b}-F^{2}=0
-\end{align}\
-
-\noindent
-となり，ここで
-
-\begin{align}
-\textbf{M}=\textbf{A}_{h}^{-T}\textbf{A}_{h}^{-1},\textbf{n}=-2\textbf{A}_{h}^{-1}\textbf{b},d=\textbf{b}^{T}\textbf{A}_{h}^{-T}\textbf{A}_{h}^{-1}\textbf{b}-F^{2}
-\end{align}\
-
-\noindent
-とおくと最終的に
-
-\begin{align}
-\textbf{h}_{m}^{T}\textbf{M}\textbf{h}_{m}+\textbf{h}_{m}^{T}\textbf{n}+d=0
+\label{}
+\frac{L-d}{Z-f} = \frac{L - (x_l - x_r)}{Z - f} = \frac{L}{Z}
 \end{align}
 
 \noindent
-となる．式(79)を見ると式(64)と同じ形であることがわかる．つまり磁気センサの測定データから$\textbf{M},\textbf{n},d$を最小二乗法を用いて推定することで$\textbf{A}_{h}^{-1},d$を求めることができる\cite{m}．$\textbf{A}_{h}^{-1},d$を算出する式は次式のようになる．
+と表わせ，この式を変形することで
 
 \begin{align}
-\textbf{A}_{h}^{-1}=\frac{F}{\sqrt{\textbf{n}^{T}\textbf{M}\textbf{n}-d}}\textbf{M}^{\frac{1}{2}},\textbf{b}=-\textbf{M}^{-1}\textbf{n}
-\end{align}\
-
-\noindent
-求めた$\textbf{A}_{h}^{-1},d$を式(75)に代入することで，生の磁気センサのデータから測定誤差や地磁気干渉が無い真の磁場ベクトルに変換する式を得ることができる．
-
-
-
-\subsubsection{拡張カルマンフィルタについて}
-3軸加速度センサ，3軸ジャイロセンサ及び3軸地磁気センサによって観測されたシステム及び観測状態はそれぞれシステム雑音及び観測雑音と呼ばれる雑音に影響を受けるので，システムの状態を推定するためには状態推定器が必要とされる．カルマンフィルタは線形化されたシステムの状態を推定するための状態推定器としてよく知られている．しかし３次元空間を自由に飛行するクアッドロータのシステムは非線形システムであり，線形システムに対して有効なカルマンフィルタは使うことができない．そこで今回，非線形システムの状態を推定するために拡張カルマンフィルタを適用する．ここでは最初にカルマンフィルタの導出を行ったあと拡張カルマンフィルタの導出を行う．
-
-まずカルマンフィルタについて説明する．対象とする線形離散時間状態空間モデルが次のように記述されるとする．
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{A}\textbf{x}(t)+\textbf{B}\textbf{v}(t)
-\end{align}
-\begin{align}
-\textbf{y}(t)=\textbf{C}\textbf{x}(t)+\textbf{w}(t)
-\end{align}\
-
-\noindent
-ここで$\textbf{x}(t)$はn次元の状態ベクトルであり，$\textbf{y}(t)$はp次元観測ベクトルである．また$\textbf{v}(t)$は平均値ベクトル0，共分散行列$\textbf{Q}$のr次元システム雑音ベクトル，$\textbf{w}(t)$は平均値ベクトル0，共分散行列$\textbf{R}$のp次元観測雑音ベクトルであり，互いに独立な正規性白色雑音と仮定する．さらに$\textbf{A}$は$n\times n$行列，$\textbf{B}$は$n\times r$行列，$\textbf{C}$は$p\times n$行列である．状態空間モデルの係数行列及びベクトル$\textbf{A},\textbf{B},\textbf{C}$はそれぞれ基地であると仮定する．また時刻$t$における状態$\textbf{x}$の推定値として事前推定値$\hat{\textbf{x}}^{-}(t)$と事後推定値$\hat{\textbf{x}}(t)$の２つの量を定義する\cite{n}．事前推定値とは時刻$t-1$までに利用可能なデータに基づいた，時刻$t$における$\textbf{x}$の予測推定値であり，事後推定値とは$\textbf{y}(t)$を含めた時刻$t$までのデータを用いた$\textbf{x}$のフィルタリング推定値であり，これが時刻$t$において求めるべき推定値である．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=40mm]{./Fig/Kalman_filter_overview.png}
-\caption{Kalman filter overview.}
-\label{Kalman_filter_overview}
-\end{center}
-\end{figure}
-
-カルマンフィルタでは状態推定値はFig. 44のように時間更新されていく．推定値の更新は予測ステップとフィルタリングステップの２つのプロセスを経て行われる．予測ステップは１時刻前の推定値$\hat{\textbf{x}}$及び誤差の共分散行列$\textbf{P}(t-1)$から現時刻での事前推定値$\hat{\textbf{x}}^{-}(t)$及び事前誤差共分散行列$\textbf{P}^{-}(t)$までを処理し，フィルタリングステップでは$\hat{\textbf{x}}^{-}(t)$及び$\textbf{P}^{-}(t)$から現時刻での事後推定値$\hat{\textbf{x}}(t)$及び事後誤差共分散行列$\textbf{P}(t)$までを処理する．このフィルタリングステップでは時系列モデルと最新の観測値$\textbf{y}(t)$を利用する．予測ステップにおける更新式は
-
-\begin{align}
-\hat{\textbf{x}}^{-}(t)=\textbf{A}\hat{\textbf{x}}(t-1)
-\end{align}
-\begin{align}
-\textbf{P}^{-}(t)=\textbf{A}\textbf{P}(t-1)\textbf{A}^{T}+\textbf{B}\textbf{Q}\textbf{B}^{T}
-\end{align}\
-
-\noindent
-で表される．またフィルタリングステップにおける更新式は
-
-\begin{align}
-\hat{\textbf{x}}(t)=\hat{\textbf{x}}^{-}(t)+\textbf{G}(t)(\textbf{y}(t)-\textbf{C}\hat{\textbf{x}}^{-}(t))
-\end{align}
-\begin{align}
-\textbf{P}(t)=(\textbf{I}-\textbf{G}(k)\textbf{C})\textbf{P}^{-}(t)
-\end{align}\
-
-\noindent
-ただし行列$\textbf{G}$は次の式で算出することができ，カルマンゲインと呼ばれる．カルマンゲイン$\textbf{G}$は$n\times p$行列である．
-
-\begin{align}
-\textbf{G}(t)=\textbf{P}^{-}(k)\textbf{C}^{T}(\textbf{C}\textbf{P}^{-}(k)\textbf{C}^{T}+\textbf{R})^{-1}
-\end{align}\
-
-\noindent
-また共分散行列$\textbf{P}^{-}(t),\textbf{P}(t)$は$n\times n$行列，行列$\textbf{I}$は$n\times n$の単位行列である．
-
-状態推定値の初期値に関しては，状態推定値の初期値に関する事前情報が利用できる場合にはその値を用いればよいが，事前情報がない場合は
-
-\begin{align}
-\hat{\textbf{x}}(0)=0
-\end{align}\
-
-\noindent
-とおくことが多い．また共分散行列の初期値に関しては
-
-\begin{align}
-\textbf{P}(0)=\gamma\textbf{I}
-\end{align}\
-
-\noindent
-とおくことが多い．ただし$\gamma$は調整パラメータである定数で0～1000までの値が用いられる．一般に観測雑音が大きくSN比が悪い場合には$\gamma$を小さく設定した方が良い．
-
-次に拡張カルマンフィルタについて説明する．拡張カルマンフィルタは非線形システムを各時刻においてテイラー級数展開を用いて線形化し，それぞれの時刻において事変カルマンフィルタを適応する方法である．対象とする離散時間非線形状態空間モデルが次のように記述されるとする．
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{f}(\textbf{x}(t))+\textbf{B}\textbf{v}(t)
-\end{align}
-\begin{align}
-\textbf{y}(t)=\textbf{h}(\textbf{x}(t))+\textbf{w}(t)
-\end{align}\
-
-\noindent
-ここで$\textbf{f}(\cdot)$と$\textbf{h}(\cdot)$はベクトル値をとる$\textbf{x}(t)$の非線形関数である．また$\textbf{v}(t)$は平均値ベクトル0，共分散行列$\textbf{Q}$のr次元システム雑音ベクトル，$\textbf{w}(t)$は平均値ベクトル0，共分散行列$\textbf{R}$のp次元観測雑音ベクトルであり，互いに独立な正規性白色雑音と仮定する．
-時刻$t,t+1$においてそれぞれ事前状態推定値$\hat{\textbf{x}}^{-}$と事後推定値$\hat{\textbf{x}}$が利用可能であるという仮定の下で式(90)と式(91)の非線形関数をテイラー級数展開を用いて線形近似すると
-
-\begin{align}
-\textbf{f}(\textbf{x}(t))=\textbf{f}(\hat{\textbf{x}}(t))+\textbf{A}(t)(\textbf{x}(t)-\hat{\textbf{x}}(t)),\left.\textbf{A}(t)=\frac{\partial \textbf{f}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}(t)}
-\end{align}
-\begin{align}
-\textbf{h}(\textbf{x}(t))=\textbf{h}(\hat{\textbf{x}}^{-}(t))+\textbf{c}^{T}(t)(\textbf{x}(t)-\hat{\textbf{x}}^{-}(t)),\left.\textbf{C}^{T}(t)=\frac{\partial \textbf{h}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}^{-}(t)}
-\end{align}\
-
-\noindent
-となる．式(90)と式(91)にそれぞれ式(92)と式(93)に代入すると
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{A}(t)\textbf{x}(t)+\textbf{b}\textbf{v}(t)+\textbf{f}(\hat{\textbf{x}}(t))-\textbf{A}(t)\hat{\textbf{x}}(t)
-\end{align}
-\begin{align}
-\textbf{y}(t)=\textbf{C}^{T}(t)\textbf{x}(t)+\textbf{w}(t)+\textbf{h}(\hat{\textbf{x}}^{-}(t))-\textbf{C}^{T}(t)\hat{\textbf{x}}^{-}(t)
-\end{align}\
-
-\noindent
-となる．さらに
-
-\begin{align}
-\textbf{u}(t)=\textbf{f}(\hat{\textbf{x}}(t))-\textbf{A}(t)\hat{\textbf{x}}(t)
-\end{align}
-\begin{align}
-\textbf{z}(t)=\textbf{y}(t)-\textbf{h}(\hat{\textbf{x}}^{-}(t))+\textbf{C}^{T}(t)\hat{\textbf{x}}^{-}(t)
-\end{align}\
-
-\noindent
-とおくと，式(94)と式(95)はそれぞれ次式のようになる．
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{A}\textbf{x}(t)+\textbf{B}\textbf{v}(t)+\textbf{u}(t)
-\end{align}
-\begin{align}
-\textbf{z}(t)=\textbf{C}\textbf{x}(t)+\textbf{w}(t)
-\end{align}\
-
-\noindent
-このように非線形システムをテイラー級数展開を用いて線形近似すると制御入力がある場合のカルマンフィルタになる．以上より予測ステップにおける更新式は
-
-\begin{align}
-\hat{\textbf{x}}^{-}(t)=\textbf{f}(\hat{\textbf{x}}(t-1))
-\end{align}
-\begin{align}
-\textbf{P}^{-}(t)=\textbf{A}(k-1)\textbf{P}(t-1)\textbf{A}^{T}(k-1)+\textbf{B}\textbf{Q}\textbf{B}^{T}
-\end{align}\
-
-\noindent
-となる．ここで$\textbf{A}(t-1)$は
-
-\begin{align}
-\left.\textbf{A}(t-1)=\frac{\partial \textbf{f}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}(t)}
-\end{align}\
-
-\noindent
-となる．またフィルタリングステップの更新式は
-
-\begin{align}
-\hat{\textbf{x}}(t)=\hat{\textbf{x}}^{-}(t)+\textbf{g}(t)(\textbf{y}(t)-\textbf{h}(\hat{\textbf{x}}^{-}(t)))
-\end{align}
-\begin{align}
-\textbf{P}(t)=(\textbf{I}-\textbf{G}(k)\textbf{C}^{T}(t))\textbf{P}^{-}(k)
-\end{align}\
-
-\noindent
-となる．ここでカルマンゲイン$G(t)$及び$\textbf{C}^{T}(t)$は次式で計算することができる．
-
-\begin{align}
-\textbf{G}(t)=\textbf{P}^{-}(k)\textbf{C}^{T}(\textbf{C}\textbf{P}^{-}(k)\textbf{C}^{T}+\textbf{R})^{-1}
-\end{align}\
-\begin{align}
-\left.\textbf{C}^{T}(t)=\frac{\partial \textbf{h}(\textbf{x})}{\partial \textbf{x}}\right|_{\textbf{x}=\hat{\textbf{x}}^{-}(t)}
-\end{align}\
-
-\noindent
-拡張カルマンフィルタにおいては各時刻ごとに$\textbf{f}$と$\textbf{h}$のヤコビアンを求めるため偏微分の計算を行わなければならない．そのため，微分可能な滑らかな非線形性の場合には拡張カルマンフィルタを適用できるが，不連続な非線形性をもつ場合には適用できない．
-
-
-
-\subsubsection{姿勢推定アルゴリズム}
-ここでは拡張カルマンフィルタを用いた姿勢の推定アルゴリズムの導出を行う．はじめに状態方程式を求める．オイラー角$\Theta=[\phi,\theta,\psi]^{T}$と機体座標における角速度ベクトル$\omega=[p,q,r]^{T}$の関係は式(11)より
-
-\begin{align}
-\frac{d}{dt}\Theta = W \omega
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-W=
-\left[
-    \begin{array}{ccc}
-      1 & \sin\phi\tan\theta & \cos\phi\tan\theta\\
-      0 & \cos\phi & -\sin\phi \\
-      0 & \sin\phi /\cos\theta & \cos\phi / \cos\theta
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-ここで$\omega=[p,q,r]^{T}$は角速度センサから得られた角速度ベクトルである．状態変数$\textbf{x}(t)$を$\textbf{x}(t)=[\phi,\theta,\psi]^{T}$とおき，次式のように変換する．
-
-\begin{align}
-\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))
+\label{}
+Z = \frac{fL}{x_l - x_r}
 \end{align}
 
 \noindent
-ただし$\textbf{f}(\cdot)$は
+となり，対象物までの距離$Z$を求めることができる．同様に$x$軸方向$y$軸方向についても
 
 \begin{align}
-\textbf{f}(\textbf{x}(t))=
-\left[
-    \begin{array}{c}
-      p + p\sin\phi\tan\theta + p\cos\phi\tan\theta \\
-      q\cos\phi -q\sin\phi \\
-      r\sin\phi /\cos\theta +r\cos\phi / \cos\theta
-    \end{array}
-\right]
-\end{align}\\
-
-\noindent
-式(110)に角速度センサからの出力に含まれるノイズ$[\delta p,\delta q,\delta r]$を考慮すると次式のようになる．
-
-\begin{align}
-\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))+\textbf{B}\textbf{v}
-\end{align}\
-
-\noindent
-ただし$\textbf{B},\textbf{v}$は
-
-\begin{align}
-\textbf{B}=
-\left[
-    \begin{array}{ccc}
-      1 & 0 & 0\\
-      0 & 1 & 0\\
-      0 & 0 & 1
-    \end{array}
-\right],
-\textbf{v}=
-\left[
-    \begin{array}{c}
-      \delta p  \\
-      \delta q  \\
-      \delta r
-    \end{array}
-\right]
-\end{align}\\
-
-\noindent
-さらにオイラー法を用いて式(111)を離散化すると
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{f}_{t}(\textbf{x}(t))+\textbf{B}_{t}\textbf{v}
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-\textbf{f}_{t}(\textbf{x}(t))=\textbf{x}(t)+\textbf{f}(\textbf{x}(t))\Delta t,\textbf{B}_{t}=\textbf{B}\Delta t
-\end{align}\
-
-\noindent
-ここで$\Delta t$はサンプリング周期である．
-
-次に観測方程式を求める．今回の姿勢推定アルゴリズムでは加速度センサ及び地磁気センサを使って角度の補正を行う．加速度センサから得られる3次元加速度データ$[a_{x},a_{y},a_{z}]^T$と重力ベクトル$[0,0,-g]^{T}$の関係は式(5)の回転行列を用いて次のようになる．
-
-\begin{align}
-\begin{split}
-\left[
-    \begin{array}{c}
-      a_{x} \\
-      a_{y} \\
-      a_{z}
-    \end{array}
-\right]
-&=
-\left[
-    \begin{array}{ccc}
-      \cos\theta\cos\psi & \cos\theta\sin\psi & -\sin\theta\\
-      \sin\phi\sin\theta\cos\psi & \sin\phi\sin\theta\sin\psi+\cos\phi\cos\psi & \sin\phi\cos\theta \\
-      \cos\phi\sin\theta\cos\psi & \cos\phi\sin\theta\sin\psi-\sin\phi\cos\psi & \cos\phi\cos\theta
-    \end{array}
-\right]
-\left[
-    \begin{array}{c}
-      0\\
-      0 \\
-      -g
-    \end{array}
-\right]\\
-&=
-\left[
-    \begin{array}{c}
-      g\sin\theta\\
-      -g\cos\theta\sin\phi\\
-      -g\cos\theta\cos\phi
-    \end{array}
-\right]
-\end{split}
-\end{align}\
-
-\noindent
-式(115)をみると$\psi$成分が消えていることがわかる．つまり加速度センサだけではヨー角を補正することができない．また地球の地磁気ベクトルを$m_{r}=[m_{n},0,m_{c}]^{T}$とした時，キャリブレーションされた磁気センサから得られる3次元磁気データ$[m_{x},m_{y},m_{z}]^{T}$と地磁気ベクトルの関係は次のようになる．
-
-\begin{align}
-\begin{split}
-\left[
-    \begin{array}{c}
-      m_{x} \\
-      m_{y} \\
-      m_{z}
-    \end{array}
-\right]
-&=
-\left[
-    \begin{array}{ccc}
-      \cos\theta\cos\psi & \cos\theta\sin\psi & -\sin\theta\\
-      \sin\phi\sin\theta\cos\psi & \sin\phi\sin\theta\sin\psi+\cos\phi\cos\psi & \sin\phi\cos\theta \\
-      \cos\phi\sin\theta\cos\psi & \cos\phi\sin\theta\sin\psi-\sin\phi\cos\psi & \cos\phi\cos\theta
-    \end{array}
-\right]
-\left[
-    \begin{array}{c}
-      m_{n}\\
-      0 \\
-      m_{c}
-    \end{array}
-\right]\\
-&=
-\left[
-    \begin{array}{c}
-      m_{x}\cos\theta\cos\psi-m_{z}\sin\theta\\
-      m_{x}\sin\phi\sin\theta\cos\psi+m_{z}\cos\theta\sin\phi\\
-      m_{x}\cos\phi\sin\theta\cos\psi+m_{z}\cos\theta\cos\phi
-    \end{array}
-\right]
-\end{split}
-\end{align}\
-
-\noindent
-したがって$\textbf{y}(t)=[a_{x},a_{y},a_{z},m_{x},m_{y},m_{z}]^{T}$とおき式(115)と式(116)をまとめると次式のようになる．
-
-\begin{align}
-\textbf{y}(t)=\textbf{h}_{t}(\textbf{x}(t))
-\end{align}\
-
-\noindent
-ただし，$\textbf{h}_{t}(\cdot)$
-
-\begin{align}
-\textbf{h}_{t}(\textbf{x}(t))=
-\left[
-    \begin{array}{c}
-      g\sin\theta\\
-      -g\cos\theta\sin\phi\\
-      -g\cos\theta\cos\phi\\
-      m_{x}\cos\theta\cos\psi-m_{z}\sin\theta\\
-      m_{x}\sin\phi\sin\theta\cos\psi+m_{z}\cos\theta\sin\phi\\
-      m_{x}\cos\phi\sin\theta\cos\psi+m_{z}\cos\theta\cos\phi
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-式(118)に加速度センサと地磁気センサから得られるノイズ$[\delta a_{x},\delta a_{y},\delta a_{z}]^{T},[\delta m_{x},\delta m_{y},\delta m_{z}]^{T}$を考慮すると観測方程式は．
-
-\begin{align}
-\textbf{y}(t)=\textbf{h}_{t}(\textbf{x}(t))+\textbf{w}
-\end{align}\
-
-\noindent
-ただし$\textbf{w}$は
-
-\begin{align}
-\textbf{w}=
-[\delta a_{x},\delta a_{y},\delta a_{z},\delta m_{x},\delta m_{y},\delta m_{z}]^{T}
-\end{align}\\
-
-以上より，式(113)の状態方程式と式(119)の観測方程式より構成されるシステムの離散時間プロセルモデルが導出された．このプロセスモデルに対して拡張カルマンフィルタを適用することで姿勢推定アルゴリズムを得ることができる．
-
-
-\subsection{姿勢制御}
-クアッドロータの姿勢制御に関しては，様々な制御法が研究されているが，その中でも運動モデルをもとに制御器を設計でき，制御のための計算量も少ないIntegral Backstepping制御に着目した\cite{o}\cite{q}．
-
-\subsubsection{Integral Backstepping制御}
-
-まずBackstepping制御について説明する．次のように表されるシステムを考える．
-
-\begin{align}
-\left\{
-\begin{aligned}
-\dot{x_{1}} & = x_{2} \\
-\dot{x_{2}} & = au+b
-\end{aligned}
-\right.
-\end{align}\
-
-\noindent
-ここで$x_{1},x_{2}$は状態変数で，$u$は入力，$a,b$は定数である．まず変数変換を行い
-
-\begin{align}
-e_{1}=x_{1d}-x_{1},e_{2}=c_{1}e_{1}+\dot{x}_{1d}-x_{2}
-\end{align}\
-
-\noindent
-とおく．ただし$x_{1d}$は$x_{1}$の目標値であり，$c_{1}$は正の定数である．そしてリアプノフ関数$V$を次式のように設定する．
-
-\begin{align}
-V(e_{1},e_{2})=\frac{1}{2}e_{1}^{2}+\frac{1}{2}e_{2}^{2}
-\end{align}\
-
-\noindent
-式(123)を時間微分すると
-
-\begin{align}
-\dot{V}(e_{1},e_{2})=e_{1}\dot{e}_{1}+e_{2}\dot{e}_{2}
-\end{align}\
-
-\noindent
-となる．$e_{1}$と$e_{2}$の時間微分はそれぞれ
-
-\begin{align}
-\dot{e}_{1}=\dot{x}_{1d}-x_{2}=\dot{x}_{1d}-(c_{1}e_{1}+\dot{x}_{1d}-e_{2})=-c_{1}e_{1}+e_{2}
-\end{align}
-\begin{align}
-\dot{e}_{2}=c_{1}\dot{e}_{1}+\ddot{x}_{1d}-\dot{x}_{2}=c_{1}(-c_{1}e_{1}+e_{2})+\ddot{x}_{1d}-(au+b)
-\end{align}\
-
-\noindent
-となるため，式(125)と式(126)を式(124)に代入すると
-
-\begin{align}
-\dot{V}(e_{1},e_{2})=-c_{1}e_{1}^{2}+e_{1}e_{2}-c_{1}^{2}e_{1}e_{2}+c_{1}e_{2}^{2}+\ddot{x}_{1d}e_{2}-(au+b)e_{2}
-\end{align}\
-
-\noindent
-となる．ここで制御量$u$を次式のように設定する．
-
-\begin{align}
-u=\frac{1}{a}((1-c_{1}^{2})e_{1}+(c_{1}+c_{2})e_{2}+\ddot{x}_{1d}-b)
-\end{align}\
-
-\noindent
-ただし，$c_{2}$は正の定数である．式(124)は
-
-\begin{align}
-\dot{V}(e_{1},e_{2})=-c_{1}e_{1}^{2}-c_{2}e_{2}^{2}\leq 0
-\end{align}\
-
-\noindent
-となり，式(121)に示すシステムは安定となる．したがって制御量$u$を式(128)のように設定することで$e_{1}$は0に収束し，$x_{1}$は目標値$x_{1d}$に収束する．式(128)に式(121)を代入し変形すると次式のようになる．
-
-\begin{align}
-u=\frac{1}{a}((1+c_{1}c_{2})(x_{1d}-x_{1})+(c_{1}+c_{2})(\dot{x}_{1d}-\dot{x}_{1})+\ddot{x}_{1d}-b)
-\end{align}\
-
-\noindent
-式(130)の最初の2項をみるとこれは明らかにPD制御である．また3,4項目をみると式(121)のダイナミクスが含まれていることがわかる．
-
-次にIntegral Backstepping制御について説明する．Integral Backstepping制御の場合
-
-\begin{align}
-e_{1}=x_{1d}-x_{1},e_{2}=c_{1}e_{1}+\dot{x}_{1d}+\lambda p-x_{2}
-\end{align}\
-
-\noindent
-とおく．ただし$\lambda$は正の定数であり，$p=\int_0^t e_{1}(\tau)d\tau$である．またリアプノフ関数$V$を次式のように設定する．
-
-\begin{align}
-V(e_{1},e_{2})=\frac{1}{2}\lambda p^{2}+\frac{1}{2}e_{1}^{2}+\frac{1}{2}e_{2}^{2}
-\end{align}\
-
-\noindent
-また式(132)を時間微分すると
-
-\begin{align}
-\dot{V}(e_{1},e_{2})=\lambda p e_{1}+e_{1}\dot{e}_{1}+e_{2}\dot{e}_{2}
-\end{align}\
-
-\noindent
-となる．$e_{1}$と$e_{2}$の時間微分はそれぞれ
-
-\begin{align}
-\dot{e}_{1}=\dot{x}_{1d}-x_{2}=\dot{x}_{1d}-(c_{1}e_{1}+\dot{x}_{1d}+\lambda p-e_{2})=-c_{1}e_{1}-\lambda p+e_{2}
-\end{align}
-\begin{align}
-\dot{e}_{2}=c_{1}\dot{e}_{1}+\ddot{x}_{1d}+\lambda e_{1}-\dot{x}_{2}=c_{1}(-c_{1}e_{1}-\lambda p+e_{2})+\ddot{x}_{1d}+\lambda e_{1}-(au+b)
-\end{align}\
-
-\noindent
-となる．ここで制御量$u$を次式のように設定する．
-
-\begin{align}
-u=\frac{1}{a}((1-c_{1}^{2}-\lambda)e_{1}+(c_{1}+c_{2})e_{2}+\lambda pc_{1}+\ddot{x}_{1d}-b)
-\end{align}\
-
-\noindent
-ただし，$c_{2}$は正の定数である．したがって式(133)は
-
-\begin{align}
-\dot{V}(e_{1},e_{2})=-c_{1}e_{1}^{2}-c_{2}e_{2}^{2}\leq 0
-\end{align}\
-
-\noindent
-となり，式(121)に示すシステムは安定になる．式(136)に式(131)を代入し変形すると次式のようになる．
-
-\begin{align}
-u=\frac{1}{a}((1+c_{1}c_{2}+\lambda)(x_{1d}-x_{1})+(c_{1}+c_{2})(\dot{x}_{1d}-\dot{x}_{1})+\lambda c_{2}\int_0^t (x_{1d}-x_{1})d\tau +\ddot{x}_{1d}-b)
-\end{align}\
-
-\noindent
-式(138)の最初の3項をみるとこれは明らかにPID制御である．また4,5項目をみるとBackstepping制御と同様に式(121)のダイナミクスが含まれていることがわかる．
-
-
-\subsubsection{姿勢制御アルゴリズム}
-
-クアッドロータの姿勢の運動方程式は式(17)より
-
-\begin{align} 
-\left[
-    \begin{array}{c}
-      \dot{\phi} \\
-      \dot{\theta} \\
-      \dot{\psi}
-    \end{array}
-\right]
-=
-\left[
-    \begin{array}{c}
-      \frac{J_{2}-J_{3}}{J_{1}}\theta \psi \\
-      \frac{J_{3}-J_{1}}{J_{2}}\psi \phi \\
-      \frac{J_{1}-J_{2}}{J_{3}}\phi \theta 
-    \end{array}
-\right]
-+
-\left[
-    \begin{array}{c}
-      \frac{1}{J_{1}}\tau_{\phi} \\
-      \frac{1}{J_{2}}\tau_{\theta} \\
-      \frac{1}{J_{3}}\tau_{\psi} 
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-ここで$[x_{1},x_{2},x_{3},x_{4},x_{5},x_{6}]^{T}=[\phi,\theta,\psi,\dot{\phi},\dot{\theta},\dot{\psi}]^{T}$とおき，次式のように書き換える．
-
-\begin{align}
-\left\{
-\begin{aligned}
-\dot{x}_{1} &= x_{4}\\
-\dot{x}_{4} &= a_{1}x_{2}x_{3}+b_{1}\tau_{\phi}\\
-\dot{x}_{2} &= x_{5}\\
-\dot{x}_{5} &= a_{2}x_{3}x_{1}+b_{2}\tau_{\theta}\\
-\dot{x}_{3} &= x_{6}\\
-\dot{x}_{6} &= a_{3}x_{1}x_{2}+b_{3}\tau_{\psi}
-\end{aligned}
-\right.
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-a_{1}=\frac{J_{2}-J_{3}}{J_{1}},a_{2}=\frac{J_{3}-J_{1}}{J_{2}},a_{3}=\frac{J_{1}-J_{2}}{J_{3}},b_{1}=\frac{1}{J_{1}}\,b_{2}=\frac{1}{J_{2}},b_{3}=\frac{1}{J_{3}}
-\end{align}\
-
-\noindent
-まず$\phi$に関するIntegral Backstepping制御器を導出していく．最初に次式のように変数変換を行う．
-
-\begin{align}
-e_{1}=\phi_{d}-x_{1},e_{2}=c_{1}e_{1}+\dot{\phi}_{d}-x_{4}+\lambda_{1} p -x_{4}
-\end{align}\
-
-\noindent
-ただし$\phi_{d}$は$\phi$の目標値であり，$c_{1},\lambda_{1}$は正の定数，$p=\int_0^t e_{1}(\tau)d\tau$である．またリアプノフ関数を次式のように設定する．
-
-\begin{align}
-V(e_{1},e_{2})=\frac{1}{2}\lambda_{1} p^{2}+\frac{1}{2}e_{1}^{2}+\frac{1}{2}e_{2}^{2}
+\label{}
+X = \frac{x_l L}{x_l - x_r}, \ Y = \frac{y_l L}{x_l - x_r} = \frac{y_l L}{x_l - x_r}
 \end{align}
 
 \noindent
-また式(143)を時間微分すると
+となり，対象物の位置を求められる．以上よりステレオカメラを用いて対象物の位置$(X, Y, Z)$を求める方法が導出できた．しかし，実際には2台のカメラの画像平面が同一平面になるよう置くことや光軸が平行になるように置くことは物理的に不可能である．そこで，行うのがステレオカメラのキャリブレーションである．Fig. \ref{camera_with_chess}に示したチェスボードを2台のカメラで撮影し，アルゴリズムにしたがって計算することで，カメラ間の位置関係を表す並進ベクトル$T$及び回転行列$R$を算出可能である．それらに加え，カメラレンズの歪みやレンズの取付誤差が起因する画像の歪みを補正するためのカメラパラメータも同様のチェスボードを撮影した画像から得ることができる．これらのパラメータを用い，先に示した方法で計算を行うことでクアッドロータの位置を測定した．なお，これらの演算は全てPython2のモジュールとして提供されるモジュール，OpenCVの機能を用いて行った．
+
+ここで，ステレオカメラを用いた位置計測における奥行き誤差について議論する．Fig. \ref{error_stereo}に設定する状況を考える．ステレオ画像での計測精度は画像中の1画素が実際にどのくらいの長さに対応するかで決まる． つまり，カメラの解像度，対象物までの距離，カメラ間距離によって変わる． また，画像平面中の画像が投影される画像素子は，それ自体が大きさを持っているため，実際の空間中では計測対象点はある範囲内ということでしか特定できない． その特定可能な最小の範囲がステレオカメラにおける計測誤差となる．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=90mm]{./Fig2/error_stereo.png}
+\caption{Error in z direction of stereo camera}
+\label{error_stereo}
+\end{center}
+\end{figure}
+
+
+\noindent
+図における$\delta x$が横方向誤差であり，$\delta z$が奥行き誤差である．また，図に示す$L'$を計算のために導入する．まず，三角形の相似より
 
 \begin{align}
-\dot{V}(e_{1},e_{2})=e_{1}\dot{e}_{1}+e_{2}\dot{e}_{2}
-\end{align}\
-
-\noindent
-となる．$e_{1}$と$e_{2}$の時間微分はそれぞれ
-
-\begin{align}
-\dot{e}_{1}=\dot{\phi}_{d}-x_{2}=\dot{\phi}_{d}-(c_{1}e_{1}+\dot{\phi}_{d}+\lambda_{1} p-e_{2})=-c_{1}e_{1}-\lambda_{1} p+e_{2}
-\end{align}
-\begin{align}
-\dot{e}_{2}=c_{1}\dot{e}_{1}+\ddot{\phi}_{d}+\lambda_{1} e_{1}-\dot{x}_{2}=c_{1}(-c_{1}e_{1}-\lambda_{1} p+e_{2})+\ddot{\phi}_{d}+\lambda_{1} e_{1}-a_{1}x_{2}x_{3}-b_{1}\tau_{\phi}
-\end{align}\
-
-\noindent
-となる．ここでトルク$\tau_{\phi}$を次式のように設定する．
-
-\begin{align}
-\tau_{\phi}=\frac{1}{a}((1-c_{1}^{2}-\lambda_{1})e_{1}+(c_{1}+c_{2})e_{2}+\lambda_{1} pc_{1}+\ddot{\phi}_{d}-a_{1}x_{2}x_{3})
-\end{align}\
-
-\noindent
-ただし，$c_{2}$は正の定数である．したがって$V(e_{1},e_{2})\leq 0$となりシステムは安定になる．式(147)に式(142)を代入して$\phi,\theta,\psi$で表すと
-
-\begin{align}
-\tau_{\phi}=\frac{1}{b_{1}}((1+c_{1}c_{2}+\lambda_{1})(\phi_{d}-\phi)+(c_{1}+c_{2})(\dot{\phi}_{d}-\dot{\phi})+c_{2}\lambda_{1}\int_0^t (\phi_{d}-\phi)d\tau-a_{1}x_{2}x_{3})
-\end{align}\
-
-\noindent
-となる．ただし$\ddot{\phi}_{d}=0$とおいた．$\theta,\psi$に関しても同様に計算すると
-
-\begin{align}
-\tau_{\theta}=\frac{1}{b_{2}}((1+c_{3}c_{4}+\lambda_{2})(\theta_{d}-\theta)+(c_{3}+c_{4})(\dot{\theta}_{d}-\dot{\theta})+c_{4}\lambda_{2}\int_0^t (\theta_{d}-\theta)d\tau-a_{2}x_{3}x_{1})
-\end{align}
-
-\begin{align}
-\tau_{\psi}=\frac{1}{b_{3}}((1+c_{5}c_{6}+\lambda_{3})(\psi_{d}-\psi)+(c_{5}+c_{6})(\dot{\psi}_{d}-\dot{\psi})+c_{4}\lambda_{3}\int_0^t (\psi_{d}-\psi)d\tau-a_{3}x_{1}x_{2})
-\end{align}\
-
-\noindent
-ここで，$c_{3},c_{4},c_{5},c_{6},\lambda_{2},\lambda_{3}$は正の定数であり，$\theta_{d},\psi_{d}$はそれぞれ$\theta,\psi$の目標値である．以上で$\phi,\theta,\psi$に関する制御器をもとめることができた．
-
-\newpage
-\section{姿勢推定アルゴリズムの評価}
-\subsection{地磁気センサのキャリブレーション}
-周囲の環境が磁気センサに及ぼす影響を調べるため，京都工芸繊維大学の10号館前，食堂前，食堂の階段下の3箇所において3軸の地磁気センサを用いて地磁気を計測した．(Fig. 45)．Fig. 45のオレンジ色の丸で囲われた場所が計測地点である．10号館前は大きな磁性体が周りにない環境であり，食堂前は，食堂が鉄骨の建物であるため，大きな磁性体が傍にある環境である．食堂の階段下は，階段が鋼鉄製であるため，上を磁性体に囲われた環境である．
-
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=90mm]{./Fig/Location_of_magnetometer_calibration_experiment.png}
-\caption{Location of magnetometer calibration experiment.}
-\label{Location_of_magnetometer_calibration_experiment}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Experimental_equipment_for_geomagnetic_measurement.png}
-\caption{Experimental equipment for geomagnetic measurement.}
-\label{Experimental_equipment_for_geomagnetic_measurement}
-\end{center}
-\end{figure}
-
-計測に使用した実験装置をFig. 46に示す．この装置にはWi-Fiモジュールが搭載されており，センサから得られたデータをWi-Fi経由で送信することができる．今回，地磁気の計測装置をあらゆる方向に回転させ50 Hzで3次元の地磁気を計測した．それぞれの場所における計測結果をFigs. 47～49に示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Raw_data_from_the_magnetometer_in_front_of_Building_No10.png}
-\caption{Raw data from the magnetometer in front of Building No.10.}
-\label{Raw_data_from_the_magnetometer_in_front_of_Building_No10}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Raw_data_from_the_magnetometer_in_front_of_the_cafeteria.png}
-\caption{Raw data from the magnetometer in front of the cafeteria.}
-\label{Raw_data_from_the_magnetometer_in_front_of_the_cafeteria}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Raw_data_from_the_magnetometer_under_the_stairs_of_the_cafeteria.png}
-\caption{Raw data from the magnetometer under the stairs of the cafeteria.}
-\label{Raw_data_from_the_magnetometer_under_the_stairs_of_the_cafeteria}
-\end{center}
-\end{figure}
-
-各場所の計測結果を見ると，測定値の分布の中心と原点がずれていることがわかる．また，それぞれの測定値の分布は円ではなく楕円を描いている．このことから，地磁気センサから得られた値をそのまま姿勢角推定に使用した場合，正しい姿勢角が得られないということがわかる．さらに，Fig. 49の食堂の階段下で計測した結果を見ると10号館前や食堂前での値に比べ乱れていることがわかる．これは近くに鋼鉄製の階段があり，それにより地磁気が乱されていることが影響していると考えられる．
-　
-
-次に10号館前で計測した値を楕円体に最小二乗法を用いてフィッティングさせ，$\textbf{A}_{h}^{-1},\textbf{b}$をそれぞれ求めた．$\textbf{A}_{h}^{-1},\textbf{b}$の具体的な値を次式に示す．
-
-\begin{align} 
-\textbf{A}_{h}^{-1}=
-\left[
-    \begin{array}{ccc}
-      2.049\times10^{-2}&2.617\times10^{-4}&-4.073\times10^{-4}\\
-      2.617\times10^{-4}&2.151\times10^{-2}&-1.803\times10^{-5} \\
-      -4.073\times10^{-4}&-1.803\times10^{-5}&2.094\times10^{-2} 
-    \end{array}
-\right],
-\textbf{b}=
-\left[
-    \begin{array}{c}
-      15.472 \\
-      1.374 \\
-      -35.567
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-そして求めた$\textbf{A}_{h}^{-1},\textbf{b}$を式(75)に代入し，その式を用いてそれぞれの地点で計測したデータを変換した．変換した結果をFigs. 50～52変換の際は後で姿勢角を算出するために原点中心かつ半径１の球に変換している．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Calibrated_geomagnetic_data_in_front_of_Building_No10.png}
-\caption{Calibrated geomagnetic data in front of Building No.10.}
-\label{Calibrated_geomagnetic_data_in_front_of_Building_No10}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Calibrated_geomagnetic_data_in_front_of_the_cafeteria.png}
-\caption{Calibrated geomagnetic data in front of the cafeteria.}
-\label{Calibrated_geomagnetic_data_in_front_of_the_cafeteria}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=50mm]{./Fig/Calibrated_geomagnetic_data_under_the_stairs_of_the_cafeteria.png}
-\caption{Calibrated geomagnetic data under the stairs of the cafeteria.}
-\label{Calibrated_geomagnetic_data_under_the_stairs_of_the_cafeteria}
-\end{center}
-\end{figure}
-
-Fig. 50の変換後の分布をみるとおおよそ原点中心かつ半径１の球に変換されていることがわかる．次にFig. 51を見ると原点中心ではあるが，半径が１より大きくなっていることがわかる．これは10号館前と食堂前で周囲の環境が変化し，地磁気の強度に影響を及ぼしたためと考えられる．最後にFig. 52を見ると形は歪であるが，原点中心の円になっていることがわかる．ただし，半径は１より小さくなっている．これもFig. 51同様，周囲環境が変化したためと考えられる．
-
-以上から10号館前で計測した値を用いて変換を行った結果，半径は若干変化するものの原点中心の円に変換することができた．したがって，最初に地磁気のキャリブレーションを行えば，ある程度周囲の環境が変化したとしても，キャリブレーション後の値は姿勢角推定に用いることができるということがわかった．
-
-\subsection{ロール角及びピッチ角推定の評価}
-4.1.3で述べた拡張カルマンフィルタを用いた姿勢角推定アルゴリズムの評価を行った．評価方法としては，姿勢角を変化させ，ポテンショメータから得られる角度を真値として推定した角度との比較を行った．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Schematic_diagram_of_experimental_apparatus_for_attitude_angle_estimation.png}
-\caption{Schematic diagram of experimental apparatus for attitude angle estimation.}
-\label{Schematic_diagram_of_experimental_apparatus_for_attitude_angle_estimation}
-\end{center}
-\end{figure}
-
-Fig. 53に実験装置の概略図を示す．この実験装置を用いてピッチ角とロール角の評価を行．ポテンショメータで角度が計測できるアームの上に9軸のIMUとシングルボードコンピュータがのっている．このコンピュータは姿勢角推定アルゴリズムの計算とポテンショメータの角度計測を同時に行い，得られた計測データをPCにWi-Fi経由で送信することができる．アームは0 deg, 10 deg, 20 degと段階的に手動で回転させまた20 deg, 10 deg, 0 degと戻す．これをピッチ角とロール角に関して行う．今回，角度の計測は100 Hzで行った．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_pitch_angle_estimation.png}
-\caption{Overview of the experimental apparatus for pitch angle estimation.}
-\label{Overview_of_the_experimental_apparatus_for_pitch_angle_estimation}
-\end{center}
-\end{figure}
-
-最初にピッチ角の評価を行う．Fig. 54にピッチ角の計測に使用した実験装置を示す．アームはピッチ角の方向のみに回転することができるようになっている．Fig. 55にポテンショメータから得られたピッチ角度と推定したピッチ角の時系列データを示す．またFig. 56に真値との偏差を示す．偏差は次式で定義する．
-
-\begin{align}
-Error =Estimated\ angle-True\ angle
-\end{align}\
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Estimated_pitch_angle_and_true_value_in_pitch_angle_estimation.png}
-\caption{Estimated pitch angle and true value in pitch angle estimation.}
-\label{Estimated_pitch_angle_and_true_value_in_pitch_angle_estimation}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Error_in_pitch_angle_estimation.png}
-\caption{Error in pitch angle estimation.}
-\label{Error_in_pitch_angle_estimation}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 55においてポテンショメータから得られた角度が細かく変化しているのは電気的なノイズによるものである．Fig. 56の定常状態における偏差を見ると，おおよそ$\pm$1 deg以内でピッチ角を推定できていることがわかる．また重力加速度を用いてピッチ角の補正を行っているため，推定値のドリフトも発生していないことがわかる．
-
-次にロール角の評価を行う．Fig. 57にロール角の計測に使用した実験装置を示す．アームはロール角の方向のみに回転することができるようになっている．Fig. 58にポテンショメータから得られたロール角と推定したロール角の時系列データを示す．またFig. 59に真値との偏差を示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_roll_angle_estimation.png}
-\caption{Overview of the experimental apparatus for roll angle estimation.}
-\label{Overview_of_the_experimental_apparatus_for_roll_angle_estimation}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Estimated_roll_angle_and_true_value_in_roll_angle_estimation.png}
-\caption{Estimated roll angle and true value in roll angle estimation.}
-\label{Estimated_roll_angle_and_true_value_in_roll_angle_estimation}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Error_in_roll_angle_estimation.png}
-\caption{Error in roll angle estimation.}
-\label{Error_in_roll_angle_estimation}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 59の定常状態における偏差を見ると，ピッチ角と同様ロール角もおおよそ$\pm$1 deg以内で推定できていることがわかる．また重力加速度を用いてロール角の補正を行っているため，推定値のドリフトも発生していないことがわかる．
-
-\subsection{ヨー角推定の評価}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_yaw_angle_estimation.png}
-\caption{Overview of the experimental apparatus for yaw angle estimation.}
-\label{Overview_of_the_experimental_apparatus_for_yaw_angle_estimation}
-\end{center}
-\end{figure}
-
-Fig. 60にヨー角の計測に使用した実験装置を示す．実験装置にはターンテーブルがついており，ヨー角の方向のみに回転することができる．またその角度もポテンショメータにより計測することができる．ピッチ角，ロール角の評価と同じように姿勢角推定とポテンショメータの角度計測を同時に行い，得られた計測データをPCにWi-Fi経由で送信し記録した．計測中，ターンテーブルは0 deg, 60 deg, 120 degと段階的に手動で回転させまた120 deg, 60 deg, 0 degと戻し，今度は0 deg, -60 deg, -120 degと段階的に回転させ-120 deg, -60 deg, 0 degのように戻した．角度の計測は100 Hzで行った．Fig. 61にポテンショメータから得られたヨー角と推定したヨー角の時系列データを示す．またFig. 62に真値との偏差を示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Estimated_yaw_angle_and_true_value_in_yaw_angle_estimation.png}
-\caption{Estimated yaw angle and true value in yaw angle estimation.}
-\label{Estimated_yaw_angle_and_true_value_in_yaw_angle_estimation}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Error_in_yaw_angle_estimation.png}
-\caption{Error in yaw angle estimation.}
-\label{Error_in_yaw_angle_estimation}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 62の定常状態における偏差を見ると，最大で2 degのヨー角の推定誤差があることがわかった．また地磁気を用いてヨー角の補正を行っているため，推定値のドリフトも発生していないことがわかる．
-
-ヨー角の推定は地磁気を用いて補正しているため，周囲環境が変化し，周りの磁場が変化すると推定値に影響を及ぼす．アッドロータのロータが回転すれば電流がモータに流れるため，センサ周りの磁場が変化するため，その影響を調べる必要がある．そこでロータが回転している状態でヨー角推定の評価を行った．計測はロータをおおよそ12000 rpm程度で回転させながら5.3と同様にターンテーブルを回転させて行った．回転数を12000 rpmに設定した理由は，12000 rpmで回転させるとクアッドロータの浮上時の推力が得られるからである．これにより飛行中に角度推定を行っている状況を再現することができる．角度の計測は100 Hzで行った．実験装置をFig. 63に示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_yaw_angle_estimation_with_rotors.png}
-\caption{Overview of the experimental apparatus for yaw angle estimation with rotors.}
-\label{Overview_of_the_experimental_apparatus_for_yaw_angle_estimation_with_rotors}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 64にポテンショメータから得られたヨー角と推定したヨー角の時系列データを示す．またFig. 65に真値との偏差を示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Estimated_roll_angle_and_true_value_with_rotors.png}
-\caption{Estimated yaw angle and true value with rotors.}
-\label{Estimated_roll_angle_and_true_value_with_rotors}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Error_in_yaw_angle_estimation_with_rotors.png}
-\caption{Error in yaw angle estimation with rotors.}
-\label{Error_in_yaw_angle_estimation_with_rotors}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 65の定常状態における偏差を見ると，最大で4 deg程度のヨー角の推定誤差があり，Fig. 62と比較すると偏差が大きくなっていることがわかった．これはモータが回転することでセンサ周りの磁場が変化し，ヨー角推定に影響を及ぼしているからである．
-
-
-
-
-\newpage
-\section{姿勢制御アルゴリズムの評価}
-\subsection{ロール角及びピッチ角制御の評価}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_pitch_angle_control.png}
-\caption{Overview of the experimental apparatus for pitch angle control.}
-\label{Overview_of_the_experimental_apparatus_for_pitch_angle_control}
-\end{center}
-\end{figure}
-
-Integral Backstepping制御によるピッチ角の制御性能を単独で評価するために，Fig. 66のような実験装置を用意した．この実験装置は，クアッドロータがピッチ角のみ回転できるようになっている．実験では指令角をステップ状に0 deg, 20 deg, 0 deg, -20 deg, 0 degの順番で入力し，姿勢制御とその時の姿勢角を記録した．姿勢制御における周波数は100 Hzである．
-Fig. 67にピッチ角の指令値と制御中のピッチ角の時系列データを示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Pitch_angle_and_reference_in_pitch_angle_control_experiment.png}
-\caption{Pitch angle and reference in pitch angle control experiment.}
-\label{Pitch_angle_and_reference_in_pitch_angle_control_experiment}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 67を見ると指令値に対して追従するように姿勢制御ができていることがわかる．また目標値に到達するまでの時間はおよそ0.4 secであることがわかった．
-
-ピッチ角制御の評価と同様にIntegral Backstepping制御によるロール角の制御性能も単独で評価した．実験装置をFig. 68に示す．この実験装置は，クアッドロータがロール角のみ回転できるようになっている．実験では指令角をステップ状に0 deg, 20 deg, 0 deg, -20 deg, 0 degの順番で入力し，姿勢制御とその時の姿勢角を記録した．姿勢制御における周波数は100 Hzである．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_roll_angle_control.png}
-\caption{Overview of the experimental apparatus for roll angle control.}
-\label{Overview_of_the_experimental_apparatus_for_roll_angle_control}
-\end{center}
-\end{figure}
-
-Fig. 69にロール角の指令値と制御中のロール角の時系列データを示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Roll_angle_and_reference_in_roll_angle_control_experiment.png}
-\caption{Roll angle and reference in roll angle control experiment.}
-\label{Roll_angle_and_reference_in_roll_angle_control_experiment}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 69を見るとピッチ角と同じように指令値に対して追従するように姿勢制御ができていることがわかる．また目標値に到達するまでの時間はおよそ0.4 secであることがわかった．
-
-
-\subsection{ヨー角制御の評価}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Overview_of_the_experimental_apparatus_for_yaw_angle_control.png}
-\caption{Overview of the experimental apparatus for yaw angle control.}
-\label{Overview_of_the_experimental_apparatus_for_yaw_angle_control}
-\end{center}
-\end{figure}
-
-Integral Backstepping制御によるヨー角の制御性能を単独で評価するために，Fig. 70のような実験装置を用意した．クアッドロータがターンテーブルの上に固定されており，ヨー角のみ回転できるようになっている．実験では指令角をステップ状に0 deg, 60 deg, 0 deg, -60 deg, 0 degの順番で入力し，姿勢制御とその時の姿勢角を記録した．姿勢制御における周波数は100Hzである．
-Fig. 71にヨー角の指令値と制御中のヨー角の時系列データを示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Yaw_angle_and_reference_in_yaw_angle_control_experiment.png}
-\caption{Yaw angle and reference in yaw angle control experiment.}
-\label{Yaw_angle_and_reference_in_yaw_angle_control_experiment}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 71を見ると指令値に対して追従するように姿勢制御ができていることがわかるが，目標値に到達するまでの時間はおよそ1.0 secであり，ロール角，ピッチ角の制御と比較して遅い．これはヨー角の制御はモーターの反トルクのみで行うため，推力により発生するピッチ，ロール方向のトルクに比べ小さいからである．しかし，今回ヨー角が激しく動くような動きは想定していないため，ヨー角の応答時間に関しては特に問題はない．
-
-
-\subsection{ホバリング実験}
-ピッチ角，ロール角，ヨー角を組み合わせた制御性能を評価するため，クアッドロータのホバリング実験を行った．ホバリング実験では姿勢角の指令値を0 degに設定し，スロットルのみ操縦者がリモコンを介して操作する．またその時のクアッドロータの姿勢角と位置を記録した．位置はクアッドロータにマーカーを付け，ステレオカメラで計測している．
-
-Fig. 72とFig. 73ににホバリング中のクアッドロータの姿勢角と位置を示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Attitude_angle_of_the_quad-rotor_in_hovering_experiment.png}
-\caption{Attitude angle of the quad-rotor in hovering experiment.}
-\label{Attitude_angle_of_the_quad-rotor_in hovering_experiment}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Position_of_the_quad-rotor_in_hovering_experiment.png}
-\caption{Position of the quad-rotor in hovering experiment.}
-\label{Position_of_the_quad-rotor_in hovering_experiment}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 72とFig. 73を見ると浮き上がる直前や機体が地面に近い時（0$\sim$10 sec）は姿勢角及び位置が大きく変化していることがわかる．これは地面に近いため，ロータからの風が機体に影響与えているからである．十分に地面から離れると（0$\sim$10 sec）姿勢角及び位置の変化は緩やかになっていくことがわかる．ピッチ角とロール角に関しては，指令値から$\pm$2 degのところで安定し，ヨー角に関しては指令値から$\pm$1 degのところで安定していることがわかる．
-
-
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%% 位置制御システム %%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{位置制御システム}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Block_diagram_of_the_position_control_system.png}
-\caption{Block diagram of the position control system.}
-\label{Schematic_representation_of_each_instrumentation_error}
-\end{center}
-\end{figure}
-
-位置制御システムのブロック線図をFig. 74に示す．クアッドロータは位置制御と姿勢制御が互いに関係し影響を及ぼす．そこで姿勢制御と位置制御を分離して考える逆ダイナミクス法を用いた位置制御システムを構築する\cite{r}．位置制御系は姿勢制御計に目標指令を与え，姿勢制御系は与えられた目標指令に機体を追従させる．位置や姿勢の推定には拡張カルマンフィルタを用いている．ここではまずIMU，UWB，距離センサを用いた位置推定法について述べ，その後Integral Backstepping制御を用いた位置制御システムについて述べる．
-
-
-\subsection{位置推定}
-\subsubsection{UWBによる測距}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Comparison_of_spectrum.png}
-\caption{Comparison of spectrum.}
-\label{Comparison_of_spectrum}
-\end{center}
-\end{figure}
-
-超広帯域無線通信(Ultra Wide Band, UWB)とは非常に広い帯域幅にわたって電力を拡散させて高速通信を可能とする無線システムである．Fig. 75にUWBと既存の無線通信方式とのスペクトラムの比較を示す．使用する周波数帯域は3.1 GHzから10.6 GHzで帯域幅は7.5 GHzと従来の無線の数百kHzやWi-Fiの20 MHzに比べてかなり広い帯域を利用している．また送信出力は-41.3 dBm/MHz以下に制限されており、これは家庭用テレビやパソコン等の一般の電子機器等が発生する雑音レベルの約500分の1以下という小さな出力で通信を行う．またUWBはナノ秒オーダーのパルスを通信に用いるため，電波の到着時間を高精度に測定でき，測距・測位を高い精度で行うことができる．現在decaWave社からUWB対応の無線通信トランシーバモジュールDWM1000が販売されており，最大10 cmの測距精度と最大300 mの通信範囲が特徴である\cite{j}．
-次にUWB通信を用いた測距原理について説明する．2つ以上のUWB通信モジュールを用意し，互いに通信を行う．この時UWBの信号の伝搬時間を測定し，その測定時間$ToF$と光の速度$c$を乗算することでモジュール間の距離$d$を求めることができる(式(153))．
-
-\begin{align}
-d = Tof \times c
-\end{align}\
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Ranging_protocol_of_the_UWB_module.png}
-\caption{Ranging protocol of the UWB module.}
-\label{Ranging_protocol_of_the_UWB_module}
-\end{center}
-\end{figure}
-
-\noindent
-Fig. 76にUWBの通信プロトコルを示す．3次元の位置推定するためにはUWBモジュールはクアッドローター搭載用に1個，基地局用に3個以上必要となる．そのためお互いのモジュールを識別するためにまず基地局側からIDを送信する．その後クアッドローター側から応答があり，最後にIDと基地局側のタイムスタンプ($T_{SP},T_{RR},T_{SF}$)を送信する．この送られてきたタイムスタンプとクアッドロータ側のタイムスタンプ($T_{RP},T_{SR},T_{RF}$)を使って次式のように通信時間$ToF$を計算することができる．
-
-\begin{align}
-ToF = \frac{1}{4}((T_{SP}-T_{RR})-(T_{SR}-T_{RP})+(T_{RF}-T_{SR})-(T_{SF}-T_{RR}))
-\end{align}\
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Positional_relationship_between_the_anchors_and_the_quad-rotor.png}
-\caption{Positional relationship between the anchors and the quad-rotor.}
-\label{Positional_relationship_between_the_anchors_and_the_quad-rotor}
-\end{center}
-\end{figure}
-
-最後にUWBを使って三角測量によりクアッドロータの3次元位置を推定する方法について説明する．Fig. 77に基地局とクアッドロータの位置関係を示す．3つの基地局はあらかじめ橋梁等に設置されており，その三次元位置は既知であるとする（ここでは基地局が3箇所の場合について説明しているが，3箇所以上ある場合も同様に3次元位置を求めることができる．）．各基地局とクアッドロータが通信を行い，お互いの距離$d_{1},d_{2},d_{3}$が測定できたとすると，その距離とクアッドロータの3次元座標$x^{r},y^{r},z^{r}$の関係は次式で表される．
-
-\begin{align} 
-\left[
-    \begin{array}{c}
-      d_{1} \\
-      d_{2} \\
-      d_{3}
-    \end{array}
-\right]
-=
-\left[
-    \begin{array}{c}
-      \sqrt{(x^{r}-x_{1})^{2}+(y^{r}-y_{1})^{2}+(z^{r}-z_{1})^{2}} \\
-      \sqrt{(x^{r}-x_{2})^{2}+(y^{r}-y_{2})^{2}+(z^{r}-z_{2})^{2}} \\
-      \sqrt{(x^{r}-x_{3})^{2}+(y^{r}-y_{3})^{2}+(z^{r}-z_{3})^{2}} 
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-式(155)を$x^{r},y^{r},z^{r}$について解くことで3次元位置座標をもとめることができる．
-
-また今回製作したUWB基地局をFig. 78に示す．この基地局にはクアッドロータと同様のDacaWave社製のDWM1000が搭載されている．Fig. 78からわかるようにとても小型であるため，基地局の設置は容易に行える．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=45mm]{./Fig/Anchor_unit.png}
-\caption{Anchor unit.}
-\label{Anchor_unit}
-\end{center}
-\end{figure}
-
-\subsubsection{距離センサによる高度推定}
-橋梁の下を飛行するためには橋梁との衝突を避けるために高度の推定が重要になる．そこで今回の位置推定システムに距離センサを追加することで高度の推定精度の向上を狙った．しかし距離センサで高度を推定する場合，Fig. 79のように姿勢角が変化した時，距離センサから得られる値$d_{h}$と高度に差が生じてしまう．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig/Relationship_between_measurement_value_from_distance_sensor_and_altitude.png}
-\caption{Relationship between measurement value from distance sensor and altitude.}
-\label{Relationship_between_measurement_value_from_distance_sensor_and_altitude}
-\end{center}
-\end{figure}
-
-\noindent
-地面が水平であると仮定すると，距離センサからのデータを姿勢角を用いて補正すると次式のようになる．
-
-\begin{align}
-z^{r}= d_{h}\cos\theta\cos\phi
-\end{align}\
-
-\noindent
-式(156)を用いることで距離センサから得られる値から高度を推定することができる．
-
-
-\subsubsection{位置推定アルゴリズム}
-ここでは拡張カルマンフィルタを用いた位置の推定アルゴリズムの導出を行う．はじめに状態方程式を求める．機体の速度ベクトル$v_{r}=[v_{x},v_{y},v_{z}]^{T}$と機体の位置ベクトル$p_{r}=[x_{r},y_{r},z_{r}]^{T}$の関係は次式で表される．
-
-\begin{align}
-\frac{d}{dt}p_{r}=v_{r}
-\end{align}\
-
-\noindent
-速度ベクトルの時間微分$\dot{v}_{r}$は加速度センサから得られるデータ$a_{b}[a_{x},a_{y},a_{z}]^{T}$と回転行列$R$を用いて次のように表される．
-
-\begin{align}
-\frac{d}{dt}v_{r}=Ra_{b}-g_{r}
-\end{align}\
-
-\noindent
-ここで$g_{r}=[0,0,-g]^{T}$である．またオイラー角$\Theta=[\phi,\theta,\psi]^{T}$の時間微分と機体角速度$\omega=[p,q,r]^{T}$の関係式は式(11)より
-
-\begin{align}
-\frac{d}{dt}\Theta = W\omega
-\end{align}\
-
-\noindent
-となる．状態ベクトルを$\textbf{x}=[\Theta,p_{r},v_{r}]^{T}$とおき式(157)～(159)をまとめると次のようになる．
-
-\begin{align}
-\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))
-\end{align}\
-
-\noindent
-ただし$f(\cdot)$は
-
-\begin{align} 
-\textbf{f}(\textbf{x}(t))
-=
-\left[
-    \begin{array}{c}
-      W\omega \\
-      v_{r} \\
-      Ra_{b}-g_{r} 
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-角速度センサ及び加速度センサからの出力に含まれるノイズ$\delta\omega=[\delta p,\delta q, \delta r]^{T}$及び$\delta a_{b}=[\delta a_{x},\delta a_{y}, \delta a_{z}]^{T}$を考慮すると次式のようになる．
-
-\begin{align}
-\dot{\textbf{x}}(t)=\textbf{f}(\textbf{x}(t))+\textbf{B}\textbf{v}
-\end{align}\
-
-\noindent
-ただし$\textbf{B},\textbf{v}$はそれぞれ
-
-
-\begin{align} 
-\textbf{B}
-=
-\left[
-    \begin{array}{ccc}
-      \textbf{0}_{3\times 3}&\textbf{0}_{3\times 3}&\textbf{I}_{3\times 3} \\
-      \textbf{I}_{3\times 3}&\textbf{0}_{3\times 3}&\textbf{I}_{3\times 3}
-    \end{array}
-\right]^{T},
-\textbf{v}=[\delta p,\delta q, \delta r,\delta a_{x},\delta a_{y}, \delta a_{z}]^{T}
-\end{align}\
-
-\noindent
-さらにオイラー法を用いて式(162)を離散化すると
-
-\begin{align}
-\textbf{x}(t+1)=\textbf{f}_{t}(\textbf{x}(t))+\textbf{B}_{t}\textbf{v}
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-\textbf{f}_{t}(\textbf{x}(t))=\textbf{x}(t)+\textbf{f}(\textbf{x}(t))\Delta t,\textbf{B}_{t}=\textbf{B}\Delta t
-\end{align}\
-
-\noindent
-ここで$\Delta t$はサンプリング周期である．
-
-次に観測方程式を求める．今回の位置推定アルゴリズムでは加速度センサと地磁気センサを使って角度の補正を行い，UWBモジュールと距離センサを使って位置の補正及び高度の補正を行う．$\textbf{y}(t)=[a_{x},a_{y},a_{z},m_{x},m_{y},m_{z},d_{1},d_{2},d_{3},d_{h}]^{T}$とおき式(115)～(156)をまとめると次式のようになる．
-
-\begin{align}
-\textbf{y}(t)=\textbf{h}_{t}(\textbf{x}(t))
-\end{align}\
-
-\noindent
-ただし$\textbf{h}(\cdot)$は
-
-\begin{align} 
-\textbf{h}_{t}(\textbf{x}(t))
-=
-\left[
-    \begin{array}{c}
-       g\sin\theta\\
-      -g\cos\theta\sin\phi\\
-      -g\cos\theta\cos\phi\\
-      m_{x}\cos\theta\cos\psi-m_{z}\sin\theta\\
-      m_{x}\sin\phi\sin\theta\cos\psi+m_{z}\cos\theta\sin\phi\\
-      m_{x}\cos\phi\sin\theta\cos\psi+m_{z}\cos\theta\cos\phi\\
-      \sqrt{(x-x_{1})^{2}+(y-y_{1})^{2}+(z-z_{1})^{2}} \\
-      \sqrt{(x-x_{2})^{2}+(y-y_{2})^{2}+(z-z_{2})^{2}} \\
-      \sqrt{(x-x_{3})^{2}+(y-y_{3})^{2}+(z-z_{3})^{2}} \\
-      \frac{z_{r}}{\cos\theta\cos\phi}
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-式(168)に加速度センサ，地磁気センサ，UWBモジュール及び距離センサから得られるノイズ$[\delta a_{x},\delta a_{y},\delta a_{z}]^{T},[\delta m_{x},\delta m_{y},\delta m_{z}]^{T},[\delta d_{1},\delta d_{2},\delta d_{3}]^{T},\delta d_{h}$を考慮すると観測方程式は
-
-\begin{align}
-\textbf{y}(t)=\textbf{h}_{t}(\textbf{x}(t))+\textbf{w}
-\end{align}\
-
-\noindent
-ただし$\textbf{w}$は
-
-\begin{align}
-\textbf{w}=[\delta a_{x},\delta a_{y},\delta a_{z},\delta m_{x},\delta m_{y},\delta m_{z},\delta d_{1},\delta d_{2},\delta d_{3},\delta d_{h}]^{T}
-\end{align}\
-
-以上より，式(164)の状態方程式と式(168)の観測方程式より構成されるシステムの離散プロセスモデルが導出された．このプロセスモデルに対して拡張カルマンフィルタを適用することで位置推定アルゴリズムを得ることができる．
-
-\subsection{位置制御}
-\subsubsection{位置制御アルゴリズム}
-
-クアッドローターの重心の運動方程式は式(20)より
-
-\begin{align}
-m\left[
-    \begin{array}{c}
-      \ddot{x}^{r}  \\
-      \ddot{y}^{r} \\
-      \ddot{z}^{r} 
-    \end{array}
-\right]
-=
-f_{total}
-\left[
-    \begin{array}{c}
-      \cos\phi\sin\theta\cos\psi + \sin\phi\sin\psi \\
-      \cos\phi\sin\theta\sin\psi - \sin\phi\cos\psi \\
-      \cos\phi\cos\theta 
-    \end{array}
-\right]
-+m
-\left[
-    \begin{array}{c}
-      0 \\
-      0 \\
-      -g 
-    \end{array}
-\right]
-\end{align}\
-
-\noindent
-ここで$[x_{7},x_{8},x_{9},x_{10},x_{11},x_{12}]^{T}=[x,y,z,\dot{x},\dot{y},\dot{z}]^{T}$とおき，次式のように書き換える．
-
-\begin{align}
-\left\{
-\begin{aligned}
-\dot{x}_{7} &= x_{10}\\
-\dot{x}_{10} &= \frac{1}{m}U_{x}f_{total}\\
-\dot{x}_{8} &= x_{11}\\
-\dot{x}_{11} &= \frac{1}{m}U_{y}f_{total}\\
-\dot{x}_{9} &= x_{12}\\
-\dot{x}_{12} &= \frac{1}{m}(\cos\phi\cos\theta)f_{total}-g
-\end{aligned}
-\right.
-\end{align}\
-
-\noindent
-ただし
-
-\begin{align}
-U_{x}=\cos\phi\sin\theta\cos\psi + \sin\phi\sin\psi,U_{y}=\cos\phi\sin\theta\sin\psi - \sin\phi\cos\psi
-\end{align}\
-
-\noindent
-であり，仮想的な入力とする．まず$x$に関するIntegral Backstepping制御器を導出していく．最初に次式のように変数変換をおこなう．
-
-\begin{align}
-e_{7}=x_{d}-x_{7},e_{8}=c_{7}e_{7}+\dot{x}_{d}+\lambda_{4} p_{7} -x_{8}
-\end{align}\
-
-\noindent
-ただし$x_{d}$は$x$の目標値であり，$c_{7},\lambda_{4}$は正の定数，$p_{7}=\int_0^t e_{7}(\tau)d\tau$である．またリアプノフ関数を次式のように設定する．
-
-\begin{align}
-V(e_{7},e_{8})=\frac{1}{2}\lambda_{4} p_{7}^{2}+\frac{1}{2}e_{7}^{2}+\frac{1}{2}e_{8}^{2}
+\label{}
+\rm{Pixel} : \frac{L'}{2} = f : l
 \end{align}
 
 \noindent
-また式(174)を時間微分すると
+が言える．これを変形し
 
 \begin{align}
-\dot{V}(e_{7},e_{8})=\lambda_{4} p_{7}\dot{p}_{7}+e_{7}\dot{e}_{7}+e_{8}\dot{e}_{8}
-\end{align}\
-
-\noindent
-となる．$e_{7}$と$e_{8}$の時間微分はそれぞれ
-
-\begin{align}
-\dot{e}_{7}=\dot{x}_{d}-x_{7}=\dot{x}_{d}-(c_{7}e_{7}+\dot{x}_{d}+\lambda_{4} p_{7}-e_{8})=-c_{7}e_{7}-\lambda_{4} p_{7}+e_{8}
-\end{align}
-\begin{align}
-\dot{e}_{8}=c_{7}\dot{e}_{7}+\ddot{x}_{d}+\lambda_{4} e_{1}-\dot{x}_{8}=c_{7}(-c_{7}e_{7}-\lambda_{4} p+e_{8})+\ddot{x}_{d}+\lambda_{4} e_{7}-\frac{U_{x}f_{total}}{m}
-\end{align}\
-
-\noindent
-となる．ここで仮想的な入力$U_{x}$を次式のように設定する．
-
-\begin{align}
-U_{x}=\frac{m}{f_{total}}((1-c_{7}^{2}-\lambda_{4})e_{7}+(c_{7}+c_{8})e_{8}+\lambda_{7} p_{7}c_{7}+\ddot{x}_{d})
-\end{align}\
-
-\noindent
-ただし，$c_{8}$は正の定数である．したがって$V(e_{7},e_{8})\leq 0$となりシステムは安定になる．式(178)に式(173)を代入して$x$で表すと
-
-\begin{align}
-U_{x}=\frac{m}{f_{total}}((1+c_{7}c_{8}+\lambda_{4})(x_{d}-x)+(c_{7}+c_{8})(\dot{x}_{d}-\dot{x})+c_{8}\lambda_{4}\int_0^t (x_{d}-x)d\tau)
-\end{align}\
-
-\noindent
-となる．ただし$\ddot{x}_{d}=0$とおいた．$y$に関しても同様に計算すると
-
-\begin{align}
-U_{y}=\frac{m}{f_{total}}((1+c_{9}c_{10}+\lambda_{5})(y_{d}-y)+(c_{9}+c_{10})(\dot{y}_{d}-\dot{y})+c_{10}\lambda_{5}\int_0^t (y_{d}-y)d\tau)
-\end{align}\
-
-\noindent
-ただし$c_{9},c_{10},\lambda_{5}$は正の定数であり，$y_{d}$は$y$の目標値である．次に$U_{x},U_{y}$から目標姿勢角$\phi_{d},\theta_{d}$を算出する．式(172)を$\phi,\theta$について解き$\phi=\phi_{d},\theta=\theta_{d},\phi=\psi_{d}$を代入すると
-
-\begin{align}
-\left\{
-\begin{aligned}
-\phi_{d} &= \sin^{-1}(U_{x}\sin\psi_{d}-U_{y}\cos\psi_{d})\\
-\theta_{d} &= \sin^{-1}(\frac{1}{\cos\phi_{d}}(U_{x}\cos\psi_{d}+U_{y}\sin\psi_{d}))
-\end{aligned}
-\right.
-\end{align}\
-
-\noindent
-となる．以上より目標姿勢角$\phi_{d},\theta_{d}$を求めることができた．
-
-
-次に$z$に関するIntegral Backstepping制御器を導出していく．最初に次式のように変数変換をおこなう．
-
-\begin{align}
-e_{11}=z_{d}-x_{11},e_{12}=c_{11}e_{11}+\dot{z}_{d}+\lambda_{6} p_{11} -x_{12}
-\end{align}\
-
-\noindent
-ただし$z_{d}$は$z$の目標値であり，$c_{11},\lambda_{6}$は正の定数，$p_{11}=\int_0^t e_{11}(\tau)d\tau$である．またリアプノフ関数を次式のように設定する．
-
-\begin{align}
-V(e_{11},e_{12})=\frac{1}{2}\lambda_{6} p_{11}^{2}+\frac{1}{2}e_{11}^{2}+\frac{1}{2}e_{12}^{2}
+\label{ste_1}
+L' = \frac{2 \rm{Pixel}}{f}
 \end{align}
 
 \noindent
-また式(183)を時間微分すると
+となる．同様に相似より
 
 \begin{align}
-\dot{V}(e_{11},e_{12})=\lambda_{6} p_{11}\dot{p}_{11}+e_{11}\dot{e}_{11}+e_{12}\dot{e}_{12}
-\end{align}\
-
-\noindent
-となる．$e_{11}$と$e_{12}$の時間微分はそれぞれ
-
-\begin{align}
-\dot{e}_{11}=\dot{z}_{d}-x_{11}=\dot{z}_{d}-(c_{11}e_{11}+\dot{z}_{d}+\lambda_{6} p_{11}-e_{12})=-c_{11}e_{11}-\lambda_{6} p+e_{12}
-\end{align}
-\begin{align}
-\dot{e}_{12}=c_{11}\dot{e}_{11}+\ddot{z}_{d}+\lambda_{6} e_{11}-\dot{x}_{12}=c_{11}(-c_{11}e_{11}-\lambda_{6} p+e_{12})+\ddot{z}_{d}+\lambda_{6} e_{11}-\frac{1}{m}(\cos\phi\cos\theta)f_{total}+g
-\end{align}\
-
-\noindent
-となる．ここ全推力$f_{total}$を次式のように設定する．
-
-\begin{align}
-f_{total}=\frac{m}{\cos\phi\cos\theta}((1-c_{11}^{2}-\lambda_{6})e_{11}+(c_{11}+c_{12})e_{12}+\lambda_{6} p_{11}c_{11}+\ddot{\phi}_{d}+g)
-\end{align}\
-
-\noindent
-ただし，$c_{12}$は正の定数である．したがって$V(e_{11},e_{12})\leq 0$となりシステムは安定になる．式(187)に式(182)を代入して$z$で表すと
-
-\begin{align}
-f_{total}=\frac{1}{\cos\phi\cos\theta}((1+c_{11}c_{12}+\lambda_{6})(z_{d}-z)+(c_{11}+c_{12})(\dot{z}_{d}-\dot{z})+c_{12}\lambda_{6}\int_0^t (z_{d}-z)d\tau+g)
-\end{align}\
-
-\noindent
-となる．
-
-\newpage
-\section{位置推定アルゴリズムの評価}
-
-7.1で述べた拡張カルマンフィルタを用いた位置推定アルゴリズムの評価を行った．評価方法としては，位置推定アルゴリズムによって得られたクアッドロータの位置とステレオカメラシステムで得られた位置を比較した．
-
-Fig. 80に実験装置の概略図を示す．4つのUWBの基地局をクアッドロータの周りに配置してある．各基地局の座標をTable 7に示す．またクアッドロータには赤外線LEDマーカーが搭載されており，ステレオカメラシステムでもクアッドロータの位置の測定が可能である．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Schematic_diagram_of_experimental_apparatus_for_position_estimation.png}
-\caption{Schematic diagram of experimental apparatus for position estimation.}
-\label{Schematic_diagram_of_experimental_apparatus_for_position_estimation}
-\end{center}
-\end{figure}
-
-\begin{table}[H]
- \caption{Absolute position of anchors.}
- \label{Absolute_position_of_anchors}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-   \hline
-      & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
-   \hline\hline
-   Anchor1& -6.000 & 3.500 & 2.500 \\
-   \hline 
-   Anchor2&  8.695 & 3.514 & 2.500 \\
-   \hline
-   Anchor3&  8.436 & -8.166 & 2.500 \\
-   \hline
-   Anchor4& -6.003 & -8.160 & 2.500 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-\noindent
-位置推定アルゴリズムはクアッドロータに搭載されているシングルボードコンピュータで行い，推定結果はWi-Fi経由でPCに送信し記録する．またクアッドロータとステレオカメラシステムとの同期は赤外線LEDマーカーの点灯した瞬間を初期時刻として同期を行う．位置推定アルゴリズムのサンプリング周波数とステレオカメラシステムのサンプリング周波数に関しては100 Hzに設定し実験を行った．
-
-次にクアッドロータの動かし方について説明する．クアッドロータは手で持って，Fig. 81に示す経路を通るように動かす．各ポイントP1からP8の座標をTable 8に示す．
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=80mm]{./Fig/Moving_path_of_the_quad-rotor.png}
-\caption{Moving path of the quad-rotor.}
-\label{Moving_path_of_the_quad-rotor}
-\end{center}
-\end{figure}
-
-\begin{table}[H]
- \caption{Waypoint location.}
- \label{Waypoint_location}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-   \hline
-      & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
-   \hline\hline
-   P1& 0.00 & 0.00 & 0.00 \\
-   \hline 
-   P2& 0.00 & 0.00 & 1.00 \\
-   \hline
-   P3& 0.00 & -1.25 & 1.00 \\
-   \hline
-   P4& 2.50 & -1.25 & 1.00 \\
-   \hline
-   P5& 2.50 & 1.25 & 1.00 \\
-   \hline
-   P6& 0.00 & 1.25 & 1.00 \\
-   \hline
-   P7& 0.00 & 0.00 & 1.00 \\
-   \hline
-   P8& 0.00 & 0.00 & 0.00 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-
-今回UWBの基地局の数と位置推定の精度を調査するため，基地局が3つの場合と4つの場合でそれぞれ5回ずつ位置推定を行った．Figs. 82～91に位置推定アルゴリズムによる位置推定結果とステレオカメラシステムによる位置測定結果を示す．
-
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test1).png}
-\caption{Quad-rotor position estimation result with 3 anchors and measurement result by stereo camera system (test1).}
-\label{Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test1)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test2).png}
-\caption{Quad-rotor position estimation result with 3 anchors and measurement result by stereo camera system (test2).}
-\label{Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test2)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test3).png}
-\caption{Quad-rotor position estimation result with 3 anchors and measurement result by stereo camera system (test3).}
-\label{Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test3)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test4).png}
-\caption{Quad-rotor position estimation result with 3 anchors and measurement result by stereo camera system (test4).}
-\label{Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test4)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test5).png}
-\caption{Quad-rotor position estimation result with 3 anchors and measurement result by stereo camera system (test5).}
-\label{Quadrotor_position_estimation_result_with_3_anchors_and_measurement_result_by_stereo_camera_system(test5)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test1).png}
-\caption{Quad-rotor position estimation result with 4 anchors and measurement result by stereo camera system (test1).}
-\label{Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test1)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test2).png}
-\caption{Quad-rotor position estimation result with 4 anchors and measurement result by stereo camera system (test2).}
-\label{Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test2)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test3).png}
-\caption{Quad-rotor position estimation result with 4 anchors and measurement result by stereo camera system (test3).}
-\label{Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test3)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test4).png}
-\caption{Quad-rotor position estimation result with 4 anchors and measurement result by stereo camera system (test4).}
-\label{Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test4)}
-\end{center}
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=210mm]{./Fig/Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test5).png}
-\caption{Quad-rotor position estimation result with 4 anchors and measurement result by stereo camera system (test5).}
-\label{Quadrotor_position_estimation_result_with_4_anchors_and_measurement_result_by_stereo_camera_system(test5)}
-\end{center}
-\end{figure}
-\newpage
-
-
-
-
-また実験結果から各座標$x,y,z$におけるRoot Mean Squared Error (RMSE)を算出した．位置推定アルゴリズムによる推定位置を$[\hat{x}_{i},\hat{y}_{i},\hat{z}_{i}]^{T}(i=1,...,n)$，ステレオカメラシステムによる位置測定結果を$[x_{camera},y_{camera},z_{camera}]^{T}(i=1,...,n)$とおいた時，各座標のRMSEの定義式は以下のようになる．ただし$n$はデータ数とする．
-
-\begin{align}
-RMSE_{x}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{x}_{i}-x_{camera})^{2}}
+\label{ste_2}
+\delta z = \frac{L'l}{L - L'}
 \end{align}
 
+\noindent
+が言える．式(\ref{ste_1})を式(\ref{ste_2})に代入し，整理すると
+
 \begin{align}
-RMSE_{y}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{i}-y_{camera})^{2}}
+\label{}
+\delta z = \frac{2 l^2 \rm{Pixel}}{fL - 2l \rm{Pixel}}
 \end{align}
 
-\begin{align}
-RMSE_{z}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{z}_{i}-z_{camera})^{2}}
-\end{align}\
-
 \noindent
-式(189)～(191)を用いて算出した各座標のRMSEをTable 9とTable 10に示す．
+となり，奥行き誤差が導出できた．同様に$x$方向，$y$方向誤差も相似より計算できるが，$\delta z$に比べて極めて小さく，無視できるため割愛する．奥行き誤差$\delta z$が100 mm以下になるように次の表のパラメータを用いて$l$を計算すると，$l　= 8.959 \ \rm{m}$という結果を得たため，カメラから飛行するクアッドロータまでの距離が8 m以下になるように設定して実験を行うこととする．
 
 
-\begin{table}[H]
- \caption{RMSE of each coordinate and average (3 anchors).}
- \label{RMSE3}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-   \hline
-      & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
-   \hline\hline
-   Test1& 0.207 & 0.207 & 0.051 \\
-   \hline 
-   Test2& 0.224 & 0.263 & 0.061 \\
-   \hline
-   Test3& 0.212 & 0.180 & 0.074 \\
-   \hline
-   Test4& 0.210 & 0.223 & 0.086 \\
-   \hline
-   Test5& 0.225 & 0.208 & 0.085 \\
-   \hline\hline
-   Average& 0.216 & 0.216 & 0.071 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-\begin{table}[H]
- \caption{RMSE of each coordinate and average (4 anchors).}
- \label{RMSE4}
- \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-   \hline
-      & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
-   \hline\hline
-   Test1& 0.126 & 0.125 & 0.089 \\
-   \hline 
-   Test2& 0.180 & 0.153 & 0.094 \\
-   \hline
-   Test3& 0.158 & 0.150 & 0.078 \\
-   \hline
-   Test4& 0.163 & 0.154 & 0.085 \\
-   \hline
-   Test5& 0.160 & 0.150 & 0.076 \\
-   \hline\hline
-   Average& 0.158 & 0.146 & 0.084 \\
-   \hline
-  \end{tabular}
- \end{center}
-\end{table}
-
-Figs. 82～91の$x$及び$y$の推定値と$z$の推定値の時系列データを比較すると$z$の推定値の方が，$x,y$の推定値に比べ精度よく推定できていることがわかる．それぞれのRMSEを比較してもTable 9，Table 10からわかるように$x,y$のRMSEに比べ$z$のRMSEが小さくなっている．これは機体の高度をUWBだけでなく距離センサでも測定しているからである．また基地局が3つの場合と4つの場合のクアッドロータの推定結果を比較すると，4つの場合の方が推定値の突発的な変化が3つの場合に比べ減少していることがわかる．これはクアッドロータの位置を観測するセンサが増えたことにより，位置の推定精度が上がったためと考えられる．このことはTable 9，Table 10のRMSEの比較からもわかり，$x,y$のRMSEが基地局が3つの場合と4つの場合でおよそ0.05 mの差があることがわかる．
-
-以上から距離センサの追加と基地局の増設により，クワッドロータの位置推定の精度が向上することがわかった．
 
 
-\newpage
-\section{位置制御アルゴリズムの評価}
 
-位置の制御性能を評価する最初の段階として，水平方向のみIntegral Backstepping制御を適用し，スロットルのみ操縦者がリモコンを介して操作してホバリングさせる実験を行った．$x,y$の目標値はそれぞれ0である．また実験中のクアッドロータの位置はステレオカメラシステムで計測している．位置制御ループの周波数は100 Hzで行った．実験の様子をFig. 92に示す．クアッドロータは墜落を防止するため，上から垂らしているひもにくくりつけてある．ひもは常にたるんだ状態にしてあり，クアッドロータの位置制御には影響を及ぼさない．
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=150mm]{./Fig/Position_control_experiment.png}
-\caption{Position control experiment.}
-\label{Position_control_experiment}
-\end{center}
-\end{figure}
 
-位置制御中のドローンの動きをみると目標に追従しようとしているが，4 secあたりから$y$方向の動きが振動的になってしまい目標値から徐々に離れてしまっている．そして9 secあたりで足が地面に接触し，制御不能の状態に陥ってしまった．原因を調べるために振動的になっているクアッドロータのy軸の位置とピッチ角に着目した．実験中における$y$軸の位置とピッチ角の時系列データをFig. 93とFig. 94に示す．Fig. 93，Fig. 94を比較すると位置の動きに対してピッチ角の制御が遅れていることがわかる．したがって今回クアッドロータの姿勢角の応答性が悪いため，位置制御が振動的になってた考えられる．
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Quad-rotor_position_during_position_control.png}
-\caption{Quad-rotor position during position control.}
-\label{Quad-rotor_position_during_position_control}
-\end{center}
-\end{figure}
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=70mm]{./Fig/Quad-rotor_attitude_angle_during_position_control.png}
-\caption{Quad-rotor attitude angle during position control.}
-\label{Quad-rotor_attitude_angle_during_position_control}
-\end{center}
-\end{figure}
+
+
+
+
+
+
+
+
 
 
 
@@ -3538,15 +1636,6 @@ Figs. 82～91の$x$及び$y$の推定値と$z$の推定値の時系列データ�
 %%%%%%%%%%%%%%%%%%%%%% 結言 %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{結言}
-本研究では鋼構造物点検用UAVの非GPS環境での自律飛行を目的として，UWB，IMU及び距離センサを組み合わせた自己位置推定法及びIntegral Backstepping制御を使った自律飛行制御手法を提案し，制御器の構築，小型クアッドロータを用いた実機開発を行った．
-
-姿勢推定に関しては加速度センサ，ジャイロセンサ，地磁気センサを拡張カルマンフィルタにより組み合わせた手法を提案した．また地磁気センサのキャリブレーション方法についても説明を行った．ポテンショメータとの比較では，ポテンショメータからの角度と推定値に若干の位相遅れがあるものの高い精度で姿勢角が推定できていることを示すことができた．また推定に地磁気センサを使っているヨー角に関しては，ロータの回転による磁気の影響を調べるためにロータを回転させた状態で角度の推定を行った．回転させてない時と比べ偏差は大きくなったものの，大きくずれることはなくクアッドロータの飛行中にもヨー角が推定可能であることを示した．
-
-姿勢制御に関してはIntegral Backstepping制御を用いた姿勢制御器の構築し，その姿勢制御器を評価のために，ロール角，ピッチ角，ヨー角それぞれ単独で評価を行った結果，どの姿勢角も目標値に対して追従できることが示された．また，ピッチ角，ロール角，ヨー角を組み合わせた制御性能を評価するためにクアッドロータのホバリング実験を行った．実験ではスロットルの操作のみで，ホバリングができることが示された．またその時のクアッドロータの飛行経路も示した．
-
-位置推定に関しては9軸のIMU，UWB，距離センサを拡張カルマンフィルタにより組み合わせた手法を提案し，推定した位置とステレオカメラにより測定した位置との比較を行った．その結果，提案した手法を用いることで，非GPS環境においてクアッドロータの水平方向に関してはおよそ0.15 m，高度に関しては0.08 mの精度で推定できることが示された．また，距離センサの追加によって高度の推定精度が向上することが示された．さらに基地局を3つから4つに増やすことで，水平の位置精度がおよそ28％向上することが示された．
-
-位置制御に関しては逆ダイナミクス法とIntegral Backstepping制御を組み合わせた位置制御器の構築を行った．位置制御器を評価する最初の段階として，水平方向のみ位置制御を適用しスロットルのみ操作してクアッドロータをホバリングさせる実験を行ったが，クアッドロータの$y$方向の動きが振動的になり，目標に追従させることができなかった．原因としては姿勢制御の応答性が悪く，位置制御が振動的になったためであると考えられる．現状では，応答性を上げるために姿勢制御の制御ゲインを上げると，発散するため，姿勢角が目標値に対して収束しない．そのため姿勢制御の応答性を向上させるためには，姿勢制御ループの周波数を現在の100 Hzから引き上げる必要があると考えられる．
 
 
 
@@ -3559,12 +1648,11 @@ Figs. 82～91の$x$及び$y$の推定値と$z$の推定値の時系列データ�
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{謝辞}
 \addcontentsline{toc}{section}{謝辞}
+この研究テーマを与えて下さり，またご指導ご鞭撻を下さった澤田祐一教授，東善之助教授に感謝致します．また，加えて報告会において貴重な意見を下さったロボティクス研究室の飛行ロボットグループメンバやアドバイスを下さった研究室の皆様に感謝致します．加えて，本研究の学会発表の際に共同研究者としてお名前を貸して下さり，またミーティングの際には貴重なアドバイスを下さった知的構造システム学研究室の増田先生や防振システム工学研究室の三浦先生に心より感謝を申し上げたいと思います．最後にクアッドロータの実験を行うに至って貴重な部屋を貸して下さった産学公連携推進センターの皆様にも謝意を表します．
 
 
-この研究を行う機会を下さった澤田祐一教授，東善之助教に感謝致します．また，報告会や勉強会を通して多くの知識や示唆をくださったロボティクス研究室の皆様及び学系プロジェクトの皆様に感謝致します．加えて，機体製作に当たり協力していただきましたものづくり教育研究支援センターの方々にも心より感謝致します．
 
 
-また，本研究の一部は一般財団法人日本建設情報総合センターの支援により行われました．ここに謝意を表します．
 
 
 \newpage

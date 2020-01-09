@@ -394,7 +394,7 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
   \begin{center}
     \begin{tabular}{c}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=50mm]{./Fig2/narrow.png}
 	  \caption{Narrow band signal with noise}
@@ -402,7 +402,7 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
         \end{center}
       \end{minipage}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/wide.png}
           \caption{Ultra wide band signal with noise}
@@ -423,7 +423,7 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
   \begin{center}
     \begin{tabular}{c}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=50mm]{./Fig2/narrow_with_reflections.png}
 	  \caption{Narrow band signal with reflections}
@@ -431,7 +431,7 @@ UWB通信（超広帯域無線通信，Ultra Wide Band）とは無線通信方�
         \end{center}
       \end{minipage}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/wide_with_reflections.png}
           \caption{Ultra wide band signal with reflections}
@@ -638,7 +638,38 @@ Sensor valueはオプティカルフローセンサから得た値であり，Al
 \end{table}
 
 \noindent
-Scalarは定数であり，このScalarの値を次のキャリブレーションにより求めた．式(\ref{2-3-1})から得られるのは，あくまでも1ループ中に動いた距離，つまり速度である．物体が移動した真の速度を用いてこのScalarの値を求めることは可能であるが，速度を外部のセンサなどを用いて求めるのはシステムが複雑になる．そこで，速度ではなく真の移動距離を用いてこのScalarの値を求めることにした．過去のある時点から現在までに移動した距離を算出するには，センサから得られた速度に対してマイコンが1ループにかかる処理時間を掛け，それを足し合わせることで可能である．つまり，センサ値を積分することである．そこで次のような実験を行った．ある高さに対し，センサが下を向くように固定し，一方向のみレールにより自由度を与える．レールに既知の距離を複数点マークし，その距離分だけセンサを動かした．センサ値を積分して得られた距離データと真の距離を最小二乗法により近似することでScalarを求めた．センサを動かした距離はTable \ref{Sensor_Value_and_Moved_Distance}に示すように0 mmから800 mmまでの200 mm間隔である．固定したセンサの床からの高さは775 mmである．また，センサ値の値は三回試行を行った上でのそれらの平均値である．
+Scalarは定数であり，このScalarの値を次のキャリブレーションにより求めた．式(\ref{2-3-1})から得られるのは，あくまでも1ループ中に動いた距離，つまり速度である．物体が移動した真の速度を用いてこのScalarの値を求めることは可能であるが，速度を外部のセンサなどを用いて求めるのはシステムが複雑になる．そこで，速度ではなく真の移動距離を用いてこのScalarの値を求めることにした．過去のある時点から現在までに移動した距離を算出するには，センサから得られた速度に対してマイコンが1ループにかかる処理時間を掛け，それを足し合わせることで可能である．つまり，センサ値を積分することである．そこで次のような実験を行った．次のFig. \ref{opt_experiment1}，Fig. \ref{opt_experiment2}のようにある高さに対し，センサが下を向くように固定し，一方向のみレールにより自由度を与える．レールに既知の距離を複数点マークし，その距離分だけセンサを動かした．
+
+
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tabular}{cc}
+
+      \begin{minipage}[t]{0.5\hsize}
+        \begin{center}
+         \includegraphics[height=50mm]{./Fig2/opt_experiment1.png}
+	  \caption{Narrow band signal with reflections}
+	　\label{opt_experiment1}
+        \end{center}
+      \end{minipage}
+
+      \begin{minipage}[t]{0.5\hsize}
+        \begin{center}
+          \includegraphics[height=50mm]{./Fig2/opt_experiment2.png}
+          \caption{Ultra wide band signal with reflections}
+	   \label{opt_experiment2}
+        \end{center}
+      \end{minipage}
+
+    \end{tabular}
+  \end{center}
+\end{figure}
+
+
+\noindent
+センサ値を積分して得られた距離データと真の距離を最小二乗法により近似することでScalarを求めた．センサを動かした距離はTable \ref{Sensor_Value_and_Moved_Distance}に示すように0 mmから800 mmまでの200 mm間隔である．固定したセンサの床からの高さは775 mmである．また，センサ値の値は三回試行を行った上でのそれらの平均値である．
+
 
 
 
@@ -1197,11 +1228,11 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
    \hline
    Total weight [kg] & 1.05 \\ 
    \hline
-   Height [mm]& 250? \\
+   Height [mm]& 200 \\
    \hline
-   Width [mm]& 436 \\
+   Width [mm]& 443 \\
    \hline
-   Depth [mm]& 436 \\
+   Depth [mm]& 443 \\
    \hline
    Propeller size [inch] & 8$\times$4.5\\
    \hline
@@ -1256,11 +1287,11 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 \end{figure}
 
 \noindent
-また，アンカを設置した絶対座標を次の表に示す．
+また，アンカを設置した絶対座標を次のTable \ref{Absolute position of target UWB anchors}に示す．
 
 \begin{table}[H]
- \caption{Sensor values and moving distance}
- \label{Sensor_Value_and_Moved_Distance}
+ \caption{Absolute position of target UWB anchors}
+ \label{Absolute position of target UWB anchors}
  \begin{center}
   \begin{tabular}{|c|c|c|c|}
    \hline
@@ -1291,20 +1322,11 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 
 
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=60mm]{./Fig2/anchor_zoom.png}
-\caption{Laboratory used for position estimation and position control experiments}
-\label{experiment_field}
-\end{center}
-\end{figure}
-
-
 
 
 \begin{table}[H]
- \caption{Sensor values and moving distance}
- \label{Sensor_Value_and_Moved_Distance}
+ \caption{Absolute position of target points }
+ \label{Absolute position of target points }
  \begin{center}
   \begin{tabular}{|c|c|c|}
    \hline
@@ -1365,17 +1387,17 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
   \begin{center}
     \begin{tabular}{c}
 
-      \begin{minipage}{0.4\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-         \includegraphics[height=40mm]{./Fig2/VICON.jpg}
+         \includegraphics[height=45mm]{./Fig2/VICON.jpg}
 	  \caption{VICON[]}
         \label{VICON}
         \end{center}
       \end{minipage}
 
-      \begin{minipage}{0.6\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-          \includegraphics[height=50mm]{./Fig2/VICON_room.jpg}
+          \includegraphics[height=45mm]{./Fig2/VICON_room.jpg}
           \caption{The room where VICON is installed[]}
           \label{VICON_room}
         \end{center}
@@ -1467,15 +1489,15 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
   \begin{center}
     \begin{tabular}{c}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-         \includegraphics[height=50mm]{./Fig2/LED_with_quad1.png}
+         \includegraphics[height=55mm]{./Fig2/LED_with_quad1.png}
 	  \caption{Old quad rotor with infrared LED}
         \label{LED_with_quad1}
         \end{center}
       \end{minipage}
 
-      \begin{minipage}{0.5\hsize}
+      \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/LED_with_quad2.png}
           \caption{New quad rotor with infrared LED}
@@ -1612,14 +1634,26 @@ L' = \frac{2 \rm{Pixel}}{f}
 
 
 
+\section{ロータの推力測定}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/thrustmeter.png}
+\caption{Configuration for measuring propeller thrust}
+\label{thrustmeter}
+\end{center}
+\end{figure}
 
 
 
 
-
-
-
-
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/thrust_prop.png}
+\caption{Propeller fixed to thrust meter}
+\label{thrust_prop}
+\end{center}
+\end{figure}
 
 
 

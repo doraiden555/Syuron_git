@@ -1255,16 +1255,9 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 
 
 
-
-
-
-
-
-
-
-
 \section{位置推定アルゴリズムの精度評価}
-この章では前章にて説明した位置推定アルゴリズムを用いクアッドロータの位置を推定し，その精度の評価を行う．まず位置推定実験に使用した環境を次の図に示す．
+\subsection{従来推定アルゴリズムを用いた位置推定の精度評価}
+この章では前章にて説明した位置推定アルゴリズムを用い，クアッドロータの位置を推定し，その推定精度の評価を行う．まず位置推定実験に使用した実験環境を次の図に示す．なお，本実験ではクアッドロータは飛行させず，床に置いた静止状態で目標点における位置を推定した．
 
 
 \begin{figure}[H]
@@ -1276,7 +1269,7 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 \end{figure}
 
 \noindent
-クアッドロータの位置を推定する領域を取り囲むように4つのUWBアンカを設置した．アンカは次の図に示すようにカメラ用の三脚の頂点に固定した．
+まず，クアッドロータの位置を推定する領域を取り囲むように4つのUWBアンカを設置した．アンカは次の図に示すようにカメラ用の三脚の頂点に固定した．
 
 \begin{figure}[H]
 \begin{center}
@@ -1287,7 +1280,7 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
 \end{figure}
 
 \noindent
-また，アンカを設置した絶対座標を次のTable \ref{Absolute position of target UWB anchors}に示す．
+そして，アンカを設置した位置の絶対座標を次のTable \ref{Absolute position of target UWB anchors}に示す．
 
 \begin{table}[H]
  \caption{Absolute position of target UWB anchors}
@@ -1309,24 +1302,12 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
  \end{center}
 \end{table}
 
-
-
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[height=100mm]{./Fig2/position_verification_2_copy.png}
-\caption{Laboratory used for position estimation and position control experiments}
-\label{experiment_field}
-\end{center}
-\end{figure}
-
-
-
-
+\noindent
+そして，本実験での実験手順を以下に示す．まず，実験室の床に対し，目標点として与える点の真値を可能な限り精度良くマークした．次のTable \ref{Relative coordinates of target points}にその4点の目標値の相対座標を示す．なお，Fig. \ref{experiment_field}において，実験領域に衝撃吸収用のウレタンマットが敷かれているが，この位置推定実験の際には敷かれていないため，マットは真値に対し悪影響を与えない．
 
 \begin{table}[H]
- \caption{Absolute position of target points }
- \label{Absolute position of target points }
+ \caption{Relative coordinates of target points}
+ \label{Relative coordinates of target points}
  \begin{center}
   \begin{tabular}{|c|c|c|}
    \hline
@@ -1344,14 +1325,163 @@ $z$軸周りの回転角度は地磁気及び角速度センサを使用して�
  \end{center}
 \end{table}
 
-
-\subsection{カルマンフィルタの分散が精度に与える影響の考察}
-
-
+\noindent
+次にクアッドロータの左手前の足が床にマークしたPoint0と重なるようにクアッドロータを床に置く．そして，プログラム内にて座標変換を行い，その一番初めにクアッドロータを接地した点を相対座標系における原点（Point0）としてキャリブレーションを行う．その点において，数十秒間クアッドロータを放置し，次の目標点（Point1）へと手で持って移動させる．Point1においても同様に数十秒間放置した．この動作を他の残り2点でも同様に行い，各点の静止状態における相対座標を，前に示したオプティカルフローセンサを用いない従来の推定手法により推定した．その推定結果を次のFig. \ref{position_verification_2_copy}に示す．
 
 
 
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/position_verification_2_copy.png}
+\caption{Position estimation results when the quad rotor is stationary using the conventional estimation method}
+\label{position_verification_2_copy}
+\end{center}
+\end{figure}
+
+\noindent
+図中における赤い点がそれぞれの目標点であり，青い線が推定結果を表している．初めにキャリブレーションを行ったPoint0以外の3点において数cmから数十cmほどの定常偏差が生じているが，いずれの点においても誤差1 m以内の精度で位置を推定できていることがわかる．また，点間の移動の過程において，推定された座標の線が直線的でないのは，移動の際に目標となる基準線を与えず，目標点のみ移動の際の指標として与えたためである．目標点同士を線で結び，その上をトレースできれば，結果はより直線に近づくと考えられる．
+
+
+
+
+
+\subsection{センサの種類及びカルマンフィルタの分散値が位置推定精度に与える影響の考察}
+この章では，先行研究において提案された方法を用いて位置推定を行った結果と，本研究において提案する，オプティカルフローセンサも用いた方法を用いて位置推定を行った結果を数値シミュレーションを用いて比較する．また，後者におけるシミュレーションでは，カルマンフィルタにおけるセンサの分散値を変化させ，それが推定結果にどのような影響を与えるかも考察する．まず，シミュレーションに用いるためのセンサ値を実際の実験を通してロギングした．実験方法は床に描いた二等辺三角形の頂点及び線上を，台に固定したクアッドロータがトレースする形で動かし，その際のそれぞれのセンサ値をロギングした．ロギングしたセンサ値はIMU，UWBモジュール，距離センサ，オプティカルフローセンサの値である．また，床面上の線をトレースするのは，クアッドロータにFig. \ref{laser}のように取り付けたレーザポインタから光を下向きに照射し，それが線をなぞるように台を動かすことで実現した．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=70mm]{./Fig2/laser.png}
+\caption{Laser pointer attached for the purpose of tracing a line drawn on the floor}
+\label{laser}
+\end{center}
+\end{figure}
+
+\noindent
+また，設置したUWBアンカの絶対座標をTable \ref{Absolute position of UWB anchors_2}に，床面に描いた二等辺三角形の頂点の相対座標をTable \ref{Relative coordinates of target points_2}に示す．
+
+\begin{table}[H]
+ \caption{Absolute position of UWB anchors}
+ \label{Absolute position of UWB anchors_2}
+ \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+   \hline
+    & $x$ position [m] & $y$ position [m] & $z$ position [m] \\
+   \hline\hline
+   Anchor1 &  -1.00 & 1.50 & 0.73\\
+   \hline 
+   Anchor2 &    1.00 & 1.50 & 0.73\\
+   \hline
+   Anchor3 &    1.00 & -1.50 & 0.73\\
+   \hline
+   Anchor4 &  -1.00 & -1.50 & 0.73\\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+
+\begin{table}[H]
+ \caption{Relative coordinates of target points}
+ \label{Relative coordinates of target points_2}
+ \begin{center}
+  \begin{tabular}{|c|c|c|}
+   \hline
+    & $x$ position [m] & $y$ position [m] \\
+   \hline\hline
+   Point0 (Origin) &  0.00 & 0.00 \\
+   \hline 
+   Point1           &  1..00 & 0.00 \\
+   \hline
+   Point2           &  0.00 & 1.00 \\
+   \hline
+   Point3           &  -1.00 & 0.00 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+
+\noindent
+二等辺三角形の底辺の中点を相対座標系の原点とし，クアッドロータを最初に設置した地点としてキャリブレーションを行う．クアッドロータをPoint0からPoint3まで順に動かし，最後にPoint0に戻した．また，各点においてクアッドロータを10秒間ずつ静止させた．以上の実験を通して集めたデータを数値計算ソフトであるMatlabを用いて作製した位置推定プログラムに対して適用し，位置推定の計算をオフラインの環境で行った．ここで，拡張カルマンフィルタを含むカルマンフィルタにおいて調整可能なパラメータは主に共分散行列の初期値及び観測方程式における各センサの分散値である．数値シミュレーションにおいて初期値は変えず，シミュレーションに使用するセンサの種類及び，それぞれのセンサの分散値を変化させ，それの結果を見ていく．次の表に各シミュレーションにおいて使用したセンサの種類及び，分散値を示す．
+
+
+
+\begin{table}[H]
+ \caption{Type of used sensors and variance values}
+ \label{Type of used sensors and variance values}
+ \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+   \hline
+                  & Accelerometer  &  UWB module & Optical flow sensor   \\
+   \hline\hline
+   Simulation1 &  0.4    & 0.02   & -        \\
+   \cline{2-4}
+                   &   0.004 & 0.01 & 0.0006  \\
+   \hline 
+   Simulation2 &    0.4 & 0.02 & -       \\
+   \cline{2-4}
+                   &    0.004     &    0.000001    &     0.06     \\
+   \hline
+   Simulation3 &    0.4    & 0.02 & - \\
+   \cline{2-4}
+                   &    0.004 & 0.1 &  0.0006 \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\noindent
+シミュレーション1から3において，加速度センサ及びUWBモジュールのみを用いる場合はそれらの分散値を変更せず，3種類のセンサを用いる場合のみ分散値を変更した．各シミュレーションにおける結果を次に示す．なお，シミュレーション1においてはPoint2付近における拡大図も合わせて示す．
+
+
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/result1.png}
+\caption{Result of simulation1}
+\label{result1}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/result1_up.png}
+\caption{Enlarged view of Fig. \ref{result1}}
+\label{result1_up}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/result3.png}
+\caption{Result of simulation2}
+\label{result3}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=100mm]{./Fig2/result4.png}
+\caption{Result of simulation3}
+\label{result4}
+\end{center}
+\end{figure}
+
+
+
+\noindent
+シミュレーション1は3種間センサの分散値をトライアンドエラーで調整し，オプティカルフローセンサの値を積分した際に生じるドリフトの影響やUWBモジュールの測距誤差が原因の推定値の分散の影響が少なくなるようにして求めた結果である．また，シミュレーション2はUWBモジュールの分散値を小さくし，UWBモジュールから得られる観測値の影響を大きくした結果である．シミュレーション3は，それとは逆にオプティカルフローセンサの分散値を小さくし，オプティカルフローセンサから得られる観測値の影響を大きくした．次にそれぞれの結果について考察していく．まず，分散値の調整を行ったシミュレーション1であるが，
 
 
 
@@ -1694,7 +1824,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 
 
 \subsubsection{複数点間を移動する位置制御実験}
-次に行ったのが複数点間を移動する位置制御実験を行った．使用したクアッドロータは前述したように前の定点保持実験と同一の機体であり，位置推定方法も同様の方法である．実験目的は，目標値が複数存在し，飛行中にその値が変更されても目標値から逸脱することなく位置を制御可能か確認することである．実験方法を以下に示す．まず，クアッドロータを床面に置き原点としてキャリブレーションを行う．そして手動制御で離陸させた後，安定した時点で自動制御モードに切り替える．ここまでの方法は前の実験と同様である．その後，目標値を手元の送信機より切り替え，複数点を移動させる．そして，その際の推定された位置をロギングする．目標値の座標を次のTable \ref{Absolute position of way points}に示す．
+次に行ったのが，複数の目標点を移動する位置制御実験である．使用したクアッドロータは前述した，前の定点保持実験と同一の機体であり，位置推定方法も同様の方法である．実験目的は，目標値が複数存在し，飛行中にその値が変更された場合であっても，目標値から逸脱することなく位置を制御可能か確認することである．実験方法を以下に示す．まず，クアッドロータを床面に置き，原点としてキャリブレーションを行う．そして手動制御で離陸させた後，安定した時点で自動制御モードに切り替える．ここまでの方法は前の実験と同様である．その後，目標値を手元の送信機より切り替え，複数点を移動させる．そして，その際の推定された位置をロギングする．目標値の座標を次のTable \ref{Absolute position of way points}に示す．
 
 \begin{table}[H]
  \caption{Absolute position of way points}
@@ -1732,7 +1862,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 
 
 \noindent
-目標値が原点の場合（Point0），細かな振動はあるが，偏差の中心は目標値と一致していることがわかる．しかし，移動後の点Point1，Point2においては定常偏差が発生し，偏差の中心が目標値からずれていることがわかる．これの原因はUWBアンカの設置誤差が起因する位置推定誤差やUWBモジュール間の距離が近くなると測距精度が悪くなることなどが考えられる．
+目標値が原点（Point0）の時，細かな振動はあるが，偏差の中心は目標値と一致していることがわかる．しかし，移動後の点Point1，Point2においては定常偏差が発生し，偏差の中心が目標値からずれていることがわかる．これの原因はUWBアンカの設置誤差が起因する位置推定誤差やUWBモジュールはモジュール間の距離が近くなると測距精度が悪くなることなどが考えられる．
 
 
 

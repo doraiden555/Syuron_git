@@ -22,10 +22,10 @@
 \contentsline {subsubsection}{\numberline {5.2.1}位置計測システムの原理及び構築}{42}
 \contentsline {subsubsection}{\numberline {5.2.2}奥行き誤差の検証}{48}
 \contentsline {subsection}{\numberline {5.3}ロータの推力測定}{49}
-\contentsline {subsection}{\numberline {5.4}従来の推定アルゴリズムによる制御性能の評価}{50}
-\contentsline {subsubsection}{\numberline {5.4.1}定点における位置保持実験}{50}
-\contentsline {subsubsection}{\numberline {5.4.2}複数点間を移動する位置制御実験}{51}
-\contentsline {subsection}{\numberline {5.5}提案する推定アルゴリズムによる制御性能の評価}{52}
-\contentsline {section}{\numberline {6.}結言}{53}
-\contentsline {section}{謝辞}{55}
-\contentsline {section}{参考文献}{56}
+\contentsline {subsection}{\numberline {5.4}従来の推定アルゴリズムによる制御性能の評価}{52}
+\contentsline {subsubsection}{\numberline {5.4.1}定点における位置保持実験}{52}
+\contentsline {subsubsection}{\numberline {5.4.2}複数点間を移動する位置制御実験}{53}
+\contentsline {subsection}{\numberline {5.5}提案する推定アルゴリズムによる制御性能の評価}{54}
+\contentsline {section}{\numberline {6.}結言}{58}
+\contentsline {section}{謝辞}{60}
+\contentsline {section}{参考文献}{61}

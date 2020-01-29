@@ -1,17 +1,16 @@
-\contentsline {section}{\numberline {1.}緒言}{2}
-\contentsline {subsection}{\numberline {1.1}研究背景}{2}
-\contentsline {subsection}{\numberline {1.2}インフラ点検用UAVの開発}{3}
-\contentsline {subsection}{\numberline {1.3}研究目的}{5}
+\contentsline {section}{\numberline {1.}緒言}{1}
+\contentsline {subsection}{\numberline {1.1}研究背景}{1}
+\contentsline {subsection}{\numberline {1.2}インフラ点検用UAVの開発}{2}
+\contentsline {subsection}{\numberline {1.3}研究目的}{4}
 \contentsline {section}{\numberline {2.}クアッドロータの位置推定アルゴリズム}{7}
 \contentsline {subsection}{\numberline {2.1}拡張カルマンフィルタの原理\cite {k}}{7}
 \contentsline {subsection}{\numberline {2.2}UWB通信}{9}
 \contentsline {subsubsection}{\numberline {2.2.1}UWB通信の測距原理（発散の回避方法，取付角の工夫）}{9}
-\contentsline {subsubsection}{\numberline {2.2.2}更新周波数の改善のアプローチ（マイコンスペックの比較，周波数グラフの比較）}{17}
 \contentsline {subsection}{\numberline {2.3}オプティカルフローセンサ}{17}
-\contentsline {subsubsection}{\numberline {2.3.1}オプティカルフローセンサの原理（センサ座標系のワールド座標系への変換）}{17}
+\contentsline {subsubsection}{\numberline {2.3.1}オプティカルフローセンサの原理}{17}
 \contentsline {subsubsection}{\numberline {2.3.2}センサのキャリブレーション}{18}
 \contentsline {subsection}{\numberline {2.4}UWBモジュール，IMU，距離センサのみを用いた位置推定システム}{22}
-\contentsline {subsection}{\numberline {2.5}従来の構成にオプティカルフローセンサも加えた位置推定システム（複数センサの統合環境）}{29}
+\contentsline {subsection}{\numberline {2.5}従来の構成にオプティカルフローセンサも加えた位置推定システム}{29}
 \contentsline {section}{\numberline {3.}位置制御用クアッドロータの開発}{33}
 \contentsline {section}{\numberline {4.}位置推定アルゴリズムの精度評価}{34}
 \contentsline {subsection}{\numberline {4.1}従来推定アルゴリズムを用いた位置推定の精度評価}{34}

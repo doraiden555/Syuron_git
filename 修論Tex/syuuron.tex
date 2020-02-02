@@ -156,7 +156,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/number_of_bridges.png}
-\caption{Number of bridges in Japan by construction year\cite{a}}
+\caption{Number of bridges in Japan by construction year\cite{a}.}
 \label{Number_of_bridges_in_Japan_by_construction_year}
 \end{center}
 \end{figure}
@@ -166,13 +166,13 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/takadabylim.jpg}
-\caption{BIREM\cite{d}}
+\caption{BIREM\cite{d}.}
 \label{BIREM}
 \end{center}
 \end{figure}
 
 
-\subsection{インフラ点検用UAVの開発}
+\subsection{インフラ点検用UAV及び点検機器の開発}
 先行研究において，赤堀らはFig. \ref{UAV_akahori}に示すインフラ点検用UAVを開発した\cite{e}．このUAVは機体の上部にEPM（Electro-Parmanent Magnet）と呼ばれる磁石を搭載し，磁力を用いて構造物の鋼材に吸着することで，安定した点検を可能にした．このEPMと呼ばれる磁石の特徴は，磁力の吸着状態と開放状態を自在に制御することが可能なことである．また，この磁石は電磁石と異なり，吸着と離脱時のみ電力を消費し，吸着中は電力を消費しない．このUAVはEPMに加え，先端にカメラを有するアームも装備するため，EPMを用いて吸着した状態で安定した目視点検をすることが可能である．
 
 
@@ -180,7 +180,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=90mm]{./Fig2/Overall_picture_of_our_robot.png}
-\caption{Overall view of the developed inspection robot in the previous study\cite{e}}
+\caption{Overall view of the developed inspection robot in the previous study\cite{e}.}
 \label{UAV_akahori}
 \end{center}
 \end{figure}
@@ -193,7 +193,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/front.png}
-\caption{vibration measurement unit}
+\caption{vibration measurement unit.}
 \label{vibration measurement unit}
 \end{center}
 \end{figure}
@@ -203,14 +203,15 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \noindent
 これらのUAVを用いた点検では構造物の地形に対して柔軟な対応性を有するが，機体の操作は全て自身の操縦で行う必要性がある．経験の豊富なパイロットであれば狙い通りの箇所に接近し，点検することやセンサを取り付けることが可能である．しかし，経験の浅いパイロットが操縦する場合，非常に困難である．
 
-\subsection{研究目的}
-前節の理由より，飛行型ロボットを点検に用いることの有用性は高いが，操作面においてまだまだ課題が多いのが現状である．手動操縦は技術を要するため，現在市販される多くのドローンはGPSやレーザーレンジファインダなどの位置推定システムを用いて全自動若しくは半自動飛行が可能である\cite{f}\cite{g}\cite{h}．本研究でも用いたフライトコントローラもGPSアンテナが搭載されており，屋外のGPS環境であれば目的地を入力することによりその地点まで全自動飛行することが可能である．しかし，研究対象とする橋梁などの構造物の周辺環境においては，構造物自体が遮蔽物となりGPSの電波が遮断されるため，GPSを用いた位置推定は不可能である．そのような非GPS環境においても自動飛行可能なUAVも多くの企業や研究者によって開発が行われている．株式会社自律制御システム研究所はFig. \ref{photo5}に示すSLAM（Simultaneous Localization and Mapping）の機能を有したUAV\cite{i}を開発した．このUAVは非GPS環境においても自己位置推定と環境地図の作製を同時に行いながら自律飛行をすることが可能である．
+
+\subsection{一般的な自律飛行型UAV}
+飛行型ロボットを点検に用いることの有用性は高いが，操作面においては課題が多いのが現状である．手動操縦は操作技術を要するため，現在市販される多くのドローンはGPSやレーザーレンジファインダなどの位置推定システムを用いて全自動，もしくは半自動飛行が可能である\cite{f}\cite{g}\cite{h}．本研究でも用いたフライトコントローラもGPSアンテナが搭載されており，屋外のGPS環境であれば目的地を入力することによりその地点まで全自動飛行することが可能である．しかし，研究対象とする橋梁などの構造物の周辺環境においては，構造物自体が遮蔽物となりGPSの電波が遮断されるため，GPSを用いた位置推定は不可能である．そのような非GPS環境においても自動飛行可能なUAVも多くの企業や研究者によって開発が行われている．株式会社自律制御システム研究所はFig. \ref{photo5}に示すSLAM（Simultaneous Localization and Mapping）の機能を有したUAV\cite{i}を開発した．このUAVは非GPS環境においても自己位置推定と環境地図の作製を同時に行いながら自律飛行をすることが可能である．
 	
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/photo5.png}
-\caption{ACSL-PF1\cite{i}}
+\caption{ACSL-PF1\cite{i}.}
 \label{photo5}
 \end{center}
 \end{figure}
@@ -218,19 +219,21 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \noindent
 手法としては搭載された下向きのモノラルカメラや前方に向けて取り付けられたステレオカメラを用いて撮影した画像に処理を行うことで自己位置や方角を推定し自律飛行を行う．しかし，それらのためには高価で精度の高いカメラや画像処理用のGPUを搭載する必要があるため，機体自体の値段が高価になる．また，画像から得た情報を基に様々な値を計算するには計算負荷の高い演算をしなくてはならない．点検に掛けることが可能な財源が限られている地方自治体にとって，人件費がかからなかったとしても，機体が高価であった場合，大きなコスト削減は見込めない．また，多くのセンサや高負荷な計算が可能である高性能なCPUやGPUを搭載する必要があるため，機体が大型化し，狭い点検空間に入っていくのが困難になる問題がある．
 
-そこで，それらの課題を克服するため，本研究ではローカル座標を推定する手法にUWBモジュールを用いる手法に着目した．UWB（超高帯域無線通信，Ultra-Wide Band）とは無線通信方式の一種であり，Wi-FiやBlutoothなど他の無線通信方式に比べ，広い帯域幅を持った通信方式である\cite{j}．このモジュールは片方のデバイスからもう片方のデバイスに電波を送信することで通信を行う．その際の通信に掛かった時間に電波の速度を掛けることにより，デバイス間の距離を算出することが可能である．このモジュールを用いて距離を求め，後に示す手法により演算することでUAVの位置を3次元空間内で得ることが可能である．自己位置を推定する際のUWB移動局と固定局との関係をFig. \ref{UWB_positioning}に示す．
+
+\subsection{研究目的}
+前節で述べたこれらの課題を克服するため，本研究ではローカル座標を推定する手法にUWBモジュールを用いる手法に着目した．UWB（超高帯域無線通信，Ultra-Wide Band）とは無線通信方式の一種であり，Wi-FiやBlutoothなど他の無線通信方式に比べ，広い帯域幅を持った通信方式である\cite{j}．このモジュールは片方のデバイスからもう片方のデバイスに電波を送信することで通信を行う．その際の通信に掛かった時間に電波の速度を掛けることにより，デバイス間の距離を算出することが可能である．このモジュールを用いて距離を求め，後に示す手法により演算することでUAVの位置を3次元空間内で得ることが可能である．自己位置を推定する際のUWB移動局と固定局との関係をFig. \ref{UWB_positioning}に示す．
 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=70mm]{./Fig2/UWB_positioning.png}
-\caption{Schematic diagram of the position estimation method}
+\includegraphics[height=80mm]{./Fig2/UWB_positioning.png}
+\caption{Schematic diagram of the position estimation method.}
 \label{UWB_positioning}
 \end{center}
 \end{figure}
 
 \noindent
-詳細は以降の章にて後述するが，座標が既知の各固定局と移動局との距離を計測し，マルチラテレーションの手法を用いることで，移動局の座標を推定することが可能である．この手法はGPSアンテナとGPS衛星との距離を用いて移動局の座標を得るのと同手法である．またUWBモジュールは1個あたり数千円と非常に安価であり，位置制御システムのコスト削減に有効である．それに加えてマルチラテレーションの計算は画像解析を用いる計算などに比べて，非常に負荷が軽く，高性能なコンピュータを搭載する必要がない．しかし，UWBモジュールの通信周期は4つの固定局を用いた場合に10 Hzと低く，クアッドロータが高速で移動した際には，位置推定周期としては不十分である．そこで，本研究での目的はUWBモジュールの更新周期の遅さを補うためにUWBモジュールを用いたローカルポジショニングシステムにIMU，距離センサ，及びオプティカルフローセンサの値も参照することでクアッドロータの位置を推定し，その位置を制御する手法を提案することである．IMU(Inertial Measurement Unit）は加速度，角速度，地磁気を数1000 Hz程度の高い更新周波数で計測可能であり，加速度や角速度を積分することにより，速度や変位を得ることが可能であるが，値を積分した際にノイズ成分も積分するため推定値が時間と共にドリフトする．距離センサは積分することなく，地面との距離を計測することが可能である．オプティカルフローセンサは地面の特徴点の移動量より機体の速度を算出することが可能である．先行研究において赤堀ら\cite{e}はUWBモジュール，IMU，距離センサを用いたクアッドロータの位置推定システム，及び位置制御システムを開発した．しかし，姿勢角制御の周期が遅いことが原因で，クアッドロータの位置を目標地点において制御するには至らなかった．そこで，本研究では姿勢角制御の遅さを補うためにフライトコントローラを追加で新たに導入し，応答性の改善を図った．次章からはUWBモジュール及び各種センサ値にカルマンフィルタを適用したクアッドロータの位置推定手法および位置制御手法を示していく．
+詳細は以降の章にて後述するが，座標が既知の各固定局と移動局との距離を計測し，マルチラテレーションの手法を用いることで，移動局の座標を推定することが可能である．この手法はGPSアンテナとGPS衛星との距離を用いて移動局の座標を得るのと同手法である．またUWBモジュールは1個あたり数千円と非常に安価であり，位置制御システムのコスト削減に有効である．それに加えてマルチラテレーションの計算は画像解析を用いる計算などに比べて非常に負荷が軽く，高性能なコンピュータを搭載する必要がないため，機体が大型化することもない．しかし，UWBモジュールの更新周期は4つの固定局を用いた場合に10 Hzと低く，クアッドロータが高速で移動した際には，位置推定周期としては不十分である．そこで，本研究での目的はUWBモジュールの更新周期の遅さを補うためにUWBモジュールを用いたローカルポジショニングシステムにIMU，距離センサ，及びオプティカルフローセンサの値も参照することでクアッドロータの位置を推定し，その位置を制御する手法を提案することである．IMU(Inertial Measurement Unit）は加速度，角速度，地磁気を数1000 Hz程度の高い更新周波数で計測可能であり，加速度や角速度を積分することにより，速度や変位を得ることが可能であるが，値を積分した際にノイズ成分も積分するため，推定値が時間と共にドリフトする．距離センサは積分することなく，地面との距離を計測することが可能である．オプティカルフローセンサは地面の特徴点の移動量より機体の速度を算出することが可能である．先行研究において赤堀ら\cite{e}はUWBモジュール，IMU，距離センサを用いたクアッドロータの位置推定システム，及び位置制御システムを開発した．しかし，姿勢角制御の周期が遅いことが原因で，クアッドロータの位置が発散し，位置を目標地点において制御するには至らなかった．そこで，本研究では姿勢角制御の遅さを補うためにフライトコントローラを追加で新たに導入し，応答性の改善を図った．また，既存の位置推定システムに対し，新たにオプティカルフローセンサも搭載し，従来までのシステムでは取り除けなかった，目標点におけるクアッドロータの細かい振動を取り除くための改善も行った．次章からはUWBモジュール及び各種センサ値にカルマンフィルタを適用したクアッドロータの位置推定手法および位置制御手法を示していく．
 
 
 \newpage
@@ -360,15 +363,15 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 
 
 \subsection{UWB通信}
-\subsubsection{UWB通信の測距原理}
-UWBの技術が発展するまでは，無線通信を利用した距離測定においてBlutoothやWi-Fiが用いられてきた．片方のデバイスが電波を発信し，それをもう片方が受け取ることでデバイス同士が通信を行う．受信側の受け取った電波の強弱により発信側が近くにあるのか遠くにあるのかを判別し，デバイス間の距離を算出する．しかし，弱い電波を受け取った際，距離が離れているため電波が弱いのか，それともデバイス間に障害物があるため電波が弱いのか，ということを判別できない．したがって，Wi-FiやBlutoothを用いた測距は誤差が5 mほど乗るとされている\cite{l}．一部の企業はWi-Fi電波の飛行時間（Time of flight，ToF）や到着時間（Time of Arrival，ToA）を使用し，距離をより正確に測るための代替アルゴリズムを開発したが，既存のWi-Fiを用いてこれを行うことはハードウェアの問題により難しいとされている．
+\subsubsection{UWBモジュールの測距原理}
+UWBの技術が発展するまでは，無線通信を利用した距離測定においてBlutoothやWi-Fiが多く用いられてきた．片方のデバイスが電波を発信し，それをもう片方が受け取ることでデバイス同士が通信を行う．受信側の受け取った電波の強弱により発信側が近くにあるのか遠くにあるのかを判別し，デバイス間の距離を算出する．しかし，弱い電波を受け取った際，距離が離れているため電波が弱いのか，それともデバイス間に障害物があるため電波が弱いのか，ということを判別できない．したがって，Wi-FiやBlutoothを用いた測距は誤差が5 mほど乗るとされている\cite{l}．一部の企業はWi-Fi電波の飛行時間（Time of flight，ToF）や到着時間（Time of Arrival，ToA）を使用し，距離をより正確に測るための代替アルゴリズムを開発したが，既存のWi-Fiを用いてこれを行うことはハードウェアの問題により難しいとされている．
 
 UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方式の1種であり，非常に広い帯域幅にわたって電波を拡散させることで高速通信を可能とする．Fig. \ref{UWB_power}にUWB通信と既存の無線通信方式とのスペクトラムの比較を示す．周波数の帯域は3.1 GHｚから10.6 GHzであり，その帯域幅は7.5 GHzと従来の無線の数百 kHzやWi-Fiの20 MHzに比べてかなり広い帯域を利用している\cite{m}．
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/UWB_power.png}
-\caption{Comparison of power spectrum between UWB and other wireless communication systems}
+\caption{Comparison of power spectrum between UWB and other wireless communication systems.}
 \label{UWB_power}
 \end{center}
 \end{figure}
@@ -379,7 +382,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/narrow_wide.png}
-\caption{Comparison of pulses between narrow band and ultra wide band signals\cite{l}}
+\caption{Comparison of pulses between narrow band and ultra wide band signals\cite{l}.}
 \label{narrow_wide}
 \end{center}
 \end{figure}
@@ -394,7 +397,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=50mm]{./Fig2/narrow.png}
-	  \caption{Narrow band signal with noise\cite{l}}
+	  \caption{Narrow band signal with noise\cite{l}.}
 	　\label{narrow}
         \end{center}
       \end{minipage}
@@ -402,7 +405,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/wide.png}
-          \caption{Ultra wide band signal with noise\cite{l}}
+          \caption{Ultra wide band signal with noise\cite{l}.}
 	   \label{wide}
         \end{center}
       \end{minipage}
@@ -423,7 +426,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=50mm]{./Fig2/narrow_with_reflections.png}
-	  \caption{Narrow band signal with reflections\cite{l}}
+	  \caption{Narrow band signal with reflections\cite{l}.}
 	　\label{narrow_with_reflections}
         \end{center}
       \end{minipage}
@@ -431,7 +434,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/wide_with_reflections.png}
-          \caption{Ultra wide band signal with reflections\cite{l}}
+          \caption{Ultra wide band signal with reflections\cite{l}.}
 	   \label{wide_with_reflections}
         \end{center}
       \end{minipage}
@@ -457,7 +460,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/UWB_ranging_2.png}
-\caption{Ranging protocol of UWB module}
+\caption{Ranging protocol of UWB module.}
 \label{UWB_ranging_2}
 \end{center}
 \end{figure}
@@ -477,7 +480,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/Anchor.png}
-\caption{UWB anchor}
+\caption{UWB anchor.}
 \label{Anchor}
 \end{center}
 \end{figure}
@@ -485,19 +488,19 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/Li_ion.jpg}
-\caption{Battery for UWB Anchor\cite{o}}
+\caption{Battery for UWB Anchor\cite{o}.}
 \label{Li_ion}
 \end{center}
 \end{figure}
 
 
 \noindent
-前述したようにUWB通信はマルチパスに耐性があり，本研究と同様にUWBモジュールを用いたクアッドロータの位置制御を行っている研究\cite{p}でも言及されているように，壁のように強い反射体の近くにおいても測距性能は正確であるが，森林のようなデバイス間に障害物が存在する環境：NLOS(Non Line Of Sight，非見通し環境)においてはマルチパスが発生し，真値より大きく外れた値や負の値を取ることがある．本研究においても，このマルチパスの影響を確認した．Fig. \ref{UWB_out}に測距した際にマルチパスが発生し，値が発散した結果を示す．またそれの拡大図もFig. \ref{UWB_out_zoom}に合わせて示す．
+前述したようにUWB通信はマルチパスに耐性があり，本研究と同様にUWBモジュールを用いたクアッドロータの位置制御を行っている研究\cite{p}でも言及されているように，壁のように強い反射体の近くにおいても測距性能は正確であるが，森林のようなデバイス間に障害物が存在する環境：NLOS(Non Line Of Sight，非見通し環境)においてはマルチパスが発生し，真値より大きく外れた値や負の値を取ることがある．本研究においても，このマルチパスの影響にる値の発散を確認した．Fig. \ref{UWB_out}に測距した際にマルチパスが発生し，値が発散した結果を示す．またそれの拡大図もFig. \ref{UWB_out_zoom}に合わせて示す．
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/UWB_out.png}
-\caption{Ranging result when outliers occur}
+\caption{Ranging result when outliers occur.}
 \label{UWB_out}
 \end{center}
 \end{figure}
@@ -505,19 +508,32 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/UWB_out_zoom.png}
-\caption{Ranging result when outliers occur (enlarged image above)}
+\caption{Ranging result when outliers occur (enlarged image above).}
 \label{UWB_out_zoom}
 \end{center}
 \end{figure}
 
 \noindent
-測距手順を以下に説明する．実験室の床に基準となる点を1 mから5 mまで1 m間隔でマーキングした．その点に合わせる形で4つのアンカを1 mずつ動かし，それぞれのアンカと固定したタグとの測距をUWBモジュールにより計測した．2つの図からわかるように，測距した最長の距離は5 mであるのにも関わらず，値が発散し最長300 mほどの値や負の値を計測している．UWBモジュール間に障害物が無かったのにも関わらず，こういったマルチパスが発生した原因は壁や天井により電波が反射したためであると考えられる．タグと各アンカとの正確な距離が得られていない場合，3次元空間内におけるクアッドロータの位置推定値も不正確になるため，こういった発散した値は取り除く必要がある．そこで，電波の指向性を考慮し，モジュールケースの製作を行った．UWBモジュールには指向性があり，電波強度の強い向きと弱い向きが$x,,y, z$軸周りに存在する．ここで，本研究にて採用したUWBチップ（DWM1000）の軸を次のFig. \ref{UWB_axis}のように定義する．
+測距手順を以下に説明する．実験室の床に基準となる線を1 mから5 mまで1 m間隔でマーキングした．始線にタグを固定し，4つのアンカを基準線に添わせて並べる．数秒間測距を行った後，1 m先の次の基準線へ4つのアンカをを移動させる．この手順を他の線においても繰り返した．実験時の模式図を次のFig. \ref{}に示す．
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[height=80mm]{./Fig2/ranging_experiment.png}
+\caption{Schematic diagram of ranging experiment.}
+\label{ranging_experiment}
+\end{center}
+\end{figure}
+
+
+
+2つの図からわかるように，測距した最長の距離は5 mであるのにも関わらず，値が発散し最長300 mほどの値や負の値を計測している．UWBモジュール間に障害物が無かったのにも関わらず，こういったマルチパスが発生した原因は壁や天井により電波が反射したためであると考えられる．タグと各アンカとの正確な距離が得られていない場合，3次元空間内におけるクアッドロータの位置推定値も不正確になるため，こういった発散した値は取り除く必要がある．そこで，電波の指向性を考慮し，モジュールケースの製作を行った．UWBモジュールには指向性があり，電波強度の強い向きと弱い向きが$x,,y, z$軸周りに存在する．ここで，本研究にて採用したUWBチップ（DWM1000）の軸を次のFig. \ref{UWB_axis}のように定義する．
 
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/UWB_axis.png}
-\caption{UWB chip axis}
+\caption{UWB chip axis.}
 \label{UWB_axis}
 \end{center}
 \end{figure}
@@ -528,7 +544,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/UWB_angle_x.png}
-\caption{Directivity of radio wave around $x$ axis\cite{n}}
+\caption{Directivity of radio wave around $x$ axis\cite{n}.}
 \label{UWB_angle_x}
 \end{center}
 \end{figure}
@@ -536,7 +552,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/UWB_angle_y.png}
-\caption{Directivity of radio wave around $y$ axis\cite{n}}
+\caption{Directivity of radio wave around $y$ axis\cite{n}.}
 \label{UWB_angle_y}
 \end{center}
 \end{figure}
@@ -544,7 +560,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/UWB_angle_z.png}
-\caption{Directivity of radio wave around $z$ axis\cite{n}}
+\caption{Directivity of radio wave around $z$ axis\cite{n}.}
 \label{UWB_angle_z}
 \end{center}
 \end{figure}
@@ -556,7 +572,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/UWB_case_angle.png}
-\caption{UWB module holder considering radio wave directivity}
+\caption{UWB module holder considering radio wave directivity.}
 \label{UWB_case_angle}
 \end{center}
 \end{figure}
@@ -569,7 +585,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/UWB_cali.png}
-\caption{Ranging result avoiding outlier}
+\caption{Ranging result avoiding outlier.}
 \label{UWB_cali}
 \end{center}
 \end{figure}
@@ -588,7 +604,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/optical_flow_with_axis.png}
-\caption{Optical Flow Sensor Module\cite{s}}
+\caption{Optical Flow Sensor Module\cite{s}.}
 \label{optical_flow}
 \end{center}
 \end{figure}
@@ -603,7 +619,7 @@ d = \textrm{ToF} \times c
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/opt_distance.png}
-\caption{Difference in Sensor Value Due to Difference in Quad-Rotor Height}
+\caption{Difference in Sensor Value Due to Difference in Quad-Rotor Height.}
 \label{opt_distance}
 \end{center}
 \end{figure}
@@ -621,7 +637,7 @@ Sensor valueはオプティカルフローセンサから得た値であり，Al
 
 
 \begin{table}[H]
- \caption{Sensor characteristic value}
+ \caption{Sensor characteristic value.}
   \label{sensor_value}
  \begin{center}
   \begin{tabular}{|c||c|}
@@ -646,7 +662,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=55mm]{./Fig2/opt_experiment1.png}
-	  \caption{Narrow band signal with reflections}
+	  \caption{Narrow band signal with reflections.}
 	　\label{opt_experiment1}
         \end{center}
       \end{minipage}
@@ -654,7 +670,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=55mm]{./Fig2/opt_experiment2.png}
-          \caption{Ultra wide band signal with reflections}
+          \caption{Ultra wide band signal with reflections.}
 	   \label{opt_experiment2}
         \end{center}
       \end{minipage}
@@ -671,7 +687,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 
 
 \begin{table}[H]
- \caption{Sensor values and moving distance}
+ \caption{Sensor values and moving distance.}
  \label{Sensor_Value_and_Moved_Distance}
  \begin{center}
   \begin{tabular}{|c|c|}
@@ -697,7 +713,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/opt_cali.png}
-\caption{Relationship between sensor value and moving distance}
+\caption{Relationship between sensor value and moving distance.}
 \label{opt_cali}
 \end{center}
 \end{figure}
@@ -711,7 +727,7 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/quad_fig.png}
-\caption{Relationship between the world coordinate system and the quad-rotor coordinate system}
+\caption{Relationship between the world coordinate system and the quad-rotor coordinate system.}
 \label{quad_fig}
 \end{center}
 \end{figure}
@@ -756,13 +772,13 @@ Scalarは定数であり，このScalarの値を次のキャリブレーショ�
 $z$軸周りの回転角度は地磁気センサ及び角速度センサを使用して推定したものを用いる．推定方法は次章にて説明する．式(\ref{2-3-1})を用いることでクアッドロータのワールド座標系内での速度をオプティカルフローセンサにより得られるようになった．
 
 
-\subsection{UWBモジュール，IMU，距離センサのみを用いた位置推定システム}
+\subsection{UWBモジュール，IMU，距離センサのみを用いた従来の位置推定システム}
 まず，先行研究において開発され，本研究において改良したクアッドロータの外観をFig. \ref{quad-rotor}に示す．また詳細な仕様をTable \ref{Quad-rotor specifications}に示す．
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=90mm]{./Fig2/quad-rotor.png}
-\caption{Quad-rotor equipped with UWB module, IMU and distance sensor}
+\caption{Quad-rotor equipped with UWB module, IMU and distance sensor.}
 \label{quad-rotor}
 \end{center}
 \end{figure}
@@ -800,7 +816,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/system.png}
-\caption{System configuration of sensors}
+\caption{System configuration of sensors.}
 \label{system}
 \end{center}
 \end{figure}
@@ -811,7 +827,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/pixracer.png}
-\caption{Appearance of Pixracer\cite{t}}
+\caption{Appearance of Pixracer\cite{t}.}
 \label{pixracer}
 \end{center}
 \end{figure}
@@ -822,7 +838,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/system_core_design.png}
-\caption{Block diagran of positon control system}
+\caption{Block diagran of positon control system.}
 \label{system_core_design}
 \end{center}
 \end{figure}
@@ -835,7 +851,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/UWB_positioning2.png}
-\caption{Position relationship between Anchors and Tag}
+\caption{Position relationship between Anchors and Tag.}
 \label{UWB_positioning2}
 \end{center}
 \end{figure}
@@ -1112,12 +1128,12 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 
 
 \subsection{従来の構成にオプティカルフローセンサも加えた位置推定システム}
-ここではオプティカルフローセンサの値も推定アルゴリズムに組み込んだ手法について説明する．次のFig. \ref{system_2}に前のセンサ構成(Fig. \ref{system})にオプティカルフローセンサボードも加えた構成及びFig. \ref{system_core_design2}にオプティカルフローセンサも組み込んだブロック線図をを示す．
+ここではオプティカルフローセンサの値も推定アルゴリズムに組み込んだ手法について説明する．前のセンサ構成(Fig. \ref{system})にオプティカルフローセンサボードも加えた構成をFig. \ref{system_2}に，オプティカルフローセンサも組み込んだブロック線図をFig. \ref{system_core_design2}に示す．
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/system_2.png}
-\caption{Configuration of sensors with optical flow sensor board}
+\caption{Configuration of sensors with optical flow sensor board.}
 \label{system_2}
 \end{center}
 \end{figure}
@@ -1125,7 +1141,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/system_core_design2.png}
-\caption{Block diagran of positon control system}
+\caption{Block diagran of positon control system.}
 \label{system_core_design2}
 \end{center}
 \end{figure}
@@ -1199,7 +1215,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=85mm]{./Fig2/quad-rotor2_front.png}
-\caption{Front side of quad-rotor}
+\caption{Front side of quad-rotor.}
 \label{quad-rotor2_front}
 \end{center}
 \end{figure}
@@ -1207,7 +1223,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/quad-rotor2_back.png}
-\caption{Back side of quad-rotor}
+\caption{Back side of quad-rotor.}
 \label{quad-rotor2_back}
 \end{center}
 \end{figure}
@@ -1250,7 +1266,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 
 
 
-
+\newpage
 \section{位置推定アルゴリズムの精度評価}
 \subsection{従来推定アルゴリズムを用いた位置推定の精度評価}
 この章では前章にて説明した位置推定アルゴリズムを用い，クアッドロータの位置を推定し，その推定精度の評価を行う．まず位置推定実験に使用した実験環境を次の図に示す．なお，本実験ではクアッドロータは飛行させず，床に置いた静止状態で目標点における位置を推定した．
@@ -1259,27 +1275,26 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/experiment_field.png}
-\caption{Laboratory used for position estimation and position control experiments}
+\caption{Laboratory used for position estimation and position control experiments.}
 \label{experiment_field}
 \end{center}
 \end{figure}
 
 \noindent
-まず，クアッドロータの位置を推定する領域を取り囲むように4つのUWBアンカをFig. \ref{experiment_field}に示すように設置した．アンカは次の図に示すようにカメラ用の三脚の頂点に固定した．
+まず，クアッドロータの位置を推定する領域を取り囲む形で4つのUWBアンカをFig. \ref{experiment_field}に示すように設置した．アンカはFig. \ref{anchor_zoom}に示すようにカメラ用の三脚の頂点に固定した．また，アンカを設置した位置の絶対座標をTable \ref{Absolute position of target UWB anchors}に示す．
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=60mm]{./Fig2/anchor_zoom.png}
-\caption{Laboratory used for position estimation and position control experiments}
+\caption{Laboratory used for position estimation and position control experiments.}
 \label{anchor_zoom}
 \end{center}
 \end{figure}
 
-\noindent
-そして，アンカを設置した位置の絶対座標を次のTable \ref{Absolute position of target UWB anchors}に示す．
+
 
 \begin{table}[H]
- \caption{Absolute position of target UWB anchors}
+ \caption{Absolute position of target UWB anchors.}
  \label{Absolute position of target UWB anchors}
  \begin{center}
   \begin{tabular}{|c|c|c|c|}
@@ -1302,7 +1317,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 そして，本実験での実験手順を以下に示す．まず，実験室の床に対し，目標点として与える点の真値を可能な限り精度良くマークした．次のTable \ref{Relative coordinates of target points}にその4点の目標値の相対座標を示す．なお，Fig. \ref{experiment_field}において，実験領域に衝撃吸収用のウレタンマットが敷かれているが，この位置推定実験の際には敷かれていないため，マットは真値に対し影響を与えない．
 
 \begin{table}[H]
- \caption{Relative coordinates of target points}
+ \caption{Relative coordinates of target points.}
  \label{Relative coordinates of target points}
  \begin{center}
   \begin{tabular}{|c|c|c|}
@@ -1330,7 +1345,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/position_verification_2_copy.png}
-\caption{Position estimation results when the quad rotor is stationary using the conventional estimation method}
+\caption{Position estimation results when the quad rotor is stationary using the conventional estimation method.}
 \label{position_verification_2_copy}
 \end{center}
 \end{figure}
@@ -1349,7 +1364,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=70mm]{./Fig2/laser.png}
-\caption{Laser pointer attached for the purpose of tracing a line drawn on the floor}
+\caption{Laser pointer attached for the purpose of tracing a line drawn on the floor.}
 \label{laser}
 \end{center}
 \end{figure}
@@ -1358,7 +1373,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 また，設置したUWBアンカの絶対座標をTable \ref{Absolute position of UWB anchors_2}に，床面に描いた二等辺三角形の頂点の相対座標をTable \ref{Relative coordinates of target points_2}に示す．
 
 \begin{table}[H]
- \caption{Absolute position of UWB anchors}
+ \caption{Absolute position of UWB anchors.}
  \label{Absolute position of UWB anchors_2}
  \begin{center}
   \begin{tabular}{|c|c|c|c|}
@@ -1380,7 +1395,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 
 
 \begin{table}[H]
- \caption{Relative coordinates of target points}
+ \caption{Relative coordinates of target points.}
  \label{Relative coordinates of target points_2}
  \begin{center}
   \begin{tabular}{|c|c|c|}
@@ -1406,7 +1421,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 
 
 \begin{table}[H]
- \caption{Type of used sensors and variance values}
+ \caption{Type of used sensors and variance values.}
  \label{Type of used sensors and variance values}
  \begin{center}
   \begin{tabular}{|c|c|c|c|}
@@ -1440,7 +1455,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/result1.png}
-\caption{Result of simulation1}
+\caption{Result of simulation1.}
 \label{result1}
 \end{center}
 \end{figure}
@@ -1449,7 +1464,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/result1_up.png}
-\caption{Enlarged view of Fig. \ref{result1}}
+\caption{Enlarged view of Fig. \ref{result1}.}
 \label{result1_up}
 \end{center}
 \end{figure}
@@ -1458,7 +1473,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/result3.png}
-\caption{Result of simulation2}
+\caption{Result of simulation2.}
 \label{result3}
 \end{center}
 \end{figure}
@@ -1469,7 +1484,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=100mm]{./Fig2/result4.png}
-\caption{Result of simulation3}
+\caption{Result of simulation3.}
 \label{result4}
 \end{center}
 \end{figure}
@@ -1480,7 +1495,7 @@ $z$軸周りの回転角度は地磁気センサ及び角速度センサを使�
 シミュレーション1は3種類のセンサの分散値をトライアンドエラーで調整し，オプティカルフローセンサの値を積分した際に生じるドリフトやUWBモジュールの測距誤差が原因の推定値の分散が少なくなるようにして求めた結果である．また，シミュレーション2はUWBモジュールの分散値を小さくし，UWBモジュールから得られる観測値の影響を大きくした結果である．シミュレーション3はそれとは逆にオプティカルフローセンサの分散値を小さくし，オプティカルフローセンサから得られる観測値の影響を大きくした．次にそれぞれの結果について考察していく．まず，分散値の調整を行ったシミュレーション1であるが，青色の線は，目標点間の移動する過程において波打っていることがわかる．また，拡大図においても，目標点付近において青色の線は値の分散が生じている．しかし，橙色の線は移動中の過程も線が揺らぐことなく直線的であり，目標点付近においても分散が生じることなく点での曲がり角が明確に出ていることがわかる．黄色の線は直線的であり分散も見られないが，目標点付近において他の2線とは離れた位置に定常値を取っている．青色のUWBモジュールと加速度センサのみを用いた場合には，UWBモジュールの測距値に分散が含まれることが原因で推定値にも分散が生じたが，橙色の線ではオプティカルフローセンサの効果によりその分散を打ち消せているため，こういった直線的で分散の少ない結果を得ることができた．また，黄色の単純積分値ではUWBモジュールを用いた座標の補正が効かないため，このように積分値がドリフトし，全体的に傾いた図形になった．次にシミュレーション2であるが，橙色の線はUWBモジュールの影響を大きくしたため，分散が大きくなりこのような直線的ではない結果となった．しかし，座標の補正はUWBモジュールの効果により働いているため，目標値の座標は青色の線と橙色の線で一致していることがわかる．最後にシミュレーション3においてオプティカルフローセンサの影響を強くした橙色の結果は黄色の線同様，滑らかではあるが，UWBモジュールの座標補正が弱くなり，ドリフトした結果となっている．これらのシミュレーション結果より，分散値の値を適切に調整した上で，既存の位置推定システムにオプティカルフローセンサの観測値も組み込むことにより，座標をUWBモジュールの観測値より推定しつつ，オプティカルフローセンサの効果で分散の少ない推定値を得ることが可能であるという結論を得た．
 
 
-
+\newpage
 \section{位置制御アルゴリズムの評価}
 前章までは各種センサを用いたクアッドロータの位置推定方法について述べてきた．この章では実際にクアッドロータを飛行させ，提案した位置制御手法の精度を確認する．
 
@@ -1522,7 +1537,7 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=45mm]{./Fig2/VICON.jpg}
-	  \caption{VICON\cite{z}}
+	  \caption{VICON\cite{z}.}
         \label{VICON}
         \end{center}
       \end{minipage}
@@ -1530,7 +1545,7 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=45mm]{./Fig2/VICON_room.jpg}
-          \caption{The room where VICON is installed\cite{A}}
+          \caption{The room where VICON is installed\cite{A}.}
           \label{VICON_room}
         \end{center}
       \end{minipage}
@@ -1542,8 +1557,8 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=70mm]{./Fig2/camera_with_chess.png}
-\caption{Installed stereo camera and chessboard}
+\includegraphics[height=80mm]{./Fig2/camera_with_chess.png}
+\caption{Installed stereo camera and chessboard.}
 \label{camera_with_chess}
 \end{center}
 \end{figure}
@@ -1554,7 +1569,7 @@ $x$軸，$y$軸はそれぞれ機体座標系ではなく，ワールド座標�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/high-speed_camera.jpg}
-\caption{High-speed camera(GS3-U3-32S4C-C)}
+\caption{High-speed camera(GS3-U3-32S4C-C).}
 \label{high-speed_camera}
 \end{center}
 \end{figure}
@@ -1623,7 +1638,7 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
          \includegraphics[height=55mm]{./Fig2/LED_with_quad1.png}
-	  \caption{Old quad rotor with infrared LED}
+	  \caption{Old quad rotor with infrared LED.}
         \label{LED_with_quad1}
         \end{center}
       \end{minipage}
@@ -1631,7 +1646,7 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
           \includegraphics[height=50mm]{./Fig2/LED_with_quad2.png}
-          \caption{New quad rotor with infrared LED}
+          \caption{New quad rotor with infrared LED.}
           \label{LED_with_quad2}
         \end{center}
       \end{minipage}
@@ -1642,28 +1657,24 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
 
 
 \noindent
-先行研究から使われてきたクアッドロータ（Fig. \ref{LED_with_quad1}）には2台のカメラ間で同期が取れるようにリレーが取り付けられている．メインコンピュータであるRaspberry Piから信号を送ることでLEDの点灯を制御可能なため，光ったタイミングを検出することで2台のカメラのマーカー検出タイミングを揃えることができる．先行研究においてはこの方法でカメラ間同期を取っていた．そして，新しく本論文にて新しく開発したクアッドロータは同期用のリレーが付いていない．これの理由について説明する．今回用いた高速度カメラにはPCへのデータ送信用のコネクタ以外に外部へ信号を送ることや受け取ることが可能なコネクタが備わっている．これを用い，片方のプライマリカメラからもう片方のセカンダリカメラへと同期用の信号を送り，その信号をトリガにしてセカンダリカメラは撮影を開始できるため，2台間の同期が取れた状態で画像を撮影可能である．本論文では新たにこの同期方法を採用したため，Fig. \ref{LED_wiith_quad2}のクアッドロータにはリレーが備わっていない．クアッドロータに搭載したLEDマーカーの光はカメラで撮影可能であるが，画像中でLEDの光のみを浮き上がらせて検出が容易になるようカメラにはFig. \ref{infrared_filter}に示す赤外線透過フィルタ（IR-80）を装着してある．
+先行研究から使われてきたクアッドロータ（Fig. \ref{LED_with_quad1}）には2台のカメラ間で同期が取れるようにリレーが取り付けられている．メインコンピュータであるRaspberry Piから信号を送ることでLEDの点灯を制御可能なため，光ったタイミングを検出することで2台のカメラのマーカー検出タイミングを揃えることができる．先行研究においてはこの方法でカメラ間同期を取っていた．そして，新しく本論文にて新しく開発したクアッドロータは同期用のリレーが付いていない．これの理由について説明する．今回用いた高速度カメラにはPCへのデータ送信用のコネクタ以外に外部へ信号を送ることや受け取ることが可能なコネクタが備わっている．これを用い，片方のプライマリカメラからもう片方のセカンダリカメラへと同期用の信号を送り，その信号をトリガにしてセカンダリカメラは撮影を開始できるため，2台間の同期が取れた状態で画像を撮影可能である．本論文では新たにこの同期方法を採用したため，Fig. \ref{LED_wiith_quad2}のクアッドロータにはリレーが備わっていない．クアッドロータに搭載したLEDマーカーの光はカメラで撮影可能であるが，画像中でLEDの光のみを浮き上がらせて検出が容易になるようカメラにはFig. \ref{infrared_filter}に示す赤外線透過フィルタ（IR-80）を装着した．赤外線LEDを光らせた状態でこのレンズにより撮影した画像をFig. \ref{high-speed_image}に示す．
 
 
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/infrared_filter.jpg}
-\caption{Infrared longpass filter}
+\caption{Infrared longpass filter.}
 \label{infrared_filter}
 \end{center}
 \end{figure}
 
 
 
-\noindent
-赤外線LEDを光らせた状態でこのレンズにより撮影した画像を次に示す．
-
-
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/high-speed_image.png}
-\caption{Image taken of glowing infrared LED through filter}
+\caption{Image taken of glowing infrared LED through filter.}
 \label{high-speed_image}
 \end{center}
 \end{figure}
@@ -1674,7 +1685,7 @@ Table \ref{high-speed_camera_tab}からわかるように，カメラの性能�
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=90mm]{./Fig2/stereo_camera.png}
-\caption{Definition of stereo camera coordinates}
+\caption{Definition of stereo camera coordinates.}
 \label{stereo_camera}
 \end{center}
 \end{figure}
@@ -1723,7 +1734,7 @@ X = \frac{x_l L}{x_l - x_r}, \ Y = \frac{y_l L}{x_l - x_r} = \frac{y_l L}{x_l - 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=90mm]{./Fig2/error_stereo.png}
-\caption{Error in z direction of stereo camera}
+\caption{Error in z direction of stereo camera.}
 \label{error_stereo}
 \end{center}
 \end{figure}
@@ -1783,7 +1794,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/position_control_origin_2.png}
-\caption{Result of static position hold experiment}
+\caption{Result of static position hold experiment.}
 \label{position_control_origin_2}
 \end{center}
 \end{figure}
@@ -1794,10 +1805,10 @@ L' = \frac{2 \rm{Pixel}}{f}
 
 
 \subsubsection{複数点間を移動する位置制御実験}
-次に複数の目標点を移動する位置制御実験を行った．複数の目標点を目標値とし，クアッドロータが自律制御にてホバリング及び目標点間の移動をした際の精度を確認することを目的とした実験である．使用したクアッドロータは前述の定点保持実験と同一の機体であり，位置推定方法も同様の方法である．実験方法を以下に示す．まず，クアッドロータを床面に置き，原点としてキャリブレーションを行う．そして手動制御で離陸させた後，安定した時点で自動制御モードに切り替える．ここまでの方法は前の実験と同様である．その後，目標値を手元の送信機より切り替え，複数点を移動させる．そして，その際の推定された位置をロギングする．目標値の座標を次のTable \ref{Absolute position of way points}に示す．
+次に複数の目標点を移動する位置制御実験を行った．複数の目標点を目標値とし，クアッドロータが自律制御にてホバリング及び目標点間の移動をした際の精度を確認することを目的とした実験である．使用したクアッドロータは前述の定点保持実験と同一の機体であり，位置推定方法も同様の方法である．実験方法を以下に示す．まず，クアッドロータを床面に置き，原点としてキャリブレーションを行う．そして手動制御で離陸させた後，安定した時点で自動制御モードに切り替える．ここまでの方法は前の実験と同様である．その後，目標値を手元の送信機より切り替え，複数点を移動させる．そして，その際の推定された位置をロギングする．目標値の座標を次のTable \ref{Absolute position of way points}に，実験結果をFig. \ref{point_to_point_2}に示す．
 
 \begin{table}[H]
- \caption{Absolute position of way points}
+ \caption{Absolute position of way points.}
  \label{Absolute position of way points}
  \begin{center}
   \begin{tabular}{|c|c|c|}
@@ -1816,16 +1827,12 @@ L' = \frac{2 \rm{Pixel}}{f}
 
 
 
-\noindent
-そして，実験結果をFig. \ref{point_to_point_2}に示す．
-
-
 
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/point_to_point_2.png}
-\caption{Result of point to point experiment}
+\caption{Result of point to point experiment.}
 \label{point_to_point_2}
 \end{center}
 \end{figure}
@@ -1846,7 +1853,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/withoutopt_1.png}
-\caption{Position control result using conventional estimation method (trial 1)}
+\caption{Position control result using conventional estimation method (trial 1).}
 \label{withoutopt_1}
 \end{center}
 \end{figure}
@@ -1854,7 +1861,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/withoutopt_2.png}
-\caption{Position control result using conventional estimation method (trial 2)}
+\caption{Position control result using conventional estimation method (trial 2).}
 \label{withoutopt_2}
 \end{center}
 \end{figure}
@@ -1866,7 +1873,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/withopt_1.png}
-\caption{Position control results using an estimation method incorporating an optical flow sensor (trial3)}
+\caption{Position control results using an estimation method incorporating an optical flow sensor (trial3).}
 \label{withopt_1}
 \end{center}
 \end{figure}
@@ -1874,7 +1881,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/withopt_2.png}
-\caption{Position control results using an estimation method incorporating an optical flow sensor (trial4)}
+\caption{Position control results using an estimation method incorporating an optical flow sensor (trial4).}
 \label{withopt_2}
 \end{center}
 \end{figure}
@@ -1889,7 +1896,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/stereo_estimated_x2.png}
-\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($x$-axis)}
+\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($x$-axis).}
 \label{stereo_estimated_x2}
 \end{center}
 \end{figure}
@@ -1897,7 +1904,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/stereo_estimated_y2.png}
-\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($y$-axis)}
+\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($y$-axis).}
 \label{stereo_estimated_y2}
 \end{center}
 \end{figure}
@@ -1905,7 +1912,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/stereo_estimated_z2.png}
-\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($z$-axis)}
+\caption{Comparison of the position of the quad rotor measured by a system using a stereo camera with the estimated value.($z$-axis).}
 \label{stereo_estimated_z2}
 \end{center}
 \end{figure}
@@ -1922,7 +1929,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/prop1.jpg}
-\caption{Propeller1}
+\caption{Propeller1.}
 \label{prop1}
 \end{center}
 \end{figure}
@@ -1930,7 +1937,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=50mm]{./Fig2/prop2.jpg}
-\caption{Propeller2}
+\caption{Propeller2.}
 \label{prop2}
 \end{center}
 \end{figure}
@@ -1943,7 +1950,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/thrustmeter.png}
-\caption{Configuration for measuring propeller thrust}
+\caption{Configuration for measuring propeller thrust.}
 \label{thrustmeter}
 \end{center}
 \end{figure}
@@ -1954,7 +1961,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/thrust_prop.png}
-\caption{Propeller fixed to thrust meter}
+\caption{Propeller fixed to thrust meter.}
 \label{thrust_prop}
 \end{center}
 \end{figure}
@@ -1966,7 +1973,7 @@ L' = \frac{2 \rm{Pixel}}{f}
 \begin{figure}[H]
 \begin{center}
 \includegraphics[height=80mm]{./Fig2/thrust_2.png}
-\caption{Thrust measurement results of two types of propellers}
+\caption{Thrust measurement results of two types of propellers.}
 \label{thrust_2}
 \end{center}
 \end{figure}

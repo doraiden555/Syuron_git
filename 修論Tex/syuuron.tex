@@ -151,7 +151,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 
 \section{緒言}
 \subsection{研究背景}
-近年の日本において，インフラ，特にその中においても橋梁の老朽化が問題視されている．国土交通省が発表するデータによると，長さ15 mを超える橋梁の数は2013年時点で40万橋存在し，その中でも建設後50年が経過したものの割合は18 \%（7万1000橋）である\cite{a}．こうした老朽化した橋は今後も増加すると予想され，10年後には43 \%，20年後には67 \%と，過半数の橋梁が建設後50年を迎えることとなる．適切に管理，検査がなされていない老朽化した橋梁はやはり崩落事故などの危険性をはらんでいる．橋梁の崩落事故はアメリカのミネアポリスのものが有名である．しかし，海外だけでなく，日本国内においても崩落や崩落事故になりかけた事例がいくつか存在する．2007年の6月三重県にある国道23号の木曽川大橋で，コンクリートの床版に覆われたトラスの斜材が腐食して破断する事故が起こった．幸いにもこの事故では崩落や死傷者を出すことは免れたが，ずさんな点検のあり方が浮き彫りになった．事故の1年半ほど前には点検が行われたとされているが，腐食の進んだ鋼材の錆の上から塗装を行うなど，常識を逸脱する補修の形跡が見過ごされていた\cite{b}．こういった不適切な橋梁の管理，運営には橋梁を所有する地方自治体の財源不足なども背景とされている．国土交通省によると，1つの橋梁を近接目視で点検するだけでも50万円の費用がかかるとされている．しかし，市区町村が管理する橋の年間の維持，修繕費は1つの橋梁平均でわずか8万円であり\cite{c}，いかに橋梁の点検に掛ける予算が低いのかがわかる．また，橋梁の点検に用いられる一般的な方法は近接目視及び打音検査であり，傷やひび割れの正確な検出には多くの経験を要する．これらの理由より，低コストかつ簡便に橋梁を点検可能にする新しい技術を開発することが現在の日本において喫緊の課題である．
+近年の日本において，インフラ，特にその中においても橋梁の老朽化が問題視されている．国土交通省が発表するデータによると，長さ15 mを超える橋梁の数は2013年時点で40万橋存在し，その中でも建設後50年が経過したものの割合は18 \%（7万1000橋）である\cite{a}．こうした老朽化した橋は今後も増加すると予想され，10年後には43 \%，20年後には67 \%と，過半数の橋梁が建設後50年を迎えることとなる．Fig. \ref{Number_of_bridges_in_Japan_by_construction_year}は年度別の橋梁の建設数を表したグラフであり，1960年代付近の高度経済成長期において特に建設数が増えていることがわかる．現在からちょうど20年後にこれらの橋梁が建設後50年を迎えるため，老朽化した橋梁が一気に増えるのである．適切に管理，検査がなされていない老朽化した橋梁は崩落事故などの危険性をはらんでいる．橋梁の崩落事故はアメリカのミネアポリスのものが有名である．しかし，海外だけでなく，日本国内においても崩落や崩落事故になりかけた事例がいくつか存在する．2007年の6月，三重県にある国道23号の木曽川大橋で，コンクリートの床版に覆われたトラスの斜材が腐食して破断する事故が起こった．幸いにもこの事故では崩落や死傷者を出すことは免れたが，ずさんな点検のあり方が浮き彫りになった．事故の1年半ほど前には点検が行われたとされているが，腐食の進んだ鋼材の錆の上から塗装を行うなど，常識を逸脱する補修の形跡が見過ごされていた\cite{b}．こういった不適切な橋梁の管理，運営には橋梁を所有する地方自治体の財源不足なども背景とされている．国土交通省によると，1つの橋梁を近接目視で点検するだけでも50万円の費用がかかるとされている．しかし，市区町村が管理する橋の年間の維持，修繕費は1つの橋梁平均でわずか8万円であり\cite{c}，いかに地方自治体の橋梁点検に掛ける予算が低いのかがわかる．また，橋梁の点検に用いられる一般的な検査方法は近接目視及び打音検査であり，傷やひび割れの正確な検出には長年の経験を要する．これらの理由より，低コストかつ簡便に橋梁を点検可能にする新しい技術を開発することが現在の日本において喫緊の課題である．
 
 \begin{figure}[H]
 \begin{center}
@@ -161,7 +161,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \end{center}
 \end{figure}
 
-そこで，着目したのがドローンなどのロボットを用いた橋梁の点検手法である．ここで，ロボットを用いた点検手法は大別して2種類に分けることができる．1つ目は機体に車輪を有し，橋梁の壁面や床面を伝って移動することで点検箇所へアプローチ可能な地上型ロボットである．もう1つはUAVなどの飛行型ロボットであり，これらは前者と異なり，空中から点検箇所にアプローチ可能である．地上型ロボットとしては高田らが開発したBIREM\cite{d}（Fig. \ref{BIREM}）が挙げられる．このロボットは車輪の先端に磁石を装備しており，吸着対象が磁性体ならば，床や壁を伝いながら点検箇所へ接近し，カメラを用いた目視検査などがすることが可能である．しかし，このロボットは点検箇所まで構造物が地続きである必要があり，橋梁の途中で大きなギャップがあった場合にその先に進めないことや，大きな段差があった場合にそれらを乗り越えられない問題もある．しかし，飛行型のロボットの場合，大きなギャップや障害物があってもそれらを乗り越えて点検箇所まで近づける．これらの理由より，本研究では飛行型ロボットを開発するに至った．
+そこで，着目したのがドローンなどのロボットを用いた橋梁の点検手法である．ここで，ロボットを用いた点検手法は大別して2種類に分けることができる．1つ目は機体に車輪を有し，橋梁の壁面や床面を伝って移動することで点検箇所へ接近することが可能な地上型ロボットである．もう1つはUAVなどの飛行型ロボットであり，これらは前者と異なり，空中から点検箇所にアプローチ可能である．地上型ロボットとしては高田らが開発したBIREM\cite{d}（Fig. \ref{BIREM}）が挙げられる．このロボットは車輪の先端に磁石を装備しており，吸着対象が磁性体ならば，床や壁を伝いながら点検箇所へ接近し，カメラを用いた目視検査などがすることが可能である．しかし，このロボットは点検箇所まで構造物が地続きである必要があり，橋梁の途中で大きなギャップがあった場合にその先に進めないことや，大きな段差があった場合にそれらを乗り越えられない問題もある．しかし，飛行型のロボットの場合，大きなギャップや障害物があってもそれらを乗り越えて点検箇所まで近づける．これらの理由より，本研究ではドローンなどの飛行型ロボットを開発するに至った．
 
 \begin{figure}[H]
 \begin{center}
@@ -186,7 +186,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \end{figure}
 
 \noindent
-また，著者の先行研究ではこのEPMを吸着機構に採用した振動計測モジュールを開発した（Fig. \ref{vibration measurement unit}）．このモジュールは加速度センサ及びデータロガーを搭載しており，対象物に吸着した後，加速度を計測，ロギングすることが可能である．ロギングしたその振動を解析することで対象物の健全性を評価することが可能である．このモジュールを用いた点検方法としては，まず点検箇所までUAVを用いてこれを運搬し，EPMの磁力で貼り付かせる．必要なデータを計測した後，最終的にUAVで回収する流れである．また，重量が約230 gであるため，赤堀らが開発したUAVであれば，複数個積載し，運搬することが可能である．
+加えて，著者の先行研究ではこのEPMを吸着機構に採用した振動計測モジュールを開発した（Fig. \ref{vibration measurement unit}）．このモジュールは加速度センサ及びデータロガーを搭載しており，対象物に吸着した後，加速度を計測，ロギングすることが可能である．ロギングしたその振動を解析することで対象物の健全性を評価することが可能である．このモジュールを用いた点検方法としてはまず，UAVを用いて点検箇所までこのモジュールを運搬し，EPMの磁力でそこへ貼り付かせる．必要なデータを計測した後，最終的に再びUAVで回収する流れである．このモジュールは重量が約230 gであるため，赤堀らが開発したUAVであれば，複数個積載し，運搬することが可能である．
 
 
 
@@ -201,11 +201,11 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 
 
 \noindent
-これらのUAVを用いた点検では構造物の地形に対して柔軟な対応性を有するが，機体の操作は全て自身の操縦で行う必要性がある．経験の豊富なパイロットであれば狙い通りの箇所に接近し，点検することやセンサを取り付けることが可能である．しかし，経験の浅いパイロットが操縦する場合，非常に困難である．
+これらのUAVを用いた点検では構造物の地形に対して柔軟な対応性を有するが，機体の操作は全て点検者自身の操縦で行う必要性がある．経験の豊富なパイロットであれば，狙い通りの箇所に接近し，点検することやセンサを取り付けることが可能である．しかし，経験の浅いパイロットが操縦する場合，それは非常に困難である．
 
 
 \subsection{一般的な自律飛行型UAV}
-飛行型ロボットを点検に用いることの有用性は高いが，操作面においては課題が多いのが現状である．手動操縦は操作技術を要するため，現在市販される多くのドローンはGPSやレーザーレンジファインダなどの位置推定システムを用いて全自動，もしくは半自動飛行が可能である\cite{f}\cite{g}\cite{h}．本研究でも用いたフライトコントローラもGPSアンテナが搭載されており，屋外のGPS環境であれば目的地を入力することによりその地点まで全自動飛行することが可能である．しかし，研究対象とする橋梁などの構造物の周辺環境においては，構造物自体が遮蔽物となりGPSの電波が遮断されるため，GPSを用いた位置推定は不可能である．そのような非GPS環境においても自動飛行可能なUAVも多くの企業や研究者によって開発が行われている．株式会社自律制御システム研究所はFig. \ref{photo5}に示すSLAM（Simultaneous Localization and Mapping）の機能を有したUAV\cite{i}を開発した．このUAVは非GPS環境においても自己位置推定と環境地図の作製を同時に行いながら自律飛行をすることが可能である．
+先に述べた通り，飛行型ロボットを点検に用いることの有用性は高いが，操作面においては課題が多いのが現状である．そこで，手動操縦は操作技術を要することから，現在市販される多くのドローンはGPSやレーザーレンジファインダなどの位置推定システムを用いて全自動，もしくは半自動飛行が可能である\cite{f}\cite{g}\cite{h}．本研究でも用いたフライトコントローラもGPSアンテナが搭載されており，屋外のGPS環境であれば，目的地を入力することにより，その地点まで自律飛行させることが可能である．しかし，研究対象とする橋梁などの構造物の周辺環境においては，その構造物自体が遮蔽物となり，GPSの電波が遮断されるため，GPSを用いた位置推定は不可能である．そのような非GPS環境においても自動飛行可能なUAVも多くの企業や研究者によって開発が行われている．株式会社自律制御システム研究所はFig. \ref{photo5}に示すSLAM（Simultaneous Localization and Mapping）の機能を有したUAV\cite{i}を開発した．このUAVは非GPS環境においても自己位置推定と環境地図の作製を同時に行いながら自律飛行をすることが可能である．
 	
 
 \begin{figure}[H]
@@ -381,7 +381,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=60mm]{./Fig2/narrow_wide.png}
+\includegraphics[height=65mm]{./Fig2/narrow_wide.png}
 \caption{Comparison of pulses between narrow band and ultra wide band signals\cite{l}.}
 \label{narrow_wide}
 \end{center}
@@ -396,7 +396,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-         \includegraphics[height=50mm]{./Fig2/narrow.png}
+         \includegraphics[height=60mm]{./Fig2/narrow.png}
 	  \caption{Narrow band signal with noise\cite{l}.}
 	　\label{narrow}
         \end{center}
@@ -404,7 +404,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-          \includegraphics[height=50mm]{./Fig2/wide.png}
+          \includegraphics[height=60mm]{./Fig2/wide.png}
           \caption{Ultra wide band signal with noise\cite{l}.}
 	   \label{wide}
         \end{center}
@@ -415,7 +415,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 \end{figure}
 
 \noindent
-無線通信を測距に利用する際に大きな問題とされるのがマルチパスの発生である．マルチパスとは電波を受信した際に，直接波の他に壁などの障害物に反射した反射波を受信する場合があり，この際，正確な信号受け取れないことや，直接波の位相を反射波が遅らせることが発生する現象である．テレビやラジオにてゴースト障害が起きるのもこのマルチパスが原因とされている．無線通信を利用した測距の場合には正確な到達時間を計測できず，測距誤差が発生する．次のFig. \ref{narrow_with_reflections}，Fig. \ref{wide_with_reflections}に狭帯域信号とUWB信号のマルチパスの影響の比較を示す．
+無線通信を測距に利用する際に大きな問題とされるのがマルチパスの発生である．マルチパスとは電波を受信した際に，直接波の他に壁などの障害物に反射した反射波を受信する場合があり，この際，正確な信号を受け取れないことや，直接波の位相を反射波が遅らせることが発生する現象である．テレビやラジオにてゴースト障害が起きるのも，このマルチパスが原因とされている．無線通信を利用した測距の場合には正確な到達時間を計測できず，測距誤差が発生する．次のFig. \ref{narrow_with_reflections}，Fig. \ref{wide_with_reflections}に狭帯域信号とUWB信号のマルチパスの影響の比較を示す．
 
 
 
@@ -425,7 +425,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-         \includegraphics[height=50mm]{./Fig2/narrow_with_reflections.png}
+         \includegraphics[height=60mm]{./Fig2/narrow_with_reflections.png}
 	  \caption{Narrow band signal with reflections\cite{l}.}
 	　\label{narrow_with_reflections}
         \end{center}
@@ -433,7 +433,7 @@ UWB通信（超広帯域無線通信，Ultra-Wide Band）とは無線通信方�
 
       \begin{minipage}[t]{0.5\hsize}
         \begin{center}
-          \includegraphics[height=50mm]{./Fig2/wide_with_reflections.png}
+          \includegraphics[height=60mm]{./Fig2/wide_with_reflections.png}
           \caption{Ultra wide band signal with reflections\cite{l}.}
 	   \label{wide_with_reflections}
         \end{center}
@@ -2119,11 +2119,11 @@ S. Lange, Niko Sunderhauf, P. Protzel A Vision Based Onboard Approach for Landin
 
 
 \bibitem{r}
-N. Gageik, M. Strohmeier, S. Montenegro, An Autonomous UAV with an Optical Flow Sensor for Positioning and Navigation, Int. j. adv. robot. syst., Vol. 10, (2013), 341.
+N. Gageik, M. Strohmeier, S. Montenegro, An Autonomous UAV with an Optical Flow Sensor for Positioning and Navigation, Int. j. adv. robot. syst., Vol. 10, (2013).
 
 
 \bibitem{s}
-Kim, J \& Brambley, Dual Optic-flow Integrated Navigation for Small-scale Flying Robots, Australasian Conference on Robotics and Automation, (2007), 7.
+Kim, J \& Brambley, Dual Optic-flow Integrated Navigation for Small-scale Flying Robots, Australasian Conference on Robotics and Automation, (2007).
 
 \bibitem{t}
 mRobotics, Pixracer, \\
@@ -2141,7 +2141,7 @@ PJRC Teensy LC，\\
 
 
 \bibitem{x}
-Zongyu Zuo, Quadrotor Trajecotry Tracking Control: A PD Control Algorithm, 2010 3rd International Conference on Computer and Electrical Engineering, 53-2,  (2013). 
+Zongyu Zuo, Quadrotor Trajecotry Tracking Control: A PD Control Algorithm, 2010 3rd International Conference on Computer and Electrical Engineering, 53-2,  (2013), 116-122. 
 
 \bibitem{y}
 Murray L. Ireland, Aldo Vargas and David Anderson, A Comparison of Closed-Loop Performance of Multirotor Configurations Using Non-Linear Dynamic Inversion Control, Aerospace 2015, (2015), 325-352.

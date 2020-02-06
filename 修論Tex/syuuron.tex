@@ -118,15 +118,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Abstract}
-In recent years, the aging of infrastructure has been regarded as a problem in Japan, but the local governments that manage them have a shortage of financial resources and inspectors. Therefore, we focused on the inspection method using UAV (Unmanned Aerial Vehicle). Replacing the inspection performed by the special work vehicle with the inspection by the UAV can reduce costs and ensure worker safety. However, because UAVs require technique to operate, automatic flight by GPS is generally used, but radio waves from satellites are blocked on bridges and cannot be used. Therefore, the position of the UAV was estimated using the UWB (Ultra-Wide Band) module which is a ranging device and the optical flow sensor which can measure the speed, and the method for autonomous flight was shown. Next, the experiment showed that the accuracy of the estimated position was sufficiently high. In addition, we performed position holding control with only one point as the target value and autonomous flight control with multiple points as the target values. As a result, it was confirmed that position control was possible without deviating from the target point.
+In recent years, the aging of infrastructure has been regarded as a problem in Japan, however, the local governments that manage them have a shortage of financial resources and inspectors. Therefore, I focused on the inspection method using UAV (Unmanned Aerial Vehicle). To replace special work vehicle with UAVs in inspection brings to workers safe, and cost reduction. Because UAVs require the technique to operate them, autonomous flight by GPS is generally used, although radio waves from satellites are blocked on bridges and cannot be used. To solve this problem, this presents an estimation method of the position of the UAV using the UWB (Ultra-Wide Band) module which is a ranging device and the optical flow sensor which can measure the speed, and the method for autonomous flight was shown. Next, the experiment showed that the accuracy of the estimated position was sufficiently high. In addition, position holding control with only one point as the target value and autonomous flight control with multiple points as the target values were performed. As a result, it was confirmed that position control was possible without deviating from the target point.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{概要}
-近年の日本ではインフラの老朽化が問題視されているが，それらを管理する地方自治体は財源や点検者が不足しているため，低コストで簡便に行えるインフラ点検の技術が求められる．そこでUAV（Unmanned Aerial Vehicle）による点検手法に着目した．特殊作業車にて行っていた点検をUAVによる点検に置き換えることでコストを下げ，作業者の安全も確保できる．しかしUAVの操縦には技術が必要とされるため，GPSによる自動飛行が一般的であるが，橋梁においては衛星からの電波が遮られ使用不可能である．そこで，測距機器であるUWB（Ultra-Wide Band）モジュールや速度が計測可能なオプティカルフローセンサを用いてUAVの位置を推定し，自律飛行のための手法を示した．次に，実験により推定された位置の精度を確認すると十分に高い結果を得た．また，定点を目標値とする位置保持制御や複数点を目標値とする自律飛行制御を行ったところ，目標点から逸脱することなく位置制御が可能なことを確認した．
-
+近年の日本ではインフラの老朽化が問題視されているが，それらを管理する地方自治体は財源や点検者が不足しているため，低コストで簡便に行えるインフラ点検の技術が求められる．そこでUAV（Unmanned Aerial Vehicle）による点検手法に着目した．特殊作業車にて行っていた点検をUAVによる点検に置き換えることでコストを下げ，作業者の安全も確保できる．しかしUAVの操縦には技術が必要とされるためGPSによる自動飛行が一般的であるが，橋梁下においては衛星からの電波が遮られ使用できない．そこで，本研究では測距機器であるUWB（Ultra-Wide Band）モジュールや速度が計測可能なオプティカルフローセンサを用いてUAVの位置を推定し，自律飛行のための手法を示した．次に，実験により推定された位置の精度を確認すると十分に高い結果を得た．また，定点を目標値とする位置保持制御や複数点を目標値とする自律飛行制御を行ったところ，目標点から逸脱することなく位置制御が可能なことを確認した．
 
 
 
@@ -246,8 +245,8 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 
 
 
-\subsection{拡張カルマンフィルタの原理\cite{k}}
-拡張カルマンフィルタは非線形システムを各時刻において線形化し，それぞれの時刻において時変カルマンフィルタを適用する考えに基づいている．まず離散時間非線形状態空間表現が次の2式で表される場合を考える．
+\subsection{拡張カルマンフィルタの原理}
+拡張カルマンフィルタは非線形システムを各時刻において線形化し，それぞれの時刻において時変カルマンフィルタを適用する考えに基づいている\cite{k}．まず離散時間非線形状態空間表現が次の2式で表される場合を考える．
 
 \begin{align}
 \textbf{x}(t+1) = \textbf{f}(\textbf{x}(t)) + \textbf{B}\textbf{v}(t)
@@ -344,7 +343,7 @@ In recent years, the aging of infrastructure has been regarded as a problem in J
 \end{align}\
 
 \noindent
-となる．ここでカルマンゲイン$G(t)$及び$\textbf{C}^{T}(t)$は次式で計算することができる．
+となる．ここでカルマンゲイン$\textbf{G}(t)$及び$\textbf{C}^{T}(t)$は次式で計算することができる．
 
 \begin{align}
 \textbf{G}(t)=\textbf{P}^{-}(k)\textbf{C}^{T}(\textbf{C}\textbf{P}^{-}(k)\textbf{C}^{T}+\textbf{R})^{-1}
@@ -1973,14 +1972,14 @@ L' = \frac{2 \rm{Pixel}}{f}
 \end{figure}
 
 \noindent
-まず，スラストメータに対しプロペラが装備されたロータを設置する．次に各回転数になるようスラストメータからPWM信号をESCに送り，ロータを回転させる．ロータの回転数（rpm）は図中のパルスカウンタを用いて確認した．その際に各回転数における発生する推力をスラストメータから読み取った．推力は各回転数において3回ずつ計測し，それらの平均を取った．次の図に2種類のプロペラの各回転数における，計測した推力を示す．また，最小二乗法により近似した二次曲線も合わせて示す．
+まず，スラストメータに対しプロペラが装備されたロータを設置する．次に各回転数になるようスラストメータからPWM信号をESCに送り，ロータを回転させる．ロータの回転数（rpm）は図中のパルスカウンタを用いて確認した．その際に各回転数における発生する推力をスラストメータから読み取った．推力は各回転数において3回ずつ計測し，それらの平均を取った．次のFig. \ref{thrust_3}に2種類のプロペラの各回転数における，計測した推力を示す．また，最小二乗法により近似した二次曲線も合わせて示す．
 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[height=80mm]{./Fig2/thrust_2.png}
+\includegraphics[height=80mm]{./Fig2/thrust_3.png}
 \caption{Thrust measurement results of two types of propellers.}
-\label{thrust_2}
+\label{thrust_3}
 \end{center}
 \end{figure}
 
@@ -2062,7 +2061,7 @@ f_2 = 9.94\times10^{-9} \omega^2
 
 
 \bibitem{e}
-赤堀俊輔，澤田祐一，東善之，鋼構造物点検用UAVの飛行制御に関する研究，京都工芸繊維大学工芸科学研究科機械設計学専攻修士論文，（2018）．
+赤堀俊輔，澤田祐一，東善之，鋼構造物点検用UAVの飛行制御に関する研究，京都工芸繊維大学大学院　工芸科学研究科　機械設計学専攻　修士論文，（2018）．
 
 
 \bibitem{f}
@@ -2112,14 +2111,14 @@ DWM1000 Datasheet，\\
 
 \bibitem{p}
 K. Guo, Z. Qiu, C. Miao, A. Zaini, C. Chen, W Meng, L. Xie, Ultra-Wideband-Based Localization for Quadcopter Navigation, 
-Unmanned Systems, Vol. 4, No. 1, (2016), 23-34.
+Unmanned Systems, 4-1, (2016), 23-34.
 
 \bibitem{q}
 S. Lange, Niko Sunderhauf, P. Protzel A Vision Based Onboard Approach for Landing and Position Control of an Autonomous Multirotor UAV in GPS-Denied Environments, International Conference on Advanced Robotics, (2009), 1-6.
 
 
 \bibitem{r}
-N. Gageik, M. Strohmeier, S. Montenegro, An Autonomous UAV with an Optical Flow Sensor for Positioning and Navigation, Int. j. adv. robot. syst., Vol. 10, (2013).
+N. Gageik, M. Strohmeier, S. Montenegro, An Autonomous UAV with an Optical Flow Sensor for Positioning and Navigation, Int. j. adv. robot. syst., 10, (2013).
 
 
 \bibitem{s}
@@ -2130,7 +2129,7 @@ mRobotics, Pixracer, \\
 \url{https://docs.px4.io/v1.9.0/en/flight_controller/pixracer.html}，2020/01/28閲覧．
 
 \bibitem{u}
-Federico Thomas and Lluís Ros, Revisiting Trilateration for Robot Localization, IEEE TRANSACTIONS ON ROBOTICS, VOL. 21-1, (2005),  93-99.
+Federico Thomas and Lluís Ros, Revisiting Trilateration for Robot Localization, IEEE TRANSACTIONS ON ROBOTICS, 21-1, (2005),  93-99.
 
 \bibitem{v}
 D.E. Manolakis, Efficient Solution and Performance Analysis of 3-D Position Estimation by Trilateration, IEEE TRANSACTIONS ON AEROSPACE AND ELECTRONIC SYSTEMS, 32-4, (1996), 1239 - 1248. 
